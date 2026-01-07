@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hydrate Ontology — Article Ingestion Form (NSCLC EGFR/ALK)</title>
+  <style>
+    :root { --bg:#0b1020; --card:#111a33; --line:#263158; --text:#e9ecff; --muted:#aab2d6; --accent:#7aa2ff; --bad:#ff6b6b; --ok:#2ee59d; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif; background: linear-gradient(180deg, #070a14, var(--bg)); color: var(--text); }
+    header { padding: 22px 18px; border-bottom: 1px solid rgba(255,255,255,0.06); position: sticky; top:0; backdrop-filter: blur(8px); background: rgba(7,10,20,0.75); z-index: 5; }
+    header h1 { margin:0; font-size: 18px; letter-spacing: .2px; }
+    header .sub { margin-top:6px; color: var(--muted); font-size: 13px; line-height: 1.35; }
+    main { max-width: 1100px; margin: 0 auto; padding: 18px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 14px; }
+    @media (max-width: 980px){ main { grid-template-columns: 1fr; } }
+
+    .card { background: rgba(17,26,51,.92); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    .card h2 { margin: 2px 0 12px; font-size: 15px; }
+    .grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .grid3 { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .row { display:flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    label { display:block; font-size: 12px; color: var(--muted); margin: 0 0 6px; }
+    input, select, textarea {
+      width: 100%; padding: 10px 10px; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.10); background: rgba(7,10,20,0.65);
+      color: var(--text); outline: none;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { border-color: rgba(122,162,255,0.55); box-shadow: 0 0 0 3px rgba(122,162,255,0.12); }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.35; }
+    .pill { display:inline-flex; align-items:center; gap:6px; font-size: 12px; border: 1px solid rgba(255,255,255,0.10); padding: 6px 10px; border-radius: 999px; color: var(--muted); }
+    .pill b { color: var(--text); font-weight: 600; }
+    .tabs { display:flex; gap:8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .tab {
+      cursor:pointer; user-select:none;
+      padding: 8px 10px; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--muted); background: rgba(7,10,20,0.35);
+      font-size: 12px;
+    }
+    .tab.active { color: var(--text); border-color: rgba(122,162,255,0.45); background: rgba(122,162,255,0.12); }
+    .section { display:none; }
+    .section.active { display:block; }
+    .btns { display:flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; margin-top: 10px; }
+    button {
+      cursor:pointer; border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(122,162,255,0.14); color: var(--text);
+      padding: 10px 12px; border-radius: 12px; font-weight: 600;
+    }
+    button.secondary { background: rgba(7,10,20,0.55); color: var(--muted); }
+    button.danger { background: rgba(255,107,107,0.12); border-color: rgba(255,107,107,0.25); }
+    button:hover { filter: brightness(1.05); }
+    .status { display:flex; align-items:center; gap:8px; margin-top: 8px; font-size: 12px; color: var(--muted); }
+    .dot { width:10px; height:10px; border-radius: 50%; background: rgba(255,255,255,0.20); border:1px solid rgba(255,255,255,0.10); }
+    .dot.ok { background: rgba(46,229,157,0.65); border-color: rgba(46,229,157,0.35); }
+    .dot.bad { background: rgba(255,107,107,0.65); border-color: rgba(255,107,107,0.35); }
+    pre {
+      margin: 0; padding: 12px; border-radius: 12px; overflow:auto;
+      background: rgba(7,10,20,0.65); border: 1px solid rgba(255,255,255,0.08);
+      color: #dbe3ff; font-size: 12px; line-height: 1.45;
+    }
+    .req { color: var(--accent); margin-left: 4px; }
+    .small { font-size: 11px; color: var(--muted); }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>Hydrate Ontology 입력창 — NSCLC (EGFR/ALK) / Paper + TrialSummary</h1>
+  <div class="sub">
+    이 화면의 목적은 <b>판단(추천)</b>이 아니라 <b>증거(Article)와 관측값(Observation/Result)의 맥락 보존</b>입니다.
+    <span class="pill" style="margin-left:8px;">MoE Expert: <b>Human Curator</b></span>
+  </div>
+</header>
+
+<main>
+  <!-- LEFT: FORM -->
+  <section class="card">
+    <h2>1) Article 입력 (Hydrate)</h2>
+
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-tab="meta">메타데이터</div>
+      <div class="tab" data-tab="content">원문/요약 입력</div>
+      <div class="tab" data-tab="entities">엔티티/코호트</div>
+      <div class="tab" data-tab="results">결과 수치(ORR/PFS...)</div>
+      <div class="tab" data-tab="governance">신뢰도/거버넌스</div>
+    </div>
+
+    <!-- META -->
+    <div class="section active" id="sec-meta">
+      <div class="grid">
+        <div>
+          <label>Evidence Type<span class="req">*</span></label>
+          <select id="evidenceType">
+            <option value="Paper">Paper (논문)</option>
+            <option value="TrialSummary">TrialSummary (임상 요약)</option>
+            <option value="Review">Review (리뷰)</option>
+            <option value="Preprint">Preprint (프리프린트)</option>
+          </select>
+        </div>
+        <div>
+          <label>Publication Date<span class="req">*</span></label>
+          <input id="pubDate" type="date" />
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+          <label>Title<span class="req">*</span></label>
+          <input id="title" placeholder="예: First-line EGFR TKI in NSCLC with exon19del..." />
+        </div>
+
+        <div>
+          <label>DOI (선택)</label>
+          <input id="doi" placeholder="10.xxxx/xxxxx" />
+        </div>
+        <div>
+          <label>Source URL (선택)</label>
+          <input id="sourceUrl" placeholder="https://..." />
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+          <label>Authors / Organization (선택)</label>
+          <input id="authors" placeholder="예: Kim J; Lee S; ... 또는 Sponsor/Company" />
+        </div>
+
+        <div>
+          <label>Journal / Venue (선택)</label>
+          <input id="venue" placeholder="예: NEJM / ASCO / arXiv ..." />
+        </div>
+        <div>
+          <label>Trial ID (NCT 등, 임상 요약일 때 권장)</label>
+          <input id="trialId" placeholder="예: NCT01234567" />
+        </div>
+      </div>
+
+      <div class="hint">
+        ✅ Hydrate 원칙: "결론"을 넣지 말고, 출처/날짜/맥락을 먼저 확보하세요.
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="section" id="sec-content">
+      <div class="grid">
+        <div style="grid-column: 1 / -1;">
+          <label>Abstract / Trial Summary Text<span class="req">*</span></label>
+          <textarea id="abstractText" placeholder="논문 초록 또는 임상 요약 텍스트를 그대로 붙여넣기"></textarea>
+          <div class="hint">붙여넣은 텍스트는 EvidenceItem의 원문(근거)로 저장됩니다. (RAG 추출 후보 생성에도 사용)</div>
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+          <label>Methods / Notes (선택)</label>
+          <textarea id="methodsText" placeholder="모델/환자군/endpoint 정의 등 중요한 맥락 메모"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENTITIES -->
+    <div class="section" id="sec-entities">
+      <div class="grid3">
+        <div>
+          <label>Cancer Type<span class="req">*</span></label>
+          <select id="cancerType">
+            <option value="NSCLC">NSCLC</option>
+          </select>
+        </div>
+        <div>
+          <label>Gene Focus<span class="req">*</span></label>
+          <select id="geneFocus">
+            <option value="EGFR">EGFR</option>
+            <option value="ALK">ALK</option>
+          </select>
+        </div>
+        <div>
+          <label>Alteration<span class="req">*</span></label>
+          <select id="alteration">
+            <option value="EGFR_ex19del">EGFR exon19 del</option>
+            <option value="EGFR_L858R">EGFR L858R</option>
+            <option value="ALK_fusion">ALK fusion</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label>Patient Subgroup Label (자동 생성)</label>
+          <input id="subgroupLabel" readonly />
+          <div class="small">예: NSCLC + EGFR exon19 del</div>
+        </div>
+        <div>
+          <label>Line of Therapy (선택)</label>
+          <select id="lot">
+            <option value="">(미상)</option>
+            <option value="1L">1L</option>
+            <option value="2L">2L</option>
+            <option value="3L+">3L+</option>
+          </select>
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+          <label>Drug / Compound Name<span class="req">*</span></label>
+          <input id="drugName" placeholder="예: Drug_A (EGFR inhibitor)" />
+        </div>
+
+        <div>
+          <label>MoA (선택)</label>
+          <select id="moa">
+            <option value="">(미상)</option>
+            <option value="TKI">TKI</option>
+            <option value="mAb">mAb (항체)</option>
+            <option value="ADC">ADC</option>
+          </select>
+        </div>
+        <div>
+          <label>Targets (자동: Gene Focus)</label>
+          <input id="targets" readonly />
+        </div>
+      </div>
+
+      <div class="hint">
+        🔎 동의어 정규화는 여기서 시작합니다. EGFR/ALK, 변이 표기(ex19del vs del19)를 "한 인스턴스"로 고정하는 게 hydrate의 핵심입니다.
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="section" id="sec-results">
+      <div class="grid">
+        <div>
+          <label>Metric<span class="req">*</span></label>
+          <select id="metric">
+            <option value="ORR">ORR</option>
+            <option value="PFS">PFS</option>
+            <option value="OS">OS</option>
+            <option value="IC50">IC50</option>
+          </select>
+        </div>
+        <div>
+          <label>Value<span class="req">*</span></label>
+          <input id="value" type="number" step="0.01" placeholder="예: 62.0" />
+        </div>
+        <div>
+          <label>Unit<span class="req">*</span></label>
+          <select id="unit">
+            <option value="%">%</option>
+            <option value="months">months</option>
+            <option value="nM">nM</option>
+            <option value="uM">uM</option>
+          </select>
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+          <label>Result Notes (선택)</label>
+          <input id="resultNotes" placeholder="예: median follow-up, cutoff date, cohort details..." />
+        </div>
+      </div>
+
+      <div class="hint">
+        ✅ SHACL 게이트 관점: metric/value/unit + reportedIn(EvidenceItem)이 없으면 Result는 "보류/반려" 처리되어야 합니다.
+      </div>
+    </div>
+
+    <!-- GOVERNANCE -->
+    <div class="section" id="sec-governance">
+      <div class="grid">
+        <div>
+          <label>Peer Reviewed?</label>
+          <select id="peerReviewed">
+            <option value="unknown">unknown</option>
+            <option value="true">true</option>
+            <option value="false">false</option>
+          </select>
+        </div>
+        <div>
+          <label>Confidence Level</label>
+          <select id="confidence">
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+          <label>Limitations / Caveats (선택)</label>
+          <textarea id="limitations" placeholder="예: small N, single-arm, selection bias, immature OS data..."></textarea>
+        </div>
+
+        <div>
+          <label>Funding / Sponsor (선택)</label>
+          <input id="funding" placeholder="예: Pharma / Public / Unknown" />
+        </div>
+        <div>
+          <label>Conflict of Interest (선택)</label>
+          <select id="coi">
+            <option value="unknown">unknown</option>
+            <option value="true">true</option>
+            <option value="false">false</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="hint">
+        🧠 여기까지 저장되면, Activate 단계에서 SWRL/스코어링이 "근거의 질"을 고려할 수 있습니다.
+      </div>
+    </div>
+
+    <div class="btns">
+      <button class="secondary" id="btnExample">예시 채우기</button>
+      <button class="danger" id="btnClear">초기화</button>
+      <button id="btnBuild">Hydrate JSON 생성</button>
+    </div>
+
+    <div class="status" id="status">
+      <span class="dot" id="dot"></span>
+      <span id="statusText">필수 항목을 입력하면 JSON이 생성됩니다.</span>
+    </div>
+  </section>
+
+  <!-- RIGHT: PREVIEW -->
+  <aside class="card">
+    <h2>2) Hydrate Payload 미리보기 (JSON)</h2>
+    <div class="hint" style="margin-bottom:10px;">
+      이 JSON은 서버로 보내서<br/>
+      (a) EvidenceItem 저장 → (b) Result 저장 → (c) SHACL 검증 → (d) Activate 단계로 넘김<br/>
+      같은 파이프라인에 바로 연결할 수 있습니다.
+    </div>
+    <pre id="preview">{}</pre>
+  </aside>
+</main>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+
+  // Tabs
+  const tabs = Array.from(document.querySelectorAll(".tab"));
+  tabs.forEach(t => t.addEventListener("click", () => {
+    tabs.forEach(x => x.classList.remove("active"));
+    t.classList.add("active");
+    const tab = t.dataset.tab;
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    $("sec-" + tab).classList.add("active");
+  }));
+
+  // Auto fields
+  function syncDerived() {
+    const cancer = $("cancerType").value;
+    const altText = $("alteration").selectedOptions[0]?.textContent || "";
+    $("subgroupLabel").value = `${cancer} + ${altText}`;
+    $("targets").value = $("geneFocus").value;
+  }
+  ["cancerType","alteration","geneFocus"].forEach(id => $(id).addEventListener("change", syncDerived));
+  syncDerived();
+
+  // Simple validation
+  function validateRequired() {
+    const required = [
+      ["pubDate","Publication Date"],
+      ["title","Title"],
+      ["abstractText","Abstract/Summary Text"],
+      ["geneFocus","Gene Focus"],
+      ["alteration","Alteration"],
+      ["drugName","Drug Name"],
+      ["metric","Metric"],
+      ["value","Value"],
+      ["unit","Unit"],
+    ];
+
+    const missing = [];
+    for (const [id, name] of required) {
+      const el = $(id);
+      const v = (el.value || "").trim();
+      if (!v) missing.push(name);
+    }
+    return missing;
+  }
+
+  function setStatus(ok, msg){
+    const dot = $("dot");
+    dot.classList.remove("ok","bad");
+    dot.classList.add(ok ? "ok" : "bad");
+    $("statusText").textContent = msg;
+  }
+
+  function buildPayload(){
+    const missing = validateRequired();
+    if (missing.length) {
+      setStatus(false, "필수 누락: " + missing.join(", "));
+      return null;
+    }
+
+    const evidenceType = $("evidenceType").value;
+    const payload = {
+      hydrate_version: "1.0",
+      scope: { cancerType: "NSCLC", focus: $("geneFocus").value, axis: "Paper+TrialSummary" },
+
+      evidenceItem: {
+        type: evidenceType,                 // Paper | TrialSummary | Review | Preprint
+        title: $("title").value.trim(),
+        publicationDate: $("pubDate").value,
+        doi: $("doi").value.trim() || null,
+        sourceUrl: $("sourceUrl").value.trim() || null,
+        authorsOrOrg: $("authors").value.trim() || null,
+        venue: $("venue").value.trim() || null,
+        trial: $("trialId").value.trim() ? { trialId: $("trialId").value.trim() } : null,
+
+        rawText: {
+          abstractOrSummary: $("abstractText").value.trim(),
+          methodsOrNotes: $("methodsText").value.trim() || null
+        },
+
+        governance: {
+          peerReviewed: $("peerReviewed").value,   // true/false/unknown
+          confidence: $("confidence").value,       // High/Medium/Low
+          limitations: $("limitations").value.trim() || null,
+          funding: $("funding").value.trim() || null,
+          conflictOfInterest: $("coi").value       // true/false/unknown
+        }
+      },
+
+      entities: {
+        cancerType: $("cancerType").value,
+        gene: $("geneFocus").value,
+        alteration: $("alteration").value,
+        subgroupLabel: $("subgroupLabel").value,
+        lineOfTherapy: $("lot").value || null,
+        compound: {
+          name: $("drugName").value.trim(),
+          moa: $("moa").value || null,
+          targets: [$("geneFocus").value]
+        }
+      },
+
+      observation: {
+        metric: $("metric").value,          // ORR/PFS/OS/IC50
+        value: Number($("value").value),
+        unit: $("unit").value,
+        note: $("resultNotes").value.trim() || null
+      },
+
+      // Hydrate 단계에서는 "추천/판단" 금지: proposal은 비워두거나 Draft로만 생성
+      proposal: {
+        status: "Draft",
+        text: null
+      }
+    };
+
+    setStatus(true, "OK: Hydrate JSON 생성 완료 (판단/추천 없이 근거+맥락 보존)");
+    return payload;
+  }
+
+  // Buttons
+  $("btnBuild").addEventListener("click", () => {
+    const payload = buildPayload();
+    if (payload) $("preview").textContent = JSON.stringify(payload, null, 2);
+  });
+
+  $("btnClear").addEventListener("click", () => {
+    document.querySelectorAll("input, textarea").forEach(el => {
+      if (el.type !== "date" && el.id !== "subgroupLabel" && el.id !== "targets") el.value = "";
+      if (el.type === "date") el.value = "";
+    });
+    $("evidenceType").value = "Paper";
+    $("cancerType").value = "NSCLC";
+    $("geneFocus").value = "EGFR";
+    $("alteration").value = "EGFR_ex19del";
+    $("metric").value = "ORR";
+    $("unit").value = "%";
+    $("peerReviewed").value = "unknown";
+    $("confidence").value = "Medium";
+    $("coi").value = "unknown";
+    $("lot").value = "";
+    $("moa").value = "";
+    syncDerived();
+    $("preview").textContent = "{}";
+    const dot = $("dot"); dot.classList.remove("ok","bad");
+    $("statusText").textContent = "초기화 완료. 필수 항목을 입력하면 JSON이 생성됩니다.";
+  });
+
+  $("btnExample").addEventListener("click", () => {
+    $("evidenceType").value = "TrialSummary";
+    $("pubDate").value = "2026-01-08";
+    $("title").value = "Trial summary: EGFR inhibitor in 1L NSCLC (exon19del cohort)";
+    $("trialId").value = "NCT01234567";
+    $("sourceUrl").value = "https://example.org/trial-summary";
+    $("authors").value = "Sponsor: Example Pharma";
+    $("venue").value = "ASCO (summary)";
+    $("abstractText").value =
+`Objective: Evaluate 1L EGFR inhibitor in NSCLC with EGFR exon19 del.
+Endpoints: ORR, PFS.
+Results: ORR 62%, median PFS 14.2 months (data cutoff 2025-12-31).
+Safety: manageable. Limitations: single-arm, small N.`;
+    $("methodsText").value = "Cohort: EGFR exon19del, treatment-naïve. Single-arm.";
+    $("geneFocus").value = "EGFR";
+    $("alteration").value = "EGFR_ex19del";
+    $("lot").value = "1L";
+    $("drugName").value = "Drug_A";
+    $("moa").value = "TKI";
+    $("metric").value = "ORR";
+    $("value").value = "62";
+    $("unit").value = "%";
+    $("resultNotes").value = "cutoff: 2025-12-31; single-arm; small N";
+    $("peerReviewed").value = "unknown";
+    $("confidence").value = "Medium";
+    $("limitations").value = "Single-arm; small sample size; immature OS.";
+    $("funding").value = "Pharma";
+    $("coi").value = "unknown";
+    syncDerived();
+
+    const payload = buildPayload();
+    if (payload) $("preview").textContent = JSON.stringify(payload, null, 2);
+  });
+
+  // Live status update on key fields
+  ["pubDate","title","abstractText","drugName","value"].forEach(id => {
+    $(id).addEventListener("input", () => {
+      const missing = validateRequired();
+      if (missing.length) {
+        setStatus(false, "필수 누락: " + missing.join(", "));
+      } else {
+        setStatus(true, "필수 충족: 'Hydrate JSON 생성'을 눌러 저장하세요.");
+      }
+    });
+  });
+</script>
+</body>
+</html>
