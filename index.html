@@ -744,6 +744,15 @@
       </div>
 
       <div class="nav-section">
+        <div class="nav-section-title">Living Ontology</div>
+        <a class="nav-item" data-page="evolution">
+          <span class="nav-icon">🧬</span>
+          <span class="nav-label">Ontology Evolution</span>
+          <span class="nav-badge" style="background: rgba(255,107,107,0.2); color: var(--bad);">LIVE</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
         <div class="nav-section-title">Resources</div>
         <a class="nav-item" href="download-ontology.html">
           <span class="nav-icon">📥</span>
@@ -1526,6 +1535,142 @@
         </div>
       </main>
     </div>
+
+    <!-- Ontology Evolution Page -->
+    <div class="page-content" id="page-evolution">
+      <header>
+        <h1>🧬 Ontology Evolution Engine — Living Knowledge Base</h1>
+        <div class="sub">
+          신뢰할 수 있는 증거에 따라 온톨로지가 자동으로 진화하는 시스템
+          <span class="pill" style="margin-left:8px;">AI Method: <b>Self-Evolving Ontology</b></span>
+        </div>
+      </header>
+
+      <main>
+        <!-- What is Living Ontology? -->
+        <div class="card" style="margin-bottom: 24px; background: linear-gradient(135deg, rgba(122,162,255,0.05), rgba(46,229,157,0.05));">
+          <h2>💡 What is a "Living Ontology"?</h2>
+          <div style="color: var(--text); line-height: 1.8; font-size: 14px;">
+            <p style="margin: 0 0 12px 0;">
+              <strong>Problem:</strong> 전통적 온톨로지는 "정적"입니다. 새로운 논문이 나와도 수동으로 업데이트해야 하고,
+              <span style="color: var(--bad); font-weight: 600;">최신 증거 반영에 6개월~2년 걸립니다.</span>
+            </p>
+            <p style="margin: 0 0 12px 0;">
+              <strong>Solution:</strong> 
+              <span style="color: var(--accent);">Hydrate Ontology에 새로운 증거가 들어오면</span> + 
+              <span style="color: var(--accent);">AI가 영향도를 분석하고</span> 
+              → <span style="color: var(--ok); font-weight: 600;">자동으로 TTL 수정/제안/반영</span>
+            </p>
+            <p style="margin: 0;">
+              <strong>3가지 시나리오:</strong>
+              <span style="color: var(--ok);">① 완전 자동</span> (FDA 승인, 안전성 경보 등) |
+              <span style="color: var(--warning);">② AI 제안 → 인간 검토 → 수동 업로드</span> (복잡한 판단) |
+              <span style="color: var(--accent);">③ AI 제안 → 인간 OK → Gens 자동 커밋</span> (고품질 증거)
+            </p>
+          </div>
+        </div>
+
+        <!-- Evolution Stats -->
+        <div class="dashboard-grid" style="margin-bottom: 24px;">
+          <div class="stat-card" style="border-left: 3px solid var(--ok);">
+            <div class="stat-label">Total Evolutions</div>
+            <div class="stat-value" id="evol-total">-</div>
+            <div class="stat-change" id="evol-total-change">Loading...</div>
+          </div>
+          <div class="stat-card" style="border-left: 3px solid var(--accent);">
+            <div class="stat-label">Fully Automatic</div>
+            <div class="stat-value" id="evol-auto">-</div>
+            <div class="stat-change">High-confidence updates</div>
+          </div>
+          <div class="stat-card" style="border-left: 3px solid var(--warning);">
+            <div class="stat-label">Human Review Required</div>
+            <div class="stat-value" id="evol-review">-</div>
+            <div class="stat-change">Conflicting evidence</div>
+          </div>
+          <div class="stat-card" style="border-left: 3px solid var(--ok);">
+            <div class="stat-label">Avg Confidence</div>
+            <div class="stat-value" id="evol-confidence">-</div>
+            <div class="stat-change">AI accuracy measure</div>
+          </div>
+        </div>
+
+        <!-- Workflow Comparison -->
+        <div class="card" style="margin-bottom: 24px;">
+          <h2>🔄 Three Evolution Workflows</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 16px;">
+            <!-- Workflow 1 -->
+            <div style="background: rgba(46,229,157,0.08); border: 1px solid rgba(46,229,157,0.2); border-radius: 12px; padding: 16px;">
+              <h3 style="color: var(--ok); margin: 0 0 12px 0; font-size: 15px;">✅ Fully Automatic</h3>
+              <div style="font-size: 13px; line-height: 1.6; color: var(--text);">
+                <p style="margin: 0 0 8px 0;"><strong>Triggers:</strong></p>
+                <ul style="margin: 0 0 12px 0; padding-left: 20px;">
+                  <li>FDA approval/breakthrough</li>
+                  <li>Safety alerts (critical)</li>
+                  <li>High confidence (>0.9)</li>
+                  <li>SHACL validation passes</li>
+                </ul>
+                <p style="margin: 0;"><strong>Examples:</strong> New FDA drug, Safety withdrawal</p>
+              </div>
+            </div>
+
+            <!-- Workflow 2 -->
+            <div style="background: rgba(255,179,71,0.08); border: 1px solid rgba(255,179,71,0.2); border-radius: 12px; padding: 16px;">
+              <h3 style="color: var(--warning); margin: 0 0 12px 0; font-size: 15px;">⚠️ Human Review</h3>
+              <div style="font-size: 13px; line-height: 1.6; color: var(--text);">
+                <p style="margin: 0 0 8px 0;"><strong>Triggers:</strong></p>
+                <ul style="margin: 0 0 12px 0; padding-left: 20px;">
+                  <li>Conflicting evidence</li>
+                  <li>Medium confidence (0.7-0.9)</li>
+                  <li>Ranking changes</li>
+                  <li>Complex clinical judgment</li>
+                </ul>
+                <p style="margin: 0;"><strong>Examples:</strong> Head-to-head trials, Guideline updates</p>
+              </div>
+            </div>
+
+            <!-- Workflow 3 -->
+            <div style="background: rgba(122,162,255,0.08); border: 1px solid rgba(122,162,255,0.2); border-radius: 12px; padding: 16px;">
+              <h3 style="color: var(--accent); margin: 0 0 12px 0; font-size: 15px;">🤝 Human OK + Auto-commit</h3>
+              <div style="font-size: 13px; line-height: 1.6; color: var(--text);">
+                <p style="margin: 0 0 8px 0;"><strong>Triggers:</strong></p>
+                <ul style="margin: 0 0 12px 0; padding-left: 20px;">
+                  <li>Large RWD (n>5,000)</li>
+                  <li>High confidence (0.8-0.9)</li>
+                  <li>Validates hypothesis</li>
+                  <li>Low risk of error</li>
+                </ul>
+                <p style="margin: 0;"><strong>Examples:</strong> RWD studies, Meta-analyses</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Evolution History -->
+        <div class="card">
+          <h2>🔥 Recent Ontology Updates</h2>
+          <div style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
+            <select id="evolFilterWorkflow" style="width: auto;">
+              <option value="">All Workflows</option>
+              <option value="Fully Automatic">Fully Automatic</option>
+              <option value="Human Review">Human Review</option>
+              <option value="Human OK + Auto-commit">Human OK + Auto-commit</option>
+            </select>
+            <button id="sortByDate" class="secondary" style="margin-left: auto;">Sort by Date ↓</button>
+          </div>
+          <div id="evolutionList" class="case-list">
+            <p style="color: var(--muted); text-align: center; padding: 24px;">Loading evolution history...</p>
+          </div>
+        </div>
+
+        <!-- Version History -->
+        <div class="card" style="margin-top: 24px;">
+          <h2>📚 Ontology Version History</h2>
+          <div id="versionHistory" class="timeline">
+            <div class="skeleton" style="height: 300px;"></div>
+          </div>
+        </div>
+      </main>
+    </div>
   </div>
 
   <!-- Modal: Evidence Detail -->
@@ -1579,11 +1724,12 @@
     let discoveryInsights = {};
     let hiddenConnections = {};
     let knowledgeGraph = {};
+    let ontologyEvolution = {};
 
     // Load Mock Data
     async function loadMockData() {
       try {
-        const [evidenceRes, casesRes, drugsRes, resultsRes, herbalRes, insightsRes, hiddenRes, graphRes] = await Promise.all([
+        const [evidenceRes, casesRes, drugsRes, resultsRes, herbalRes, insightsRes, hiddenRes, graphRes, evolRes] = await Promise.all([
           fetch('mockdata/evidence-items.json'),
           fetch('mockdata/patient-cases.json'),
           fetch('mockdata/drugs.json'),
@@ -1591,7 +1737,8 @@
           fetch('mockdata/herbal-compounds.json'),
           fetch('mockdata/drug-discovery-insights.json'),
           fetch('mockdata/hidden-connections.json'),
-          fetch('mockdata/knowledge-graph.json')
+          fetch('mockdata/knowledge-graph.json'),
+          fetch('mockdata/ontology-evolution.json')
         ]);
         
         evidenceData = await evidenceRes.json();
@@ -1602,6 +1749,7 @@
         discoveryInsights = await insightsRes.json();
         hiddenConnections = await hiddenRes.json();
         knowledgeGraph = await graphRes.json();
+        ontologyEvolution = await evolRes.json();
 
         // Update Dashboard Stats
         updateDashboardStats();
@@ -1614,6 +1762,7 @@
         renderDiscoveryInsights();
         renderUnmetNeeds();
         renderHiddenConnections();
+        renderOntologyEvolution();
 
         console.log('Mock data loaded successfully');
       } catch (error) {
@@ -3384,6 +3533,218 @@ Safety: manageable. Limitations: single-arm, small N.`;
       });
     }
 
+    // Render Ontology Evolution
+    function renderOntologyEvolution(filter = {}, sort = false) {
+      // Update stats
+      const totalEl = $('evol-total');
+      const autoEl = $('evol-auto');
+      const reviewEl = $('evol-review');
+      const confidenceEl = $('evol-confidence');
+
+      if (totalEl && ontologyEvolution.metrics) {
+        const metrics = ontologyEvolution.metrics;
+        totalEl.textContent = metrics.totalEvolutions;
+        $('evol-total-change').textContent = `Current version: ${ontologyEvolution.versionControl?.current_version || 'v1.3.1'}`;
+        autoEl.textContent = metrics.fullyAutomatic;
+        reviewEl.textContent = metrics.humanReview;
+        confidenceEl.textContent = (metrics.avgConfidence * 100).toFixed(0) + '%';
+      }
+
+      // Render evolution list
+      const list = $('evolutionList');
+      if (!list || !ontologyEvolution.evolutionScenarios) return;
+
+      let filtered = ontologyEvolution.evolutionScenarios;
+
+      // Apply filters
+      if (filter.workflow) {
+        filtered = filtered.filter(e => e.proposedChanges.scenario.includes(filter.workflow));
+      }
+
+      // Sort by date
+      if (sort) {
+        filtered = [...filtered].sort((a, b) => new Date(b.triggerDate) - new Date(a.triggerDate));
+      }
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<p style="color: var(--muted); text-align: center; padding: 24px;">No evolution records found.</p>';
+        return;
+      }
+
+      list.innerHTML = filtered.map(evol => {
+        const scenario = evol.proposedChanges.scenario;
+        const scenarioColor = scenario.includes('Fully Automatic') ? 'var(--ok)' :
+                              scenario.includes('Human Review') ? 'var(--warning)' : 'var(--accent)';
+        const statusIcon = evol.proposedChanges.autoExecuted ? '✅' :
+                          evol.proposedChanges.humanDecision === 'APPROVED' ? '🤝' : '⏳';
+
+        return `
+          <div class="case-item" onclick="openEvolutionModal('${evol.id}')" style="cursor: pointer; border-left: 3px solid ${scenarioColor};">
+            <div class="case-header">
+              <div class="case-id">${statusIcon} ${evol.id}</div>
+              <div style="display: flex; gap: 6px;">
+                <span class="pill" style="background: rgba(122,162,255,0.15); color: ${scenarioColor};">${evol.trigger}</span>
+                <span class="pill">Confidence: ${(evol.proposedChanges.confidence * 100).toFixed(0)}%</span>
+              </div>
+            </div>
+            <div class="case-info">
+              <strong>Trigger:</strong> ${evol.evidenceSource.title}<br/>
+              <strong>Impact:</strong> ${evol.ontologyImpact.changeType} — ${evol.ontologyImpact.affectedClasses.join(', ')}<br/>
+              <strong>Changes:</strong> ${evol.proposedChanges.changes.length} TTL modifications<br/>
+              <strong>Date:</strong> ${evol.triggerDate} | <strong>Version:</strong> ${evol.impactAssessment.ontologyVersion}<br/>
+              <div style="margin-top: 6px; color: ${scenarioColor}; font-weight: 600;">${evol.aiJustification}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Render version history
+      const versionHistory = $('versionHistory');
+      if (versionHistory && ontologyEvolution.versionControl?.history) {
+        versionHistory.innerHTML = ontologyEvolution.versionControl.history.slice().reverse().map(version => `
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-title">Version ${version.version}</div>
+              <div class="timeline-desc">
+                ${version.changes}<br/>
+                ${version.trigger ? `<strong>Trigger:</strong> ${version.trigger} | ` : ''}
+                <strong>Workflow:</strong> ${version.workflow || 'Manual'}
+                ${version.urgency ? ` | <span style="color: var(--bad); font-weight: 600;">⚠️ ${version.urgency}</span>` : ''}
+              </div>
+              <div class="timeline-time">${version.date}</div>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Open Evolution Modal
+    function openEvolutionModal(evolId) {
+      const evol = ontologyEvolution.evolutionScenarios?.find(e => e.id === evolId);
+      if (!evol) return;
+
+      const modal = $('modalCase');
+      const title = $('modalCaseTitle');
+      const body = $('modalCaseBody');
+
+      title.textContent = evol.id + ' — ' + evol.trigger;
+
+      const scenarioColor = evol.proposedChanges.scenario.includes('Fully Automatic') ? 'var(--ok)' :
+                            evol.proposedChanges.scenario.includes('Human Review') ? 'var(--warning)' : 'var(--accent)';
+
+      body.innerHTML = `
+        <div class="modal-section">
+          <div class="modal-section-title">Evidence Source</div>
+          <div class="modal-meta">
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Type</div>
+              <div class="modal-meta-value">${evol.evidenceSource.type}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Published</div>
+              <div class="modal-meta-value">${evol.evidenceSource.pubDate}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">DOI/Trial</div>
+              <div class="modal-meta-value">${evol.evidenceSource.doi || evol.evidenceSource.trialId || 'N/A'}</div>
+            </div>
+          </div>
+          <div class="modal-text" style="margin-top: 12px;">
+            <strong>${evol.evidenceSource.title}</strong>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Key Findings</div>
+          <ul class="modal-list">
+            ${evol.evidenceSource.keyFindings.map(f => `<li>${f}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Workflow</div>
+          <div style="background: rgba(122,162,255,0.08); border: 1px solid ${scenarioColor}; border-radius: 10px; padding: 12px;">
+            <div style="font-size: 15px; font-weight: 600; color: ${scenarioColor}; margin-bottom: 8px;">
+              ${evol.proposedChanges.scenario}
+            </div>
+            <div style="font-size: 13px; color: var(--text);">
+              <strong>Confidence:</strong> ${(evol.proposedChanges.confidence * 100).toFixed(0)}%<br/>
+              <strong>Approval Required:</strong> ${evol.proposedChanges.approvalRequired ? 'Yes' : 'No'}<br/>
+              <strong>Auto-Executed:</strong> ${evol.proposedChanges.autoExecuted ? 'Yes' : 'No'}
+              ${evol.proposedChanges.humanDecision ? `<br/><strong>Human Decision:</strong> ${evol.proposedChanges.humanDecision}` : ''}
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Proposed Changes (${evol.proposedChanges.changes.length})</div>
+          ${evol.proposedChanges.changes.map(change => `
+            <div style="background: rgba(7,10,20,0.65); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-weight: 600; color: var(--accent);">${change.action} ${change.entityType}</span>
+                <span class="pill">${change.entityId}</span>
+              </div>
+              <div style="font-size: 12px; color: var(--muted); margin-bottom: 8px;">${change.rationale}</div>
+              <pre style="font-size: 11px; max-height: 120px;">${change.ttlCode || change.newTTL || 'N/A'}</pre>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Impact Assessment</div>
+          <div class="modal-text">
+            <strong>Affected Patients:</strong> ${evol.impactAssessment.affectedPatients}<br/>
+            <strong>Clinical Significance:</strong> ${evol.impactAssessment.clinicalSignificance}<br/>
+            <strong>Version Change:</strong> ${evol.impactAssessment.ontologyVersion}<br/>
+            <strong>Backward Compatible:</strong> ${evol.impactAssessment.backwardCompatible ? 'Yes ✅' : 'No ⚠️'}
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">AI Justification</div>
+          <div class="modal-text" style="color: ${scenarioColor}; font-weight: 600; font-size: 14px;">
+            ${evol.aiJustification}
+          </div>
+        </div>
+
+        ${evol.proposedChanges.reasoning ? `
+        <div class="modal-section">
+          <div class="modal-section-title">Reasoning</div>
+          <div class="modal-text">${evol.proposedChanges.reasoning}</div>
+        </div>
+        ` : ''}
+      `;
+
+      modal.classList.add('active');
+    }
+
+    // Setup Evolution Filters
+    function setupEvolutionFilters() {
+      const workflowFilter = $('evolFilterWorkflow');
+      const sortBtn = $('sortByDate');
+
+      if (!workflowFilter) return;
+
+      let isSorted = false;
+
+      const applyFilters = () => {
+        renderOntologyEvolution({
+          workflow: workflowFilter.value
+        }, isSorted);
+      };
+
+      workflowFilter.addEventListener('change', applyFilters);
+      
+      if (sortBtn) {
+        sortBtn.addEventListener('click', () => {
+          isSorted = !isSorted;
+          sortBtn.textContent = isSorted ? 'Sort by Date ↑' : 'Sort by Date ↓';
+          applyFilters();
+        });
+      }
+    }
+
     // Setup filters when DOM is ready
     document.addEventListener('DOMContentLoaded', () => {
       setupEvidenceFilters();
@@ -3392,6 +3753,7 @@ Safety: manageable. Limitations: single-arm, small N.`;
       setupHerbalFilters();
       setupUnmetFilters();
       setupHiddenFilters();
+      setupEvolutionFilters();
     });
 
     // Setup filters after navigation
@@ -3405,6 +3767,7 @@ Safety: manageable. Limitations: single-arm, small N.`;
         setupHerbalFilters();
         setupUnmetFilters();
         setupHiddenFilters();
+        setupEvolutionFilters();
       }, 100);
     };
   </script>

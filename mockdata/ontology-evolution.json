@@ -1,0 +1,381 @@
+{
+  "evolutionScenarios": [
+    {
+      "id": "EVOLVE001",
+      "trigger": "New Evidence",
+      "triggerDate": "2024-01-08",
+      "evidenceSource": {
+        "type": "Paper",
+        "title": "Fourth-generation TKI BLU-945 overcomes C797S resistance",
+        "trialId": "NCT04862780",
+        "pubDate": "2023-12-15",
+        "doi": "10.1056/NEJMoa2312345",
+        "keyFindings": [
+          "BLU-945 targets EGFR C797S mutation",
+          "ORR 62% in C797S+ patients (n=85)",
+          "PFS 14.5 months vs. no available therapy",
+          "FDA Breakthrough Therapy designation"
+        ]
+      },
+      "ontologyImpact": {
+        "affectedClasses": ["Compound", "Alteration", "Result"],
+        "affectedProperties": ["targets", "recommendedForSubgroup", "hasResult"],
+        "changeType": "ADD_NEW_ENTITY"
+      },
+      "proposedChanges": {
+        "scenario": "Scenario 1: Fully Automatic",
+        "confidence": 0.95,
+        "changes": [
+          {
+            "action": "ADD",
+            "entityType": "Compound",
+            "entityId": "BLU-945",
+            "ttlCode": ":BLU-945 a :Compound ;\n  rdfs:label \"BLU-945\" ;\n  :compoundName \"BLU-945\" ;\n  :hasMoA :TKI ;\n  :targets :EGFR ;\n  :targetsMutation :EGFR_C797S ;\n  :fdaStatus \"Breakthrough Therapy\" ;\n  :developmentStage \"Phase I/II\" .",
+            "rationale": "High-quality evidence (Phase I/II, FDA designation, peer-reviewed)"
+          },
+          {
+            "action": "ADD",
+            "entityType": "Alteration",
+            "entityId": "EGFR_C797S",
+            "ttlCode": ":EGFR_C797S a :Alteration ;\n  rdfs:label \"EGFR C797S\" ;\n  :inGene :EGFR ;\n  :alterationType \"Point Mutation\" ;\n  :resistance \"Post-osimertinib\" ;\n  rdfs:comment \"Tertiary resistance mutation after 3rd-gen TKI failure\" .",
+            "rationale": "Critical unmet need, no previous entity in ontology"
+          },
+          {
+            "action": "ADD",
+            "entityType": "Result",
+            "entityId": "RESULT_BLU945_C797S",
+            "ttlCode": ":RESULT_BLU945_C797S a :Result ;\n  :aboutCancerType :NSCLC ;\n  :aboutSubgroup :NSCLC_EGFR_C797S ;\n  :aboutDrug :BLU-945 ;\n  :metric \"ORR\" ;\n  :value 62 ;\n  :unit \"%\" ;\n  :reportedIn :EVIDENCE_NCT04862780 ;\n  :evidenceLevel \"High\" ;\n  :sourceDate \"2023-12-15\"^^xsd:date .",
+            "rationale": "High-quality result from Phase I/II trial"
+          },
+          {
+            "action": "UPDATE",
+            "entityType": "PatientSubgroup",
+            "entityId": "NSCLC_EGFR_C797S",
+            "ttlCode": ":NSCLC_EGFR_C797S a :PatientSubgroup ;\n  rdfs:label \"NSCLC with EGFR C797S\" ;\n  :hasCancerType :NSCLC ;\n  :hasAlteration :EGFR_C797S ;\n  :lineOfTherapy \"4L+\" ;\n  :recommendedDrug :BLU-945 .  # NEW PROPERTY",
+            "rationale": "Connect new drug to subgroup"
+          }
+        ],
+        "validationStatus": "PASSED",
+        "shaclErrors": 0,
+        "approvalRequired": false,
+        "autoExecuted": true,
+        "executionDate": "2024-01-08T10:30:00Z"
+      },
+      "impactAssessment": {
+        "affectedPatients": "~30% of osimertinib-treated patients",
+        "clinicalSignificance": "CRITICAL - addresses #1 unmet need",
+        "ontologyVersion": "v1.0 → v1.1",
+        "backwardCompatible": true
+      },
+      "aiJustification": "✅ AUTO-APPROVED: FDA breakthrough + peer-reviewed + SHACL valid + no conflicts"
+    },
+    {
+      "id": "EVOLVE002",
+      "trigger": "Conflicting Evidence",
+      "triggerDate": "2024-01-10",
+      "evidenceSource": {
+        "type": "TrialSummary",
+        "title": "Alectinib vs. Brigatinib in 1L ALK+ NSCLC - Head-to-head trial",
+        "trialId": "NCT03456789",
+        "pubDate": "2024-01-05",
+        "doi": "10.1016/j.jtho.2024.01.012",
+        "keyFindings": [
+          "Brigatinib PFS 24.0 months vs. Alectinib 34.8 months (p=0.001)",
+          "Alectinib confirmed superior to brigatinib in 1L",
+          "Previous assumption: Brigatinib = Alectinib needs revision"
+        ]
+      },
+      "ontologyImpact": {
+        "affectedClasses": ["Compound", "Result"],
+        "affectedProperties": ["recommendedForSubgroup", "hasResult", "priority"],
+        "changeType": "UPDATE_RANKING"
+      },
+      "proposedChanges": {
+        "scenario": "Scenario 2: AI Proposes → Human Reviews",
+        "confidence": 0.82,
+        "changes": [
+          {
+            "action": "UPDATE",
+            "entityType": "Compound",
+            "entityId": "Alectinib",
+            "oldTTL": ":Alectinib a :Compound ;\n  :recommendedForSubgroup :NSCLC_ALK_fusion ;\n  :lineOfTherapy \"1L\" ;\n  :priority \"High\" .  # EQUAL with Brigatinib",
+            "newTTL": ":Alectinib a :Compound ;\n  :recommendedForSubgroup :NSCLC_ALK_fusion ;\n  :lineOfTherapy \"1L\" ;\n  :priority \"Highest\" ;  # UPGRADED\n  :preferredOver :Brigatinib ;\n  rdfs:comment \"Head-to-head trial NCT03456789 showed superiority\" .",
+            "rationale": "Direct comparative trial overrides previous assumption of equivalence"
+          },
+          {
+            "action": "UPDATE",
+            "entityType": "Compound",
+            "entityId": "Brigatinib",
+            "oldTTL": ":Brigatinib a :Compound ;\n  :recommendedForSubgroup :NSCLC_ALK_fusion ;\n  :lineOfTherapy \"1L\" ;\n  :priority \"High\" .  # EQUAL with Alectinib",
+            "newTTL": ":Brigatinib a :Compound ;\n  :recommendedForSubgroup :NSCLC_ALK_fusion ;\n  :lineOfTherapy \"1L, 2L\" ;  # STILL VALID for 2L\n  :priority \"High\" ;  # DOWNGRADED from Highest\n  :inferiorTo :Alectinib ;  # NEW PROPERTY\n  rdfs:comment \"Recommended for 2L or if alectinib unavailable\" .",
+            "rationale": "Maintain as option but clarify hierarchy"
+          }
+        ],
+        "validationStatus": "PENDING_HUMAN_REVIEW",
+        "shaclErrors": 0,
+        "approvalRequired": true,
+        "reasoning": "⚠️ CONFLICTING DATA: Ontology assumed equivalence, new trial shows superiority. Human review needed for clinical judgment.",
+        "reviewers": ["Dr. NSCLC Specialist", "Ontology Curator"],
+        "reviewDeadline": "2024-01-17"
+      },
+      "impactAssessment": {
+        "affectedPatients": "All ALK+ NSCLC 1L patients",
+        "clinicalSignificance": "HIGH - affects treatment guidelines",
+        "ontologyVersion": "v1.1 → v1.2 (pending approval)",
+        "backwardCompatible": true
+      },
+      "aiJustification": "⚠️ HUMAN REVIEW REQUIRED: Direct comparative data conflicts with ontology ranking. Clinical expertise needed to interpret."
+    },
+    {
+      "id": "EVOLVE003",
+      "trigger": "Real-World Data",
+      "triggerDate": "2024-01-15",
+      "evidenceSource": {
+        "type": "Retrospective Study",
+        "title": "Metformin co-administration improves EGFR TKI outcomes: 10-year real-world data",
+        "journal": "Journal of Clinical Oncology",
+        "pubDate": "2024-01-12",
+        "doi": "10.1200/JCO.23.02345",
+        "keyFindings": [
+          "N=12,458 patients from 38 hospitals",
+          "Metformin + EGFR TKI: PFS 16.2m vs. 13.8m (HR 0.82, p<0.001)",
+          "OS improvement: 32.1m vs. 28.5m (HR 0.85, p=0.003)",
+          "Effect consistent across all EGFR mutations"
+        ]
+      },
+      "ontologyImpact": {
+        "affectedClasses": ["Compound", "CombinationTherapy"],
+        "affectedProperties": ["hasSynergy", "recommendedCombination"],
+        "changeType": "ADD_COMBINATION"
+      },
+      "proposedChanges": {
+        "scenario": "Scenario 3: AI Proposes → Human OK → Gens Auto-commits",
+        "confidence": 0.88,
+        "changes": [
+          {
+            "action": "ADD",
+            "entityType": "CombinationTherapy",
+            "entityId": "Metformin_EGFR_TKI",
+            "ttlCode": ":Metformin_EGFR_TKI a :CombinationTherapy ;\n  rdfs:label \"Metformin + EGFR TKI\" ;\n  :hasComponent :Metformin, :EGFR_TKI ;\n  :synergy \"Positive\" ;\n  :synergyMechanism \"AMPK activation inhibits mTOR pathway\" ;\n  :evidenceLevel \"High\" ;\n  :evidenceType \"Real-World Data\" ;\n  :sampleSize 12458 ;\n  :hazardRatio 0.82 ;\n  :pValue \"<0.001\"^^xsd:string ;\n  :recommendedFor :NSCLC_EGFR_mutant ;\n  :cost \"Low\" ;\n  rdfs:comment \"Large real-world study validates preclinical hypothesis\" .",
+            "rationale": "High-quality RWD (n>10,000) validates previous hypothesis (HIDDEN001)"
+          },
+          {
+            "action": "UPDATE",
+            "entityType": "Compound",
+            "entityId": "Metformin",
+            "newTTL": ":Metformin a :Compound ;\n  rdfs:label \"Metformin\" ;\n  :primaryIndication \"Type 2 Diabetes\" ;\n  :secondaryIndication \"NSCLC adjuvant therapy\" ;  # NEW\n  :recommendedCombination :EGFR_TKI ;  # NEW\n  :cost \"Very Low\" ;\n  :safetyProfile \"Excellent\" .",
+            "rationale": "Upgrade status from 'repurposing candidate' to 'validated combination'"
+          },
+          {
+            "action": "ADD",
+            "entityType": "Rule",
+            "entityId": "RULE_Metformin_Recommendation",
+            "ttlCode": "# SWRL Rule\n:RULE_Metformin_Recommendation a :InferenceRule ;\n  rdfs:label \"Recommend Metformin for EGFR+ patients\" ;\n  :ruleBody \"\"\"\n    ?patient :hasAlteration ?alt .\n    ?alt :inGene :EGFR .\n    ?patient :isReceiving ?tki .\n    ?tki :hasMoA :TKI .\n  \"\"\" ;\n  :ruleHead \"\"\"\n    ?patient :shouldConsider :Metformin .\n    :Metformin :recommendedFor ?patient .\n  \"\"\" ;\n  :confidence 0.88 ;\n  :evidenceSource \"JCO 2024\" .",
+            "rationale": "Automate recommendation in reasoning engine"
+          }
+        ],
+        "validationStatus": "AWAITING_HUMAN_OK",
+        "shaclErrors": 0,
+        "approvalRequired": true,
+        "reasoning": "✅ HIGH-QUALITY RWD: Large sample, significant results, validates hypothesis. Recommend human OK then auto-commit.",
+        "humanDecision": "APPROVED",
+        "humanApprover": "Dr. Clinical Curator",
+        "approvalDate": "2024-01-16T14:20:00Z",
+        "autoCommit": true,
+        "commitMessage": "feat(ontology): Add Metformin+EGFR TKI combination based on RWD (JCO 2024, n=12458)",
+        "executionDate": "2024-01-16T14:21:00Z"
+      },
+      "impactAssessment": {
+        "affectedPatients": "All EGFR+ NSCLC patients (millions globally)",
+        "clinicalSignificance": "HIGH - low-cost intervention with proven benefit",
+        "ontologyVersion": "v1.2 → v1.3",
+        "backwardCompatible": true
+      },
+      "aiJustification": "✅ RECOMMENDED FOR APPROVAL: RWD validates preclinical hypothesis. Low risk (metformin is safe), high benefit (PFS/OS improvement)."
+    },
+    {
+      "id": "EVOLVE004",
+      "trigger": "Safety Signal",
+      "triggerDate": "2024-01-20",
+      "evidenceSource": {
+        "type": "FDA Safety Alert",
+        "title": "Hepatotoxicity signal with Drug_X in combination with osimertinib",
+        "source": "FDA MedWatch",
+        "pubDate": "2024-01-18",
+        "keyFindings": [
+          "15 cases of Grade 3-4 hepatotoxicity",
+          "Drug_X + osimertinib combination",
+          "FDA recommends avoiding combination pending investigation"
+        ]
+      },
+      "ontologyImpact": {
+        "affectedClasses": ["CombinationTherapy", "Compound"],
+        "affectedProperties": ["contraindication", "warning"],
+        "changeType": "ADD_WARNING"
+      },
+      "proposedChanges": {
+        "scenario": "Scenario 1: Fully Automatic (Safety-critical)",
+        "confidence": 1.0,
+        "changes": [
+          {
+            "action": "UPDATE",
+            "entityType": "Compound",
+            "entityId": "Drug_X",
+            "newTTL": ":Drug_X a :Compound ;\n  :contraindication :Osimertinib ;  # NEW\n  :warning \"Hepatotoxicity risk when combined with osimertinib (FDA 2024)\" ;\n  :fdaAlert \"MedWatch 2024-01-18\" ;\n  :status \"Under Investigation\" .",
+            "rationale": "FDA safety alert requires immediate action"
+          },
+          {
+            "action": "DELETE",
+            "entityType": "CombinationTherapy",
+            "entityId": "Drug_X_Osimertinib",
+            "rationale": "Remove unsafe combination from recommendations"
+          }
+        ],
+        "validationStatus": "PASSED",
+        "shaclErrors": 0,
+        "approvalRequired": false,
+        "autoExecuted": true,
+        "executionDate": "2024-01-20T09:00:00Z",
+        "urgency": "CRITICAL"
+      },
+      "impactAssessment": {
+        "affectedPatients": "Patients on Drug_X + osimertinib",
+        "clinicalSignificance": "CRITICAL - patient safety",
+        "ontologyVersion": "v1.3 → v1.3.1 (hotfix)",
+        "backwardCompatible": false
+      },
+      "aiJustification": "🚨 AUTO-EXECUTED (SAFETY): FDA alert requires immediate removal from recommendations. No human review delay for patient safety."
+    }
+  ],
+  "workflows": {
+    "scenario1_FullyAutomatic": {
+      "name": "Fully Automatic Update",
+      "triggers": [
+        "High-confidence evidence (>0.9)",
+        "FDA approval/breakthrough",
+        "Safety alerts (critical)",
+        "SHACL validation passes",
+        "No conflicts with existing knowledge"
+      ],
+      "steps": [
+        "1. Evidence ingestion (Hydrate)",
+        "2. AI impact analysis",
+        "3. Generate TTL changes",
+        "4. SHACL validation",
+        "5. Conflict detection",
+        "6. Auto-commit to ontology",
+        "7. Notify curators (post-hoc review)"
+      ],
+      "confidence_threshold": 0.9,
+      "approval_required": false,
+      "typical_use_cases": [
+        "New FDA-approved drug",
+        "Safety alerts",
+        "High-quality RCT results"
+      ]
+    },
+    "scenario2_HumanReview": {
+      "name": "AI Proposes → Human Reviews → Human Uploads TTL",
+      "triggers": [
+        "Medium confidence (0.7-0.9)",
+        "Conflicting evidence",
+        "Ranking/priority changes",
+        "Complex clinical judgment needed"
+      ],
+      "steps": [
+        "1. Evidence ingestion (Hydrate)",
+        "2. AI generates proposal",
+        "3. Show old vs. new TTL diff",
+        "4. Human curator reviews",
+        "5. Human edits TTL if needed",
+        "6. Human uploads revised TTL",
+        "7. System validates & commits"
+      ],
+      "confidence_threshold": 0.7,
+      "approval_required": true,
+      "typical_use_cases": [
+        "Head-to-head trial results",
+        "Conflicting study outcomes",
+        "Guideline changes"
+      ]
+    },
+    "scenario3_HumanOK_AutoCommit": {
+      "name": "AI Proposes → Human OK → Gens Auto-commits",
+      "triggers": [
+        "High-quality evidence (0.8-0.9)",
+        "RWD with large sample",
+        "Validates existing hypothesis",
+        "Low risk of error"
+      ],
+      "steps": [
+        "1. Evidence ingestion (Hydrate)",
+        "2. AI generates complete TTL",
+        "3. SHACL pre-validation",
+        "4. Human reviews proposal (no editing)",
+        "5. Human clicks 'Approve' or 'Reject'",
+        "6. If approved: System auto-commits",
+        "7. Git commit message auto-generated"
+      ],
+      "confidence_threshold": 0.8,
+      "approval_required": true,
+      "typical_use_cases": [
+        "Large RWD studies",
+        "Meta-analyses",
+        "Hypothesis validation"
+      ]
+    }
+  },
+  "versionControl": {
+    "current_version": "v1.3.1",
+    "history": [
+      {
+        "version": "v1.0",
+        "date": "2024-01-01",
+        "changes": "Initial NSCLC EGFR/ALK ontology",
+        "commit": "abc123"
+      },
+      {
+        "version": "v1.1",
+        "date": "2024-01-08",
+        "changes": "Added BLU-945 and EGFR C797S (EVOLVE001)",
+        "commit": "def456",
+        "trigger": "New Evidence",
+        "workflow": "Fully Automatic"
+      },
+      {
+        "version": "v1.2",
+        "date": "2024-01-11",
+        "changes": "Updated Alectinib/Brigatinib ranking (EVOLVE002)",
+        "commit": "ghi789",
+        "trigger": "Conflicting Evidence",
+        "workflow": "Human Review"
+      },
+      {
+        "version": "v1.3",
+        "date": "2024-01-16",
+        "changes": "Added Metformin+EGFR TKI combination (EVOLVE003)",
+        "commit": "jkl012",
+        "trigger": "Real-World Data",
+        "workflow": "Human OK + Auto-commit"
+      },
+      {
+        "version": "v1.3.1",
+        "date": "2024-01-20",
+        "changes": "Removed Drug_X+Osimertinib combination (safety alert)",
+        "commit": "mno345",
+        "trigger": "Safety Signal",
+        "workflow": "Fully Automatic",
+        "urgency": "CRITICAL"
+      }
+    ]
+  },
+  "metrics": {
+    "totalEvolutions": 4,
+    "fullyAutomatic": 2,
+    "humanReview": 1,
+    "humanOK_autoCommit": 1,
+    "avgConfidence": 0.91,
+    "avgTimeToUpdate": "2.3 days",
+    "shaclValidationRate": "100%"
+  }
+}
