@@ -421,6 +421,87 @@
       margin-top: 6px;
     }
 
+    /* Drug/Evidence Item Cards Enhancement */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .info-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .info-value {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Chart Container */
+    .chart-container {
+      position: relative;
+      height: 200px;
+      background: rgba(7,10,20,0.65);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+    .chart-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .chart-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .chart-label {
+      min-width: 80px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .chart-bar-fill {
+      flex: 1;
+      height: 24px;
+      background: linear-gradient(90deg, rgba(122,162,255,0.3), rgba(46,229,157,0.3));
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+    .chart-bar-value {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* Loading Skeleton */
+    .skeleton {
+      background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s ease-in-out infinite;
+      border-radius: 8px;
+    }
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .sidebar {
@@ -432,6 +513,9 @@
       }
       .main-wrapper {
         margin-left: var(--sidebar-collapsed);
+      }
+      .grid, .grid3 {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -525,57 +609,50 @@
       </header>
 
       <main>
-        <div class="dashboard-grid">
+        <div class="dashboard-grid" id="dashboardStats">
           <div class="stat-card">
             <div class="stat-label">Evidence Items</div>
-            <div class="stat-value">127</div>
-            <div class="stat-change">+12 this week</div>
+            <div class="stat-value" id="stat-evidence">-</div>
+            <div class="stat-change" id="stat-evidence-change">Loading...</div>
           </div>
           <div class="stat-card">
             <div class="stat-label">Patient Cases</div>
-            <div class="stat-value">43</div>
-            <div class="stat-change">+5 this week</div>
+            <div class="stat-value" id="stat-cases">-</div>
+            <div class="stat-change" id="stat-cases-change">Loading...</div>
           </div>
           <div class="stat-card">
             <div class="stat-label">Active Drugs</div>
-            <div class="stat-value">18</div>
-            <div class="stat-change">+2 this month</div>
+            <div class="stat-value" id="stat-drugs">-</div>
+            <div class="stat-change" id="stat-drugs-change">Loading...</div>
           </div>
           <div class="stat-card">
             <div class="stat-label">Validation Rate</div>
-            <div class="stat-value">94.2%</div>
-            <div class="stat-change">+1.3% this month</div>
+            <div class="stat-value" id="stat-validation">-</div>
+            <div class="stat-change" id="stat-validation-change">Loading...</div>
+          </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="two-col" style="margin-bottom: 24px;">
+          <div class="card">
+            <h2>Evidence by Type</h2>
+            <div class="chart-container" id="chartEvidenceType">
+              <div class="skeleton" style="width: 100%; height: 100%;"></div>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Confidence Distribution</h2>
+            <div class="chart-container" id="chartConfidence">
+              <div class="skeleton" style="width: 100%; height: 100%;"></div>
+            </div>
           </div>
         </div>
 
         <div class="two-col">
           <div class="card">
             <h2>Recent Activity</h2>
-            <div class="timeline">
-              <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <div class="timeline-title">New Evidence Added</div>
-                  <div class="timeline-desc">EGFR exon19 del — Trial NCT01234567 (ORR 62%)</div>
-                  <div class="timeline-time">2 hours ago</div>
-                </div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <div class="timeline-title">Case Analysis Completed</div>
-                  <div class="timeline-desc">Patient #037 — Drug_A recommendation generated</div>
-                  <div class="timeline-time">5 hours ago</div>
-                </div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <div class="timeline-title">SHACL Validation Passed</div>
-                  <div class="timeline-desc">15 new evidence items validated successfully</div>
-                  <div class="timeline-time">1 day ago</div>
-                </div>
-              </div>
+            <div class="timeline" id="recentTimeline">
+              <div class="skeleton" style="height: 200px; margin: 12px 0;"></div>
             </div>
           </div>
 
@@ -891,46 +968,22 @@
       <main>
         <div class="card">
           <h2>Active Patient Cases</h2>
-          <div class="case-list">
-            <div class="case-item">
-              <div class="case-header">
-                <div class="case-id">Case #037</div>
-                <div class="case-badge active">Active</div>
-              </div>
-              <div class="case-info">
-                <strong>Profile:</strong> NSCLC, EGFR exon19 del, Treatment-naïve (1L)<br/>
-                <strong>Recommendation:</strong> Drug_A (EGFR TKI) — ORR 62%, PFS 14.2 months<br/>
-                <strong>Confidence:</strong> High (94%) | <strong>Evidence:</strong> 5 papers, 2 trials
-              </div>
-            </div>
-
-            <div class="case-item">
-              <div class="case-header">
-                <div class="case-id">Case #036</div>
-                <div class="case-badge active">Active</div>
-              </div>
-              <div class="case-info">
-                <strong>Profile:</strong> NSCLC, ALK fusion, Post-crizotinib (2L)<br/>
-                <strong>Recommendation:</strong> Alectinib — ORR 51%, PFS 8.9 months<br/>
-                <strong>Confidence:</strong> High (91%) | <strong>Evidence:</strong> 3 papers, 1 trial
-              </div>
-            </div>
-
-            <div class="case-item">
-              <div class="case-header">
-                <div class="case-id">Case #035</div>
-                <div class="case-badge draft">Draft</div>
-              </div>
-              <div class="case-info">
-                <strong>Profile:</strong> NSCLC, EGFR L858R, Treatment-naïve (1L)<br/>
-                <strong>Status:</strong> Evidence collection in progress<br/>
-                <strong>Next Step:</strong> Activate reasoning engine
-              </div>
-            </div>
+          <div style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
+            <input type="text" id="caseSearch" placeholder="🔍 Search by case ID or profile..." style="flex: 1; min-width: 280px;" />
+            <select id="caseFilterStatus" style="width: auto;">
+              <option value="">All Status</option>
+              <option value="Active">Active</option>
+              <option value="Draft">Draft</option>
+              <option value="Rejected">Rejected</option>
+              <option value="Executed">Executed</option>
+            </select>
+          </div>
+          <div id="caseList" class="case-list">
+            <p style="color: var(--muted); text-align: center; padding: 24px;">Loading patient cases...</p>
           </div>
 
           <div class="btns">
-            <button>+ Create New Case</button>
+            <button onclick="navigateTo('hydrate')">+ Create New Case</button>
             <button class="secondary">Export Report</button>
           </div>
         </div>
@@ -966,12 +1019,23 @@
       <main>
         <div class="card">
           <h2>Evidence Library</h2>
-          <p style="color: var(--muted); line-height: 1.6;">
-            Hydrate Ontology를 통해 수집된 모든 Evidence Items을 검색하고 관리합니다.<br/>
-            논문, 임상 시험 요약, 리뷰 등 다양한 형태의 증거를 포함합니다.
-          </p>
-          <div class="hint" style="margin-top: 16px;">
-            🚧 Coming soon: Advanced search, filtering, RAG integration
+          <div style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
+            <input type="text" id="evidenceSearch" placeholder="🔍 Search by title, drug, or trial ID..." style="flex: 1; min-width: 280px;" />
+            <select id="evidenceFilterType" style="width: auto;">
+              <option value="">All Types</option>
+              <option value="Paper">Paper</option>
+              <option value="TrialSummary">Trial Summary</option>
+              <option value="Review">Review</option>
+            </select>
+            <select id="evidenceFilterConfidence" style="width: auto;">
+              <option value="">All Confidence</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+          <div id="evidenceList" class="case-list">
+            <p style="color: var(--muted); text-align: center; padding: 24px;">Loading evidence items...</p>
           </div>
         </div>
       </main>
@@ -1022,13 +1086,23 @@
       </header>
       <main>
         <div class="card">
-          <h2>Drug Recommendations</h2>
-          <p style="color: var(--muted); line-height: 1.6;">
-            수집된 증거와 추론 엔진 결과를 바탕으로<br/>
-            환자별 최적의 치료 옵션을 제시하고 근거를 명시합니다.
-          </p>
-          <div class="hint" style="margin-top: 16px;">
-            🚧 Coming soon: Comparative analysis, risk-benefit assessment, alternative options
+          <h2>Drug Recommendations — Top Candidates</h2>
+          <div style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
+            <select id="drugFilterGene" style="width: auto;">
+              <option value="">All Genes</option>
+              <option value="EGFR">EGFR</option>
+              <option value="ALK">ALK</option>
+            </select>
+            <select id="drugFilterApproval" style="width: auto;">
+              <option value="">All Status</option>
+              <option value="FDA">FDA Approved</option>
+              <option value="EMA">EMA Approved</option>
+              <option value="Both">FDA & EMA</option>
+            </select>
+            <button id="sortByConfidence" class="secondary" style="margin-left: auto;">Sort by Confidence ↓</button>
+          </div>
+          <div id="drugList" class="case-list">
+            <p style="color: var(--muted); text-align: center; padding: 24px;">Loading drug recommendations...</p>
           </div>
         </div>
       </main>
@@ -1056,6 +1130,328 @@
 
   <script>
     const $ = (id) => document.getElementById(id);
+
+    // Mock Data State
+    let evidenceData = [];
+    let casesData = [];
+    let drugsData = [];
+    let resultsData = [];
+
+    // Load Mock Data
+    async function loadMockData() {
+      try {
+        const [evidenceRes, casesRes, drugsRes, resultsRes] = await Promise.all([
+          fetch('mockdata/evidence-items.json'),
+          fetch('mockdata/patient-cases.json'),
+          fetch('mockdata/drugs.json'),
+          fetch('mockdata/results.json')
+        ]);
+        
+        evidenceData = await evidenceRes.json();
+        casesData = await casesRes.json();
+        drugsData = await drugsRes.json();
+        resultsData = await resultsRes.json();
+
+        // Update Dashboard Stats
+        updateDashboardStats();
+        
+        // Render initial views
+        renderEvidenceList();
+        renderCaseList();
+        renderDrugList();
+
+        console.log('Mock data loaded successfully');
+      } catch (error) {
+        console.error('Failed to load mock data:', error);
+      }
+    }
+
+    // Update Dashboard Stats
+    function updateDashboardStats() {
+      $('stat-evidence').textContent = evidenceData.length;
+      $('stat-evidence-change').textContent = `+${Math.floor(evidenceData.length * 0.15)} this week`;
+      
+      $('stat-cases').textContent = casesData.length;
+      $('stat-cases-change').textContent = `+${Math.floor(casesData.length * 0.12)} this week`;
+      
+      $('stat-drugs').textContent = drugsData.length;
+      $('stat-drugs-change').textContent = `+${Math.floor(drugsData.length * 0.11)} this month`;
+      
+      const validationRate = ((evidenceData.filter(e => e.governance.confidence === 'High').length / evidenceData.length) * 100).toFixed(1);
+      $('stat-validation').textContent = validationRate + '%';
+      $('stat-validation-change').textContent = '+1.3% this month';
+
+      // Render Charts
+      renderCharts();
+      
+      // Render Timeline
+      renderTimeline();
+    }
+
+    // Render Dashboard Charts
+    function renderCharts() {
+      // Evidence by Type Chart
+      const typeChart = $('chartEvidenceType');
+      if (typeChart) {
+        const typeCounts = evidenceData.reduce((acc, item) => {
+          acc[item.evidenceType] = (acc[item.evidenceType] || 0) + 1;
+          return acc;
+        }, {});
+
+        const total = evidenceData.length;
+        const maxCount = Math.max(...Object.values(typeCounts));
+
+        typeChart.innerHTML = Object.entries(typeCounts).map(([type, count]) => {
+          const percentage = ((count / total) * 100).toFixed(1);
+          const width = ((count / maxCount) * 100).toFixed(1);
+          return `
+            <div class="chart-bar">
+              <div class="chart-label">${type}</div>
+              <div class="chart-bar-fill" style="width: ${width}%;">
+                <div class="chart-bar-value">${count} (${percentage}%)</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Confidence Distribution Chart
+      const confChart = $('chartConfidence');
+      if (confChart) {
+        const confCounts = evidenceData.reduce((acc, item) => {
+          const conf = item.governance.confidence;
+          acc[conf] = (acc[conf] || 0) + 1;
+          return acc;
+        }, {});
+
+        const total = evidenceData.length;
+        const maxCount = Math.max(...Object.values(confCounts));
+
+        confChart.innerHTML = ['High', 'Medium', 'Low'].map(level => {
+          const count = confCounts[level] || 0;
+          const percentage = ((count / total) * 100).toFixed(1);
+          const width = maxCount > 0 ? ((count / maxCount) * 100).toFixed(1) : 0;
+          const color = level === 'High' ? 'rgba(46,229,157,0.3)' : 
+                        level === 'Medium' ? 'rgba(255,179,71,0.3)' : 'rgba(170,178,214,0.3)';
+          return `
+            <div class="chart-bar">
+              <div class="chart-label">${level}</div>
+              <div class="chart-bar-fill" style="width: ${width}%; background: linear-gradient(90deg, ${color}, ${color});">
+                <div class="chart-bar-value">${count} (${percentage}%)</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    // Render Timeline
+    function renderTimeline() {
+      const timeline = $('recentTimeline');
+      if (!timeline) return;
+
+      // Generate timeline from recent evidence and cases
+      const activities = [];
+
+      // Add recent evidence items
+      evidenceData.slice(0, 3).forEach((item, idx) => {
+        activities.push({
+          title: 'New Evidence Added',
+          desc: `${item.entities?.gene || 'N/A'} ${item.entities?.alteration || ''} — ${item.trial?.trialId || item.title.substring(0, 50) + '...'}`,
+          time: `${idx + 2} hours ago`
+        });
+      });
+
+      // Add recent cases
+      casesData.filter(c => c.status === 'Active').slice(0, 2).forEach((caseItem, idx) => {
+        activities.push({
+          title: 'Case Analysis Completed',
+          desc: `${caseItem.caseId} — ${caseItem.recommendation || caseItem.profile}`,
+          time: `${idx + 1} day${idx > 0 ? 's' : ''} ago`
+        });
+      });
+
+      timeline.innerHTML = activities.slice(0, 5).map(activity => `
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">${activity.title}</div>
+            <div class="timeline-desc">${activity.desc}</div>
+            <div class="timeline-time">${activity.time}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Render Evidence List
+    function renderEvidenceList(filter = {}) {
+      const list = $('evidenceList');
+      if (!list) return;
+
+      let filtered = evidenceData;
+
+      // Apply filters
+      if (filter.search) {
+        const search = filter.search.toLowerCase();
+        filtered = filtered.filter(e => 
+          e.title.toLowerCase().includes(search) ||
+          e.entities?.drugName?.toLowerCase().includes(search) ||
+          e.trial?.trialId?.toLowerCase().includes(search)
+        );
+      }
+      if (filter.type) {
+        filtered = filtered.filter(e => e.evidenceType === filter.type);
+      }
+      if (filter.confidence) {
+        filtered = filtered.filter(e => e.governance.confidence === filter.confidence);
+      }
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<p style=\"color: var(--muted); text-align: center; padding: 24px;\">No evidence items found.</p>';
+        return;
+      }
+
+      list.innerHTML = filtered.map(item => {
+        const confidenceColor = item.governance.confidence === 'High' ? 'var(--ok)' : 
+                                 item.governance.confidence === 'Medium' ? 'var(--warning)' : 'var(--muted)';
+        return `
+          <div class="case-item">
+            <div class="case-header">
+              <div class="case-id">${item.id}</div>
+              <div class="case-badge" style="background: rgba(122,162,255,0.15); color: var(--accent);">${item.evidenceType}</div>
+            </div>
+            <div class="case-info">
+              <strong>Title:</strong> ${item.title}<br/>
+              <strong>Drug:</strong> ${item.entities?.drugName || 'N/A'} | 
+              <strong>Gene:</strong> ${item.entities?.gene || 'N/A'} (${item.entities?.alteration || 'N/A'})<br/>
+              <strong>Trial ID:</strong> ${item.trial?.trialId || 'N/A'} | 
+              <strong>Confidence:</strong> <span style="color: ${confidenceColor};">${item.governance.confidence}</span><br/>
+              <strong>Published:</strong> ${item.pubDate}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Render Case List
+    function renderCaseList(filter = {}) {
+      const list = $('caseList');
+      if (!list) return;
+
+      let filtered = casesData;
+
+      // Apply filters
+      if (filter.search) {
+        const search = filter.search.toLowerCase();
+        filtered = filtered.filter(c => 
+          c.caseId.toLowerCase().includes(search) ||
+          c.profile.toLowerCase().includes(search)
+        );
+      }
+      if (filter.status) {
+        filtered = filtered.filter(c => c.status === filter.status);
+      }
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<p style=\"color: var(--muted); text-align: center; padding: 24px;\">No cases found.</p>';
+        return;
+      }
+
+      list.innerHTML = filtered.map(caseItem => {
+        const badgeClass = caseItem.status.toLowerCase();
+        const badgeStyle = caseItem.status === 'Active' ? 'background: rgba(46,229,157,0.15); color: var(--ok);' :
+                           caseItem.status === 'Draft' ? 'background: rgba(170,178,214,0.15); color: var(--muted);' :
+                           caseItem.status === 'Executed' ? 'background: rgba(122,162,255,0.15); color: var(--accent);' :
+                           'background: rgba(255,107,107,0.15); color: var(--bad);';
+
+        let infoHtml = `<strong>Profile:</strong> ${caseItem.profile}<br/>`;
+        
+        if (caseItem.recommendation) {
+          infoHtml += `<strong>Recommendation:</strong> ${caseItem.recommendation}<br/>`;
+          infoHtml += `<strong>Confidence:</strong> ${(caseItem.confidence * 100).toFixed(0)}% | <strong>Evidence:</strong> ${caseItem.evidence}`;
+        } else if (caseItem.nextStep) {
+          infoHtml += `<strong>Status:</strong> ${caseItem.nextStep}`;
+        } else if (caseItem.decision) {
+          infoHtml += `<strong>Decision:</strong> ${caseItem.decision.approvedBy} at ${caseItem.decision.timestamp}`;
+        }
+
+        return `
+          <div class="case-item">
+            <div class="case-header">
+              <div class="case-id">${caseItem.caseId}</div>
+              <div class="case-badge" style="${badgeStyle}">${caseItem.status}</div>
+            </div>
+            <div class="case-info">
+              ${infoHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Render Drug List
+    function renderDrugList(filter = {}, sort = false) {
+      const list = $('drugList');
+      if (!list) return;
+
+      let filtered = drugsData;
+
+      // Apply filters
+      if (filter.gene) {
+        filtered = filtered.filter(d => d.targets.includes(filter.gene));
+      }
+      if (filter.approval === 'FDA') {
+        filtered = filtered.filter(d => d.approvals.includes('FDA'));
+      } else if (filter.approval === 'EMA') {
+        filtered = filtered.filter(d => d.approvals.includes('EMA'));
+      } else if (filter.approval === 'Both') {
+        filtered = filtered.filter(d => d.approvals.includes('FDA') && d.approvals.includes('EMA'));
+      }
+
+      // Sort by confidence
+      if (sort) {
+        filtered = [...filtered].sort((a, b) => b.confidence - a.confidence);
+      }
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<p style=\"color: var(--muted); text-align: center; padding: 24px;\">No drugs found.</p>';
+        return;
+      }
+
+      list.innerHTML = filtered.map(drug => {
+        const confidencePercent = (drug.confidence * 100).toFixed(0);
+        const confidenceColor = drug.confidence >= 0.9 ? 'var(--ok)' : 
+                                 drug.confidence >= 0.7 ? 'var(--warning)' : 'var(--muted)';
+        
+        const approvalBadges = drug.approvals.map(a => 
+          `<span class="pill" style="background: rgba(46,229,157,0.15); color: var(--ok); margin-right: 6px;">${a}</span>`
+        ).join('');
+
+        const efficacyMetrics = drug.efficacy ? 
+          `<br/><strong>Efficacy:</strong> ORR ${drug.efficacy.orr || 'N/A'}, PFS ${drug.efficacy.pfs || 'N/A'}, OS ${drug.efficacy.os || 'N/A'}` : '';
+
+        return `
+          <div class="case-item">
+            <div class="case-header">
+              <div class="case-id">${drug.name}</div>
+              <div style="display: flex; gap: 6px;">
+                ${approvalBadges}
+              </div>
+            </div>
+            <div class="case-info">
+              <strong>Targets:</strong> ${drug.targets.join(', ')} | 
+              <strong>MoA:</strong> ${drug.moa}<br/>
+              <strong>Trial:</strong> ${drug.linkedTrials.join(', ')}<br/>
+              <strong>Confidence:</strong> <span style="color: ${confidenceColor}; font-weight: 600;">${confidencePercent}%</span>
+              ${efficacyMetrics}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Load data on page load
+    loadMockData();
 
     // Sidebar toggle
     const sidebar = $('sidebar');
@@ -1288,6 +1684,90 @@ Safety: manageable. Limitations: single-arm, small N.`;
         }
       });
     });
+
+    // Evidence Library Filters
+    function setupEvidenceFilters() {
+      const searchInput = $('evidenceSearch');
+      const typeFilter = $('evidenceFilterType');
+      const confidenceFilter = $('evidenceFilterConfidence');
+
+      if (!searchInput) return;
+
+      const applyFilters = () => {
+        renderEvidenceList({
+          search: searchInput.value,
+          type: typeFilter.value,
+          confidence: confidenceFilter.value
+        });
+      };
+
+      searchInput.addEventListener('input', applyFilters);
+      typeFilter.addEventListener('change', applyFilters);
+      confidenceFilter.addEventListener('change', applyFilters);
+    }
+
+    // Case Filters
+    function setupCaseFilters() {
+      const searchInput = $('caseSearch');
+      const statusFilter = $('caseFilterStatus');
+
+      if (!searchInput) return;
+
+      const applyFilters = () => {
+        renderCaseList({
+          search: searchInput.value,
+          status: statusFilter.value
+        });
+      };
+
+      searchInput.addEventListener('input', applyFilters);
+      statusFilter.addEventListener('change', applyFilters);
+    }
+
+    // Drug Filters
+    function setupDrugFilters() {
+      const geneFilter = $('drugFilterGene');
+      const approvalFilter = $('drugFilterApproval');
+      const sortBtn = $('sortByConfidence');
+
+      if (!geneFilter) return;
+
+      let isSorted = false;
+
+      const applyFilters = () => {
+        renderDrugList({
+          gene: geneFilter.value,
+          approval: approvalFilter.value
+        }, isSorted);
+      };
+
+      geneFilter.addEventListener('change', applyFilters);
+      approvalFilter.addEventListener('change', applyFilters);
+      
+      sortBtn.addEventListener('click', () => {
+        isSorted = !isSorted;
+        sortBtn.textContent = isSorted ? 'Sort by Confidence ↑' : 'Sort by Confidence ↓';
+        applyFilters();
+      });
+    }
+
+    // Setup filters when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      setupEvidenceFilters();
+      setupCaseFilters();
+      setupDrugFilters();
+    });
+
+    // Setup filters after navigation
+    const originalNavigateTo = navigateTo;
+    navigateTo = function(pageName) {
+      originalNavigateTo(pageName);
+      setTimeout(() => {
+        setupEvidenceFilters();
+        setupCaseFilters();
+        setupDrugFilters();
+      }, 100);
+    };
   </script>
 </body>
 </html>
