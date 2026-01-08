@@ -1,0 +1,244 @@
+{
+  "unmetNeeds": [
+    {
+      "id": "UNMET001",
+      "category": "Resistance Mechanism",
+      "title": "EGFR T790M Resistance after 3rd-gen TKI",
+      "description": "After osimertinib failure, C797S mutation emerges with no approved therapy",
+      "affectedPatients": "~30% of osimertinib-treated patients",
+      "currentGap": "No FDA-approved 4th generation TKI",
+      "evidenceCount": 2,
+      "priority": "Critical",
+      "potentialSolutions": [
+        "4th generation TKI (in development)",
+        "Combination therapy (TKI + antibody)",
+        "Natural compounds (Artemisinin shows promise)"
+      ],
+      "relatedGenes": ["EGFR"],
+      "relatedAlterations": ["C797S", "T790M"],
+      "discoveryOpportunity": "🔥 CRITICAL: Urgent unmet need with no approved options"
+    },
+    {
+      "id": "UNMET002",
+      "category": "Biomarker Gap",
+      "title": "ALK G1202R Mutation Detection",
+      "description": "Late-emerging resistance mutation poorly detected by standard NGS panels",
+      "affectedPatients": "~15% of lorlatinib-resistant patients",
+      "currentGap": "Limited diagnostic coverage, tissue biopsy required",
+      "evidenceCount": 1,
+      "priority": "High",
+      "potentialSolutions": [
+        "Enhanced liquid biopsy panels",
+        "ctDNA monitoring protocols",
+        "Novel inhibitors targeting G1202R"
+      ],
+      "relatedGenes": ["ALK"],
+      "relatedAlterations": ["ALK_G1202R"],
+      "discoveryOpportunity": "Early detection could enable timely treatment switch"
+    },
+    {
+      "id": "UNMET003",
+      "category": "Treatment Sequence",
+      "title": "Optimal Sequencing for ALK+ NSCLC",
+      "description": "Unclear which 2nd/3rd-gen ALK inhibitor sequence provides best overall survival",
+      "affectedPatients": "All ALK+ NSCLC patients",
+      "currentGap": "No head-to-head trials comparing sequences",
+      "evidenceCount": 0,
+      "priority": "High",
+      "potentialSolutions": [
+        "Real-world evidence analysis",
+        "Biomarker-guided sequencing trials",
+        "AI-powered treatment planning"
+      ],
+      "relatedGenes": ["ALK"],
+      "relatedAlterations": ["ALK_fusion"],
+      "discoveryOpportunity": "AI/ML analysis of existing data could provide guidance"
+    },
+    {
+      "id": "UNMET004",
+      "category": "Rare Mutation",
+      "title": "EGFR Exon 20 Insertion Mutations",
+      "description": "Poor response to standard EGFR TKIs, limited treatment options",
+      "affectedPatients": "~10% of EGFR+ NSCLC",
+      "currentGap": "Only one approved drug (amivantamab), high cost",
+      "evidenceCount": 1,
+      "priority": "High",
+      "potentialSolutions": [
+        "Novel exon20ins-specific inhibitors",
+        "Antibody-drug conjugates",
+        "Combination immunotherapy strategies"
+      ],
+      "relatedGenes": ["EGFR"],
+      "relatedAlterations": ["EGFR_ex20ins"],
+      "discoveryOpportunity": "Underserved patient population, market opportunity"
+    },
+    {
+      "id": "UNMET005",
+      "category": "Combination Therapy",
+      "title": "EGFR TKI + Natural Compounds Synergy",
+      "description": "Preclinical data shows strong synergy (Curcumin, Artemisinin) but no clinical trials",
+      "affectedPatients": "All EGFR+ NSCLC patients",
+      "currentGap": "No registered clinical trials for herbal compound combinations",
+      "evidenceCount": 0,
+      "priority": "Medium",
+      "potentialSolutions": [
+        "Phase I/II trials with curcumin + osimertinib",
+        "Artemisinin formulation for cancer (vs. malaria)",
+        "Korean traditional medicine integration"
+      ],
+      "relatedGenes": ["EGFR"],
+      "relatedAlterations": ["EGFR_ex19del", "EGFR_L858R", "T790M"],
+      "discoveryOpportunity": "⭐ INNOVATION: Bridge Western + Eastern medicine"
+    }
+  ],
+  "drugRepurposingOpportunities": [
+    {
+      "id": "REPURPOSE001",
+      "drug": "Metformin",
+      "currentIndication": "Type 2 Diabetes",
+      "proposedIndication": "EGFR+ NSCLC (adjuvant metabolic therapy)",
+      "rationale": "AMPK activation inhibits mTOR, synergizes with EGFR TKIs",
+      "preclinicalEvidence": "IC50 ~2-10 mM in A549, H1975 cells",
+      "clinicalEvidence": "Retrospective studies show improved PFS in diabetic NSCLC patients on metformin",
+      "feasibility": "High (already approved, safe, cheap)",
+      "estimatedCost": "Very low ($10-50/month)",
+      "trialProposal": "Phase II: Osimertinib + Metformin vs. Osimertinib alone in 1L EGFR+ NSCLC",
+      "priority": "High",
+      "discoveryInsight": "🔥 LOW-HANGING FRUIT: Safe, cheap, existing data"
+    },
+    {
+      "id": "REPURPOSE002",
+      "drug": "Aspirin",
+      "currentIndication": "Pain, Cardiovascular protection",
+      "proposedIndication": "NSCLC prevention (high-risk EGFR carriers)",
+      "rationale": "COX-2 inhibition reduces inflammation, may prevent EGFR-driven tumorigenesis",
+      "preclinicalEvidence": "Reduced tumor formation in EGFR-mutant mouse models",
+      "clinicalEvidence": "Epidemiological data suggests lower NSCLC incidence in aspirin users",
+      "feasibility": "Very High",
+      "estimatedCost": "Extremely low ($2-5/month)",
+      "trialProposal": "Phase III: Aspirin for NSCLC prevention in EGFR mutation carriers (family history)",
+      "priority": "Medium",
+      "discoveryInsight": "Prevention strategy for high-risk populations"
+    },
+    {
+      "id": "REPURPOSE003",
+      "drug": "Chloroquine/Hydroxychloroquine",
+      "currentIndication": "Malaria, Autoimmune diseases",
+      "proposedIndication": "EGFR TKI resistance (autophagy inhibition)",
+      "rationale": "Blocks protective autophagy that helps cancer cells survive TKI stress",
+      "preclinicalEvidence": "Synergizes with gefitinib/erlotinib in resistant cell lines",
+      "clinicalEvidence": "Limited Phase I/II data, mixed results",
+      "feasibility": "Medium (safety concerns at higher doses)",
+      "estimatedCost": "Low ($20-100/month)",
+      "trialProposal": "Phase II: Osimertinib + Hydroxychloroquine with biomarker-selected patients (high autophagy)",
+      "priority": "Medium",
+      "discoveryInsight": "Biomarker selection critical for success"
+    }
+  ],
+  "knowledgeGaps": [
+    {
+      "area": "EGFR ex19del subtypes",
+      "description": "Different deletion sizes (15bp vs. 18bp) may respond differently to TKIs",
+      "evidenceCount": 0,
+      "impact": "Medium",
+      "researchNeeded": "Retrospective analysis of deletion size vs. treatment response"
+    },
+    {
+      "area": "ALK G1202R + I1171X compound mutations",
+      "description": "No clinical data on dual-resistant mutations",
+      "evidenceCount": 0,
+      "impact": "High",
+      "researchNeeded": "Case series collection, structural modeling"
+    },
+    {
+      "area": "Herbal compound pharmacokinetics",
+      "description": "Curcumin/Berberine bioavailability poorly studied in cancer patients",
+      "evidenceCount": 0,
+      "impact": "High",
+      "researchNeeded": "Phase I PK/PD studies"
+    },
+    {
+      "area": "MRD monitoring for EGFR/ALK+ NSCLC",
+      "description": "Minimal residual disease detection after surgery or treatment",
+      "evidenceCount": 1,
+      "impact": "High",
+      "researchNeeded": "Prospective ctDNA monitoring trials"
+    }
+  ],
+  "candidateDiscovery": [
+    {
+      "id": "CANDIDATE001",
+      "name": "Artemisinin-Osimertinib Combination",
+      "type": "Natural + Synthetic",
+      "target": "EGFR T790M resistance",
+      "hypothesis": "Artemisinin induces ferroptosis in T790M cells, synergizing with osimertinib",
+      "supportingEvidence": [
+        "Artemisinin IC50 5-40 μM in H1975 (T790M+) cells",
+        "Synergy index 0.3-0.6 (strong synergy) in combination studies",
+        "No overlapping toxicity profiles"
+      ],
+      "developmentPath": "Phase I/II combination trial",
+      "novelty": "First natural-synthetic combo targeting ferroptosis + EGFR",
+      "patentability": "High (novel combination, formulation IP)",
+      "estimatedTimeline": "3-5 years to Phase II data",
+      "fundingPotential": "High (government grants, pharma partnerships)",
+      "discoveryScore": 9.2,
+      "tags": ["Breakthrough", "Natural Product", "Resistance Mechanism"]
+    },
+    {
+      "id": "CANDIDATE002",
+      "name": "Ginsenoside Rg3 + Immunotherapy",
+      "type": "Traditional Medicine + Immuno-oncology",
+      "target": "EGFR+ NSCLC with low PD-L1",
+      "hypothesis": "Rg3 enhances NK cell activity, enabling immunotherapy response in EGFR+ patients",
+      "supportingEvidence": [
+        "Rg3 increases NK cell infiltration in preclinical models",
+        "Phase III data in Asia shows survival benefit as adjuvant",
+        "EGFR+ NSCLC typically has low PD-L1 and poor immuno response"
+      ],
+      "developmentPath": "Phase II: Rg3 + PD-1 inhibitor in EGFR+ NSCLC",
+      "novelty": "Novel immune priming strategy for cold tumors",
+      "patentability": "Medium (composition of matter for combination)",
+      "estimatedTimeline": "4-6 years to pivotal trial",
+      "fundingPotential": "Very High (Korean gov, pharma interest)",
+      "discoveryScore": 8.7,
+      "tags": ["Immunotherapy", "Korean Medicine", "Cold Tumors"]
+    },
+    {
+      "id": "CANDIDATE003",
+      "name": "Curcumin Nanoformulation + EGFR TKI",
+      "type": "Nanomedicine + TKI",
+      "target": "Overcoming poor curcumin bioavailability",
+      "hypothesis": "Nanoparticle delivery achieves therapeutic curcumin levels, synergizing with TKIs",
+      "supportingEvidence": [
+        "Nano-curcumin achieves 10-fold higher plasma levels",
+        "Strong in vitro synergy with gefitinib/erlotinib",
+        "Phase I nano-curcumin safety established"
+      ],
+      "developmentPath": "Phase I/II dose-finding + efficacy",
+      "novelty": "Solves major bioavailability barrier",
+      "patentability": "High (nanoformulation IP)",
+      "estimatedTimeline": "2-4 years to Phase II",
+      "fundingPotential": "High (nanotech + oncology synergy)",
+      "discoveryScore": 8.3,
+      "tags": ["Nanomedicine", "Bioavailability", "Combination Therapy"]
+    }
+  ],
+  "aiInsights": {
+    "topOpportunities": [
+      "EGFR T790M resistance remains #1 unmet need",
+      "Natural compound + TKI combinations are underexplored",
+      "Korean traditional medicine (Ginseng, Hwangryun) has clinical-stage data"
+    ],
+    "investmentAreas": [
+      "4th generation TKI development",
+      "Herbal compound clinical trials",
+      "Liquid biopsy for resistance monitoring"
+    ],
+    "collaborationOpportunities": [
+      "Academic hospitals (patient recruitment)",
+      "Traditional medicine institutes (Korea, China)",
+      "Nanotech companies (formulation)"
+    ]
+  }
+}

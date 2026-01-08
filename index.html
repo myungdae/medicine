@@ -721,6 +721,24 @@
       </div>
 
       <div class="nav-section">
+        <div class="nav-section-title">Drug Discovery</div>
+        <a class="nav-item" data-page="discovery">
+          <span class="nav-icon">🔬</span>
+          <span class="nav-label">Discovery Insights</span>
+          <span class="nav-badge" style="background: rgba(255,107,107,0.2); color: var(--bad);">HOT</span>
+        </a>
+        <a class="nav-item" data-page="herbal">
+          <span class="nav-icon">🌿</span>
+          <span class="nav-label">Herbal Compounds</span>
+          <span class="nav-badge" style="background: rgba(46,229,157,0.2); color: var(--ok);">NEW</span>
+        </a>
+        <a class="nav-item" data-page="unmet">
+          <span class="nav-icon">🎯</span>
+          <span class="nav-label">Unmet Needs</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
         <div class="nav-section-title">Resources</div>
         <a class="nav-item" href="download-ontology.html">
           <span class="nav-icon">📥</span>
@@ -1288,6 +1306,124 @@
         </div>
       </main>
     </div>
+
+    <!-- Drug Discovery Insights Page -->
+    <div class="page-content" id="page-discovery">
+      <header>
+        <h1>🔬 Drug Discovery Insights — Finding Innovation Opportunities</h1>
+        <div class="sub">
+          신약개발 기회 발견: Unmet Needs, Drug Repurposing, Novel Combinations
+          <span class="pill" style="margin-left:8px;">AI-Powered: <b>Discovery Engine</b></span>
+        </div>
+      </header>
+
+      <main>
+        <!-- Top Opportunities -->
+        <div class="card" style="margin-bottom: 24px; border: 2px solid rgba(255,107,107,0.3);">
+          <h2 style="color: var(--bad);">🔥 Top Discovery Opportunities</h2>
+          <div id="topOpportunities" class="case-list">
+            <div class="skeleton" style="height: 200px;"></div>
+          </div>
+        </div>
+
+        <!-- Candidate Discovery -->
+        <div class="card" style="margin-bottom: 24px;">
+          <h2>💡 Novel Drug Candidates</h2>
+          <div class="sub" style="margin-bottom: 16px;">
+            AI-identified combinations and formulations with high development potential
+          </div>
+          <div id="candidatesList" class="case-list">
+            <div class="skeleton" style="height: 300px;"></div>
+          </div>
+        </div>
+
+        <!-- Knowledge Gaps -->
+        <div class="card">
+          <h2>📊 Knowledge Gap Analysis</h2>
+          <div class="sub" style="margin-bottom: 16px;">
+            Research areas with insufficient evidence (opportunities for publication/trials)
+          </div>
+          <div id="knowledgeGapsList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+            <div class="skeleton" style="height: 150px;"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Herbal Compounds Page -->
+    <div class="page-content" id="page-herbal">
+      <header>
+        <h1>🌿 Herbal Compounds Database — Traditional + Modern Medicine</h1>
+        <div class="sub">
+          천연물/한약 성분 데이터베이스: 신약개발과 전통의학의 융합
+        </div>
+      </header>
+
+      <main>
+        <div class="card">
+          <h2>Natural Products & Traditional Medicine</h2>
+          <div style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
+            <input type="text" id="herbalSearch" placeholder="🔍 Search by name, source, or target..." style="flex: 1; min-width: 280px;" />
+            <select id="herbalFilterStatus" style="width: auto;">
+              <option value="">All Status</option>
+              <option value="Phase III">Phase III</option>
+              <option value="Phase II">Phase II</option>
+              <option value="Phase I">Phase I</option>
+              <option value="Preclinical">Preclinical</option>
+            </select>
+          </div>
+          <div id="herbalList" class="case-list">
+            <p style="color: var(--muted); text-align: center; padding: 24px;">Loading herbal compounds...</p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Unmet Needs Page -->
+    <div class="page-content" id="page-unmet">
+      <header>
+        <h1>🎯 Unmet Medical Needs — Critical Treatment Gaps</h1>
+        <div class="sub">
+          미충족 의학 수요: 아직 해결되지 않은 치료 공백 분석
+        </div>
+      </header>
+
+      <main>
+        <div class="card">
+          <h2>Critical Unmet Needs in NSCLC</h2>
+          <div style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
+            <select id="unmetFilterPriority" style="width: auto;">
+              <option value="">All Priority</option>
+              <option value="Critical">Critical</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+            </select>
+            <select id="unmetFilterCategory" style="width: auto;">
+              <option value="">All Categories</option>
+              <option value="Resistance Mechanism">Resistance</option>
+              <option value="Biomarker Gap">Biomarker</option>
+              <option value="Treatment Sequence">Treatment Sequence</option>
+              <option value="Rare Mutation">Rare Mutation</option>
+              <option value="Combination Therapy">Combination</option>
+            </select>
+          </div>
+          <div id="unmetNeedsList" class="case-list">
+            <p style="color: var(--muted); text-align: center; padding: 24px;">Loading unmet needs...</p>
+          </div>
+        </div>
+
+        <!-- Drug Repurposing -->
+        <div class="card" style="margin-top: 24px;">
+          <h2>🔄 Drug Repurposing Opportunities</h2>
+          <div class="sub" style="margin-bottom: 16px;">
+            기존 약물의 새로운 용도 (Low-hanging fruits)
+          </div>
+          <div id="repurposingList" class="case-list">
+            <div class="skeleton" style="height: 200px;"></div>
+          </div>
+        </div>
+      </main>
+    </div>
   </div>
 
   <!-- Modal: Evidence Detail -->
@@ -1337,21 +1473,27 @@
     let casesData = [];
     let drugsData = [];
     let resultsData = [];
+    let herbalData = [];
+    let discoveryInsights = {};
 
     // Load Mock Data
     async function loadMockData() {
       try {
-        const [evidenceRes, casesRes, drugsRes, resultsRes] = await Promise.all([
+        const [evidenceRes, casesRes, drugsRes, resultsRes, herbalRes, insightsRes] = await Promise.all([
           fetch('mockdata/evidence-items.json'),
           fetch('mockdata/patient-cases.json'),
           fetch('mockdata/drugs.json'),
-          fetch('mockdata/results.json')
+          fetch('mockdata/results.json'),
+          fetch('mockdata/herbal-compounds.json'),
+          fetch('mockdata/drug-discovery-insights.json')
         ]);
         
         evidenceData = await evidenceRes.json();
         casesData = await casesRes.json();
         drugsData = await drugsRes.json();
         resultsData = await resultsRes.json();
+        herbalData = await herbalRes.json();
+        discoveryInsights = await insightsRes.json();
 
         // Update Dashboard Stats
         updateDashboardStats();
@@ -1360,6 +1502,9 @@
         renderEvidenceList();
         renderCaseList();
         renderDrugList();
+        renderHerbalList();
+        renderDiscoveryInsights();
+        renderUnmetNeeds();
 
         console.log('Mock data loaded successfully');
       } catch (error) {
@@ -2062,6 +2207,557 @@
       modal.classList.add('active');
     }
 
+    // Render Herbal Compounds
+    function renderHerbalList(filter = {}) {
+      const list = $('herbalList');
+      if (!list) return;
+
+      let filtered = herbalData;
+
+      if (filter.search) {
+        const search = filter.search.toLowerCase();
+        filtered = filtered.filter(h => 
+          h.name.toLowerCase().includes(search) ||
+          h.source.toLowerCase().includes(search) ||
+          h.koreanName.toLowerCase().includes(search) ||
+          h.targets.some(t => t.toLowerCase().includes(search))
+        );
+      }
+      if (filter.status) {
+        filtered = filtered.filter(h => h.clinicalStatus === filter.status);
+      }
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<p style="color: var(--muted); text-align: center; padding: 24px;">No herbal compounds found.</p>';
+        return;
+      }
+
+      list.innerHTML = filtered.map(herb => {
+        const statusColor = herb.clinicalStatus.includes('III') ? 'var(--ok)' :
+                            herb.clinicalStatus.includes('II') ? 'var(--warning)' : 'var(--muted)';
+        
+        return `
+          <div class="case-item" onclick="openHerbalModal('${herb.id}')" style="cursor: pointer;">
+            <div class="case-header">
+              <div class="case-id">${herb.name} (${herb.koreanName})</div>
+              <div class="case-badge" style="background: rgba(46,229,157,0.15); color: ${statusColor};">${herb.clinicalStatus}</div>
+            </div>
+            <div class="case-info">
+              <strong>Source:</strong> ${herb.source} | <strong>Category:</strong> ${herb.category}<br/>
+              <strong>Targets:</strong> ${herb.targets.join(', ')} | <strong>MoA:</strong> ${herb.moa}<br/>
+              <strong>Potential:</strong> ${herb.potentialIndications.join(', ')}<br/>
+              ${herb.discoveryInsight ? `<div style="margin-top: 6px; color: var(--accent); font-weight: 600;">${herb.discoveryInsight}</div>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Render Discovery Insights
+    function renderDiscoveryInsights() {
+      // Top Opportunities
+      const topList = $('topOpportunities');
+      if (topList && discoveryInsights.candidateDiscovery) {
+        const topCandidates = discoveryInsights.candidateDiscovery
+          .sort((a, b) => b.discoveryScore - a.discoveryScore)
+          .slice(0, 3);
+
+        topList.innerHTML = topCandidates.map(candidate => `
+          <div class="case-item" style="border-left: 3px solid var(--bad);">
+            <div class="case-header">
+              <div class="case-id">${candidate.name}</div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <div class="case-badge" style="background: rgba(255,107,107,0.15); color: var(--bad);">Score: ${candidate.discoveryScore}/10</div>
+              </div>
+            </div>
+            <div class="case-info">
+              <strong>Type:</strong> ${candidate.type} | <strong>Target:</strong> ${candidate.target}<br/>
+              <strong>Hypothesis:</strong> ${candidate.hypothesis}<br/>
+              <strong>Development:</strong> ${candidate.developmentPath} | <strong>Timeline:</strong> ${candidate.estimatedTimeline}<br/>
+              <div style="margin-top: 8px;">
+                ${candidate.tags.map(tag => `<span class="pill" style="margin-right: 6px; background: rgba(255,107,107,0.15); color: var(--bad);">${tag}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Candidates List
+      const candidatesList = $('candidatesList');
+      if (candidatesList && discoveryInsights.candidateDiscovery) {
+        candidatesList.innerHTML = discoveryInsights.candidateDiscovery.map(candidate => `
+          <div class="case-item" onclick="openCandidateModal('${candidate.id}')" style="cursor: pointer;">
+            <div class="case-header">
+              <div class="case-id">${candidate.name}</div>
+              <div style="display: flex; gap: 6px;">
+                <span class="pill" style="background: rgba(122,162,255,0.15); color: var(--accent);">Score: ${candidate.discoveryScore}/10</span>
+              </div>
+            </div>
+            <div class="case-info">
+              <strong>Type:</strong> ${candidate.type}<br/>
+              <strong>Hypothesis:</strong> ${candidate.hypothesis}<br/>
+              <strong>Novelty:</strong> ${candidate.novelty} | <strong>Patentability:</strong> ${candidate.patentability}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Knowledge Gaps
+      const gapsList = $('knowledgeGapsList');
+      if (gapsList && discoveryInsights.knowledgeGaps) {
+        gapsList.innerHTML = discoveryInsights.knowledgeGaps.map(gap => `
+          <div class="stat-card">
+            <div class="stat-label">${gap.area}</div>
+            <div style="font-size: 13px; color: var(--text); margin: 8px 0; line-height: 1.5;">${gap.description}</div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="pill">Evidence: ${gap.evidenceCount}</span>
+              <span class="pill" style="background: ${gap.impact === 'High' ? 'rgba(255,107,107,0.15)' : 'rgba(255,179,71,0.15)'}; color: ${gap.impact === 'High' ? 'var(--bad)' : 'var(--warning)'};">${gap.impact} Impact</span>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Render Unmet Needs
+    function renderUnmetNeeds(filter = {}) {
+      const list = $('unmetNeedsList');
+      if (!list || !discoveryInsights.unmetNeeds) return;
+
+      let filtered = discoveryInsights.unmetNeeds;
+
+      if (filter.priority) {
+        filtered = filtered.filter(u => u.priority === filter.priority);
+      }
+      if (filter.category) {
+        filtered = filtered.filter(u => u.category === filter.category);
+      }
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<p style="color: var(--muted); text-align: center; padding: 24px;">No unmet needs found.</p>';
+        return;
+      }
+
+      list.innerHTML = filtered.map(need => {
+        const priorityColor = need.priority === 'Critical' ? 'var(--bad)' :
+                              need.priority === 'High' ? 'var(--warning)' : 'var(--muted)';
+        return `
+          <div class="case-item" onclick="openUnmetNeedModal('${need.id}')" style="cursor: pointer; border-left: 3px solid ${priorityColor};">
+            <div class="case-header">
+              <div class="case-id">${need.title}</div>
+              <div class="case-badge" style="background: rgba(255,107,107,0.15); color: ${priorityColor};">${need.priority}</div>
+            </div>
+            <div class="case-info">
+              <strong>Category:</strong> ${need.category} | <strong>Affected:</strong> ${need.affectedPatients}<br/>
+              <strong>Current Gap:</strong> ${need.currentGap}<br/>
+              <strong>Evidence Count:</strong> ${need.evidenceCount} | <strong>Genes:</strong> ${need.relatedGenes.join(', ')}<br/>
+              ${need.discoveryOpportunity ? `<div style="margin-top: 6px; color: ${priorityColor}; font-weight: 600;">${need.discoveryOpportunity}</div>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Render Drug Repurposing
+      const repurposingList = $('repurposingList');
+      if (repurposingList && discoveryInsights.drugRepurposingOpportunities) {
+        repurposingList.innerHTML = discoveryInsights.drugRepurposingOpportunities.map(drug => {
+          const priorityColor = drug.priority === 'High' ? 'var(--ok)' : 'var(--warning)';
+          return `
+            <div class="case-item" onclick="openRepurposingModal('${drug.id}')" style="cursor: pointer;">
+              <div class="case-header">
+                <div class="case-id">${drug.drug}</div>
+                <div class="case-badge" style="background: rgba(46,229,157,0.15); color: ${priorityColor};">${drug.priority} Priority</div>
+              </div>
+              <div class="case-info">
+                <strong>Current Use:</strong> ${drug.currentIndication} → <strong>Proposed:</strong> ${drug.proposedIndication}<br/>
+                <strong>Rationale:</strong> ${drug.rationale}<br/>
+                <strong>Feasibility:</strong> ${drug.feasibility} | <strong>Cost:</strong> ${drug.estimatedCost}<br/>
+                ${drug.discoveryInsight ? `<div style="margin-top: 6px; color: var(--ok); font-weight: 600;">${drug.discoveryInsight}</div>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    // Setup Herbal Filters
+    function setupHerbalFilters() {
+      const searchInput = $('herbalSearch');
+      const statusFilter = $('herbalFilterStatus');
+
+      if (!searchInput) return;
+
+      const applyFilters = () => {
+        renderHerbalList({
+          search: searchInput.value,
+          status: statusFilter.value
+        });
+      };
+
+      searchInput.addEventListener('input', applyFilters);
+      statusFilter.addEventListener('change', applyFilters);
+    }
+
+    // Setup Unmet Needs Filters
+    function setupUnmetFilters() {
+      const priorityFilter = $('unmetFilterPriority');
+      const categoryFilter = $('unmetFilterCategory');
+
+      if (!priorityFilter) return;
+
+      const applyFilters = () => {
+        renderUnmetNeeds({
+          priority: priorityFilter.value,
+          category: categoryFilter.value
+        });
+      };
+
+      priorityFilter.addEventListener('change', applyFilters);
+      categoryFilter.addEventListener('change', applyFilters);
+    }
+
+    // Open Herbal Modal
+    function openHerbalModal(herbId) {
+      const herb = herbalData.find(h => h.id === herbId);
+      if (!herb) return;
+
+      const modal = $('modalEvidence');
+      const title = $('modalEvidenceTitle');
+      const body = $('modalEvidenceBody');
+
+      title.textContent = `${herb.name} (${herb.koreanName})`;
+
+      const statusColor = herb.clinicalStatus.includes('III') ? 'var(--ok)' :
+                          herb.clinicalStatus.includes('II') ? 'var(--warning)' : 'var(--muted)';
+
+      body.innerHTML = `
+        <div class="modal-section">
+          <div class="modal-section-title">Basic Information</div>
+          <div class="modal-meta">
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Source</div>
+              <div class="modal-meta-value">${herb.source}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Category</div>
+              <div class="modal-meta-value">${herb.category}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Clinical Status</div>
+              <div class="modal-meta-value" style="color: ${statusColor};">${herb.clinicalStatus}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Mechanism & Targets</div>
+          <div class="modal-meta">
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Mechanism of Action</div>
+              <div class="modal-meta-value">${herb.moa}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Targets</div>
+              <div class="modal-meta-value">${herb.targets.join(', ')}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Preclinical Evidence</div>
+          <div class="modal-text">
+            <strong>Cell Lines:</strong> ${herb.preclinicalEvidence.cellLines.join(', ')}<br/>
+            <strong>IC50 Range:</strong> ${herb.preclinicalEvidence.ic50Range}<br/>
+            <strong>Mechanism Notes:</strong> ${herb.preclinicalEvidence.mechanismNotes}
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Development Potential</div>
+          <div class="modal-meta">
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Combination Potential</div>
+              <div class="modal-meta-value">${herb.combinationPotential.join(', ')}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Synergy</div>
+              <div class="modal-meta-value">${herb.synergy}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Safety Profile</div>
+              <div class="modal-meta-value">${herb.safetyProfile}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Bioavailability</div>
+              <div class="modal-meta-value">${herb.bioavailability}</div>
+            </div>
+          </div>
+        </div>
+
+        ${herb.discoveryInsight ? `
+        <div class="modal-section">
+          <div class="modal-section-title">Discovery Insight</div>
+          <div class="modal-text" style="color: var(--accent); font-weight: 600; font-size: 15px;">
+            ${herb.discoveryInsight}
+          </div>
+        </div>
+        ` : ''}
+
+        <div class="modal-section">
+          <div class="modal-section-title">Potential Indications</div>
+          <ul class="modal-list">
+            ${herb.potentialIndications.map(ind => `<li>${ind}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">References</div>
+          <ul class="modal-list">
+            ${herb.references.map(ref => `<li><a href="https://pubmed.ncbi.nlm.nih.gov/${ref.replace('PMID:', '')}/" target="_blank" style="color: var(--accent);">${ref}</a></li>`).join('')}
+          </ul>
+        </div>
+      `;
+
+      modal.classList.add('active');
+    }
+
+    // Open Candidate Modal (신약 후보물질)
+    function openCandidateModal(candidateId) {
+      const candidate = discoveryInsights.candidateDiscovery?.find(c => c.id === candidateId);
+      if (!candidate) return;
+
+      const modal = $('modalCase');
+      const title = $('modalCaseTitle');
+      const body = $('modalCaseBody');
+
+      title.textContent = candidate.name;
+
+      body.innerHTML = `
+        <div class="modal-section">
+          <div class="modal-section-title">Discovery Score</div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="font-size: 32px; font-weight: 700; color: var(--accent);">${candidate.discoveryScore}/10</div>
+            <div style="flex: 1;">
+              <div style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
+                <div style="background: var(--accent); height: 100%; width: ${candidate.discoveryScore * 10}%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Candidate Information</div>
+          <div class="modal-meta">
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Type</div>
+              <div class="modal-meta-value">${candidate.type}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Target</div>
+              <div class="modal-meta-value">${candidate.target}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Development Path</div>
+              <div class="modal-meta-value">${candidate.developmentPath}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Timeline</div>
+              <div class="modal-meta-value">${candidate.estimatedTimeline}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Hypothesis</div>
+          <div class="modal-text">${candidate.hypothesis}</div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Supporting Evidence</div>
+          <ul class="modal-list">
+            ${candidate.supportingEvidence.map(ev => `<li>${ev}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Development Assessment</div>
+          <div class="modal-meta">
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Novelty</div>
+              <div class="modal-meta-value">${candidate.novelty}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Patentability</div>
+              <div class="modal-meta-value">${candidate.patentability}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Funding Potential</div>
+              <div class="modal-meta-value">${candidate.fundingPotential}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Tags</div>
+          <div>
+            ${candidate.tags.map(tag => `<span class="pill" style="margin-right: 8px; background: rgba(122,162,255,0.15); color: var(--accent);">${tag}</span>`).join('')}
+          </div>
+        </div>
+      `;
+
+      modal.classList.add('active');
+    }
+
+    // Open Unmet Need Modal
+    function openUnmetNeedModal(needId) {
+      const need = discoveryInsights.unmetNeeds?.find(n => n.id === needId);
+      if (!need) return;
+
+      const modal = $('modalDrug');
+      const title = $('modalDrugTitle');
+      const body = $('modalDrugBody');
+
+      title.textContent = need.title;
+
+      const priorityColor = need.priority === 'Critical' ? 'var(--bad)' :
+                            need.priority === 'High' ? 'var(--warning)' : 'var(--muted)';
+
+      body.innerHTML = `
+        <div class="modal-section">
+          <div class="modal-section-title">Priority & Category</div>
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <span class="pill" style="background: rgba(255,107,107,0.15); color: ${priorityColor}; font-size: 14px; padding: 8px 16px;">${need.priority} Priority</span>
+            <span class="pill" style="background: rgba(122,162,255,0.15); color: var(--accent); font-size: 14px; padding: 8px 16px;">${need.category}</span>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Description</div>
+          <div class="modal-text">${need.description}</div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Impact Assessment</div>
+          <div class="modal-meta">
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Affected Patients</div>
+              <div class="modal-meta-value">${need.affectedPatients}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Current Gap</div>
+              <div class="modal-meta-value">${need.currentGap}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Evidence Count</div>
+              <div class="modal-meta-value">${need.evidenceCount}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Related Genes & Alterations</div>
+          <div class="modal-text">
+            <strong>Genes:</strong> ${need.relatedGenes.join(', ')}<br/>
+            <strong>Alterations:</strong> ${need.relatedAlterations.join(', ')}
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Potential Solutions</div>
+          <ul class="modal-list">
+            ${need.potentialSolutions.map(sol => `<li>${sol}</li>`).join('')}
+          </ul>
+        </div>
+
+        ${need.discoveryOpportunity ? `
+        <div class="modal-section">
+          <div class="modal-section-title">Discovery Opportunity</div>
+          <div class="modal-text" style="color: ${priorityColor}; font-weight: 600; font-size: 15px;">
+            ${need.discoveryOpportunity}
+          </div>
+        </div>
+        ` : ''}
+      `;
+
+      modal.classList.add('active');
+    }
+
+    // Open Repurposing Modal
+    function openRepurposingModal(drugId) {
+      const drug = discoveryInsights.drugRepurposingOpportunities?.find(d => d.id === drugId);
+      if (!drug) return;
+
+      const modal = $('modalDrug');
+      const title = $('modalDrugTitle');
+      const body = $('modalDrugBody');
+
+      title.textContent = `${drug.drug} Repurposing`;
+
+      const priorityColor = drug.priority === 'High' ? 'var(--ok)' : 'var(--warning)';
+
+      body.innerHTML = `
+        <div class="modal-section">
+          <div class="modal-section-title">Repurposing Opportunity</div>
+          <div class="modal-meta">
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Current Indication</div>
+              <div class="modal-meta-value">${drug.currentIndication}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Proposed Indication</div>
+              <div class="modal-meta-value" style="color: var(--accent);">${drug.proposedIndication}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Priority</div>
+              <div class="modal-meta-value" style="color: ${priorityColor};">${drug.priority}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Scientific Rationale</div>
+          <div class="modal-text">${drug.rationale}</div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Evidence</div>
+          <div class="modal-text">
+            <strong>Preclinical:</strong> ${drug.preclinicalEvidence}<br/>
+            <strong>Clinical:</strong> ${drug.clinicalEvidence}
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Feasibility Assessment</div>
+          <div class="modal-meta">
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Feasibility</div>
+              <div class="modal-meta-value">${drug.feasibility}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Estimated Cost</div>
+              <div class="modal-meta-value">${drug.estimatedCost}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Proposed Clinical Trial</div>
+          <div class="modal-text">${drug.trialProposal}</div>
+        </div>
+
+        ${drug.discoveryInsight ? `
+        <div class="modal-section">
+          <div class="modal-section-title">Discovery Insight</div>
+          <div class="modal-text" style="color: var(--ok); font-weight: 600; font-size: 15px;">
+            ${drug.discoveryInsight}
+          </div>
+        </div>
+        ` : ''}
+      `;
+
+      modal.classList.add('active');
+    }
+
     // Load data on page load
     loadMockData();
 
@@ -2368,6 +3064,8 @@ Safety: manageable. Limitations: single-arm, small N.`;
       setupEvidenceFilters();
       setupCaseFilters();
       setupDrugFilters();
+      setupHerbalFilters();
+      setupUnmetFilters();
     });
 
     // Setup filters after navigation
@@ -2378,6 +3076,8 @@ Safety: manageable. Limitations: single-arm, small N.`;
         setupEvidenceFilters();
         setupCaseFilters();
         setupDrugFilters();
+        setupHerbalFilters();
+        setupUnmetFilters();
       }, 100);
     };
   </script>

@@ -1,0 +1,134 @@
+[
+  {
+    "id": "HERB001",
+    "name": "Curcumin",
+    "source": "Turmeric (강황)",
+    "koreanName": "커큐민",
+    "category": "Natural Product",
+    "moa": "Multi-target (NF-κB, STAT3, Akt inhibition)",
+    "targets": ["EGFR", "NF-κB", "STAT3"],
+    "potentialIndications": ["NSCLC", "Colorectal Cancer", "Breast Cancer"],
+    "preclinicalEvidence": {
+      "cellLines": ["A549", "H1975", "PC9"],
+      "ic50Range": "10-50 μM",
+      "mechanismNotes": "Inhibits EGFR phosphorylation, induces apoptosis, anti-inflammatory"
+    },
+    "clinicalStatus": "Phase II",
+    "combinationPotential": ["Gefitinib", "Erlotinib"],
+    "synergy": "Enhances sensitivity to EGFR TKIs",
+    "safetyProfile": "Generally well-tolerated, low toxicity",
+    "bioavailability": "Poor (requires formulation optimization)",
+    "discoveryInsight": "⭐ Potential to overcome EGFR TKI resistance",
+    "references": ["PMID:25876735", "PMID:29234567"]
+  },
+  {
+    "id": "HERB002",
+    "name": "Berberine",
+    "source": "Coptis chinensis (황련)",
+    "koreanName": "베르베린",
+    "category": "Traditional Chinese Medicine",
+    "moa": "AMPK activation, mTOR inhibition",
+    "targets": ["AMPK", "mTOR", "EGFR"],
+    "potentialIndications": ["NSCLC", "Metabolic syndrome", "Diabetes"],
+    "preclinicalEvidence": {
+      "cellLines": ["A549", "H1299", "NCI-H460"],
+      "ic50Range": "20-80 μM",
+      "mechanismNotes": "Inhibits cell proliferation, induces autophagy, metabolic reprogramming"
+    },
+    "clinicalStatus": "Phase I",
+    "combinationPotential": ["Metformin", "Osimertinib"],
+    "synergy": "Metabolic targeting combined with EGFR inhibition",
+    "safetyProfile": "Well-established in traditional medicine, low side effects",
+    "bioavailability": "Moderate",
+    "discoveryInsight": "⭐ Novel metabolic targeting approach for EGFR+ NSCLC",
+    "references": ["PMID:28765432", "PMID:30123456"]
+  },
+  {
+    "id": "HERB003",
+    "name": "Ginsenoside Rg3",
+    "source": "Panax ginseng (인삼)",
+    "koreanName": "진세노사이드 Rg3",
+    "category": "Korean Traditional Medicine",
+    "moa": "Angiogenesis inhibition, Immune modulation",
+    "targets": ["VEGF", "HIF-1α", "Immune checkpoints"],
+    "potentialIndications": ["NSCLC", "Gastric Cancer", "Hepatocellular Carcinoma"],
+    "preclinicalEvidence": {
+      "cellLines": ["A549", "H1650", "H358"],
+      "ic50Range": "30-100 μM",
+      "mechanismNotes": "Inhibits angiogenesis, enhances NK cell activity, reduces metastasis"
+    },
+    "clinicalStatus": "Phase III (China, Korea)",
+    "combinationPotential": ["Chemotherapy", "Immunotherapy"],
+    "synergy": "Enhances immune response, reduces chemotherapy side effects",
+    "safetyProfile": "Excellent safety profile, used clinically in Asia",
+    "bioavailability": "Good",
+    "discoveryInsight": "⭐ Immuno-oncology adjuvant with strong clinical data",
+    "references": ["PMID:31234567", "PMID:29876543"]
+  },
+  {
+    "id": "HERB004",
+    "name": "Artemisinin",
+    "source": "Artemisia annua (청호)",
+    "koreanName": "아르테미시닌",
+    "category": "Natural Product (Nobel Prize 2015)",
+    "moa": "Iron-mediated ROS generation",
+    "targets": ["Iron metabolism", "ROS pathways"],
+    "potentialIndications": ["Drug-resistant cancers", "Malaria"],
+    "preclinicalEvidence": {
+      "cellLines": ["A549", "H1975 (EGFR T790M)", "PC9"],
+      "ic50Range": "5-40 μM",
+      "mechanismNotes": "Induces ferroptosis, targets cancer stem cells"
+    },
+    "clinicalStatus": "Phase I/II",
+    "combinationPotential": ["Osimertinib", "Alectinib"],
+    "synergy": "⭐ Overcomes T790M resistance mechanism",
+    "safetyProfile": "Well-tolerated, established antimalarial",
+    "bioavailability": "Moderate",
+    "discoveryInsight": "🔥 BREAKTHROUGH: Selective for EGFR T790M resistant cells",
+    "references": ["PMID:32123456", "PMID:30987654"]
+  },
+  {
+    "id": "HERB005",
+    "name": "Resveratrol",
+    "source": "Grapes (포도)",
+    "koreanName": "레스베라트롤",
+    "category": "Polyphenol",
+    "moa": "SIRT1 activation, Anti-oxidant",
+    "targets": ["SIRT1", "NF-κB", "EGFR"],
+    "potentialIndications": ["NSCLC", "Prevention", "Aging"],
+    "preclinicalEvidence": {
+      "cellLines": ["A549", "H460", "H1299"],
+      "ic50Range": "40-150 μM",
+      "mechanismNotes": "Senescence induction, autophagy activation"
+    },
+    "clinicalStatus": "Phase II",
+    "combinationPotential": ["Chemotherapy", "Radiotherapy"],
+    "synergy": "Chemosensitizer, radiosensitizer",
+    "safetyProfile": "Excellent, dietary supplement",
+    "bioavailability": "Poor (requires nano-formulation)",
+    "discoveryInsight": "Adjuvant therapy potential",
+    "references": ["PMID:27654321", "PMID:29123789"]
+  },
+  {
+    "id": "HERB006",
+    "name": "Wogonin",
+    "source": "Scutellaria baicalensis (황금)",
+    "koreanName": "우고닌",
+    "category": "Traditional Chinese/Korean Medicine",
+    "moa": "Caspase activation, Cell cycle arrest",
+    "targets": ["Caspase-3", "CDK", "EGFR"],
+    "potentialIndications": ["NSCLC", "Glioblastoma", "Leukemia"],
+    "preclinicalEvidence": {
+      "cellLines": ["A549", "H1975", "H1650"],
+      "ic50Range": "15-60 μM",
+      "mechanismNotes": "G1 arrest, apoptosis induction, anti-inflammatory"
+    },
+    "clinicalStatus": "Preclinical (Late stage)",
+    "combinationPotential": ["EGFR TKIs", "Checkpoint inhibitors"],
+    "synergy": "Enhances apoptosis in TKI-resistant cells",
+    "safetyProfile": "Traditional use supports safety",
+    "bioavailability": "Moderate",
+    "discoveryInsight": "⭐ Potential for EGFR TKI-resistant NSCLC",
+    "references": ["PMID:28234567", "PMID:30567890"]
+  }
+]
