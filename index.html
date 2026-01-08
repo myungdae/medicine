@@ -727,6 +727,11 @@
           <span class="nav-label">Discovery Insights</span>
           <span class="nav-badge" style="background: rgba(255,107,107,0.2); color: var(--bad);">HOT</span>
         </a>
+        <a class="nav-item" data-page="hidden">
+          <span class="nav-icon">🔗</span>
+          <span class="nav-label">Hidden Connections</span>
+          <span class="nav-badge" style="background: rgba(255,107,107,0.2); color: var(--bad);">AI</span>
+        </a>
         <a class="nav-item" data-page="herbal">
           <span class="nav-icon">🌿</span>
           <span class="nav-label">Herbal Compounds</span>
@@ -1350,6 +1355,103 @@
       </main>
     </div>
 
+    <!-- Hidden Connections Page -->
+    <div class="page-content" id="page-hidden">
+      <header>
+        <h1>🔗 Hidden Knowledge Connections — Literature-Based Discovery</h1>
+        <div class="sub">
+          문헌에 존재하지만 연결되지 않은 지식 발견: Swanson ABC 패턴, 교차 도메인 브리지
+          <span class="pill" style="margin-left:8px;">AI Method: <b>Knowledge Graph Mining</b></span>
+        </div>
+      </header>
+
+      <main>
+        <!-- Impact Summary -->
+        <div class="dashboard-grid" style="margin-bottom: 24px;">
+          <div class="stat-card" style="border-left: 3px solid var(--bad);">
+            <div class="stat-label">Hidden Connections Found</div>
+            <div class="stat-value" id="hidden-total">-</div>
+            <div class="stat-change" id="hidden-validated">Loading...</div>
+          </div>
+          <div class="stat-card" style="border-left: 3px solid var(--warning);">
+            <div class="stat-label">Average Time Gap</div>
+            <div class="stat-value" id="hidden-timegap">-</div>
+            <div class="stat-change">Years between A-B-C and connection</div>
+          </div>
+          <div class="stat-card" style="border-left: 3px solid var(--ok);">
+            <div class="stat-label">Avg Novelty Score</div>
+            <div class="stat-value" id="hidden-novelty">-</div>
+            <div class="stat-change">AI-powered discovery ranking</div>
+          </div>
+          <div class="stat-card" style="border-left: 3px solid var(--accent);">
+            <div class="stat-label">Estimated Patient Impact</div>
+            <div class="stat-value" id="hidden-patients">-</div>
+            <div class="stat-change" id="hidden-savings">Loading...</div>
+          </div>
+        </div>
+
+        <!-- What is Hidden Knowledge? -->
+        <div class="card" style="margin-bottom: 24px; background: linear-gradient(135deg, rgba(122,162,255,0.05), rgba(46,229,157,0.05));">
+          <h2>💡 What are "Hidden Connections"?</h2>
+          <div style="color: var(--text); line-height: 1.8; font-size: 14px;">
+            <p style="margin: 0 0 12px 0;">
+              <strong>Problem:</strong> 연구자들은 자기 분야만 읽습니다. A 분야의 발견과 B 분야의 발견이 합쳐지면 C라는 혁신이 나올 수 있지만, 
+              <span style="color: var(--bad); font-weight: 600;">아무도 A+B를 연결하지 못합니다.</span>
+            </p>
+            <p style="margin: 0 0 12px 0;">
+              <strong>Example (Don Swanson, 1986):</strong> 
+              <span style="color: var(--accent);">문헌 A: "어유는 혈액 점도를 낮춘다"</span> + 
+              <span style="color: var(--accent);">문헌 B: "레이노 증후군은 혈액 점도가 높다"</span> 
+              → <span style="color: var(--ok); font-weight: 600;">발견: "어유가 레이노 증후군 치료에 도움될 수 있다"</span> (임상시험 성공!)
+            </p>
+            <p style="margin: 0;">
+              <strong>AI의 역할:</strong> 수백만 개의 논문을 읽고, 서로 다른 분야의 지식을 연결하여 
+              <span style="color: var(--ok); font-weight: 600;">인간이 놓친 혁신 기회</span>를 발견합니다.
+            </p>
+          </div>
+        </div>
+
+        <!-- Connection Types -->
+        <div class="card" style="margin-bottom: 24px;">
+          <h2>🎯 Discovery Pattern Types</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 12px;">
+            <div class="stat-card" style="border-left: 3px solid var(--accent);">
+              <div class="stat-label">ABC Pattern (Swanson)</div>
+              <div class="stat-value">2</div>
+              <div class="stat-change">A→B, B→C exist, A→C missing</div>
+            </div>
+            <div class="stat-card" style="border-left: 3px solid var(--ok);">
+              <div class="stat-label">Cross-Domain Bridge</div>
+              <div class="stat-value">2</div>
+              <div class="stat-change">Malaria ↔ Cancer, TCM ↔ Immuno-oncology</div>
+            </div>
+            <div class="stat-card" style="border-left: 3px solid var(--warning);">
+              <div class="stat-label">Temporal Gap</div>
+              <div class="stat-value">1</div>
+              <div class="stat-change">"Old" paper + "New" drug</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hidden Connections List -->
+        <div class="card">
+          <h2>🔥 Discovered Hidden Connections</h2>
+          <div style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
+            <select id="hiddenFilterStatus" style="width: auto;">
+              <option value="">All Status</option>
+              <option value="VALIDATED">Validated (Clinical trials)</option>
+              <option value="EMERGING">Emerging (Preclinical)</option>
+              <option value="HYPOTHESIS">AI Hypothesis</option>
+            </select>
+            <button id="sortByNovelty" class="secondary" style="margin-left: auto;">Sort by Novelty Score ↓</button>
+          </div>
+          <div id="hiddenConnectionsList" class="case-list">
+            <p style="color: var(--muted); text-align: center; padding: 24px;">Loading hidden connections...</p>
+          </div>
+        </div>
+      </main>
+    </div>
+
     <!-- Herbal Compounds Page -->
     <div class="page-content" id="page-herbal">
       <header>
@@ -1475,17 +1577,21 @@
     let resultsData = [];
     let herbalData = [];
     let discoveryInsights = {};
+    let hiddenConnections = {};
+    let knowledgeGraph = {};
 
     // Load Mock Data
     async function loadMockData() {
       try {
-        const [evidenceRes, casesRes, drugsRes, resultsRes, herbalRes, insightsRes] = await Promise.all([
+        const [evidenceRes, casesRes, drugsRes, resultsRes, herbalRes, insightsRes, hiddenRes, graphRes] = await Promise.all([
           fetch('mockdata/evidence-items.json'),
           fetch('mockdata/patient-cases.json'),
           fetch('mockdata/drugs.json'),
           fetch('mockdata/results.json'),
           fetch('mockdata/herbal-compounds.json'),
-          fetch('mockdata/drug-discovery-insights.json')
+          fetch('mockdata/drug-discovery-insights.json'),
+          fetch('mockdata/hidden-connections.json'),
+          fetch('mockdata/knowledge-graph.json')
         ]);
         
         evidenceData = await evidenceRes.json();
@@ -1494,6 +1600,8 @@
         resultsData = await resultsRes.json();
         herbalData = await herbalRes.json();
         discoveryInsights = await insightsRes.json();
+        hiddenConnections = await hiddenRes.json();
+        knowledgeGraph = await graphRes.json();
 
         // Update Dashboard Stats
         updateDashboardStats();
@@ -1505,6 +1613,7 @@
         renderHerbalList();
         renderDiscoveryInsights();
         renderUnmetNeeds();
+        renderHiddenConnections();
 
         console.log('Mock data loaded successfully');
       } catch (error) {
@@ -2415,6 +2524,100 @@
       categoryFilter.addEventListener('change', applyFilters);
     }
 
+    // Render Hidden Connections
+    function renderHiddenConnections(filter = {}, sort = false) {
+      // Update stats
+      const totalEl = $('hidden-total');
+      const validatedEl = $('hidden-validated');
+      const timegapEl = $('hidden-timegap');
+      const noveltyEl = $('hidden-novelty');
+      const patientsEl = $('hidden-patients');
+      const savingsEl = $('hidden-savings');
+
+      if (totalEl && hiddenConnections.hiddenConnections) {
+        const metrics = hiddenConnections.discoveryMetrics;
+        totalEl.textContent = metrics.totalHiddenConnections;
+        validatedEl.textContent = `${metrics.validated} validated, ${metrics.emerging} emerging, ${metrics.hypothesis} hypothesis`;
+        timegapEl.textContent = metrics.averageTimeGap + ' years';
+        noveltyEl.textContent = metrics.averageNoveltyScore.toFixed(1) + '/10';
+        patientsEl.textContent = metrics.estimatedMissedPatients;
+        savingsEl.textContent = `${metrics.potentialCostSavings} potential savings`;
+      }
+
+      // Render list
+      const list = $('hiddenConnectionsList');
+      if (!list || !hiddenConnections.hiddenConnections) return;
+
+      let filtered = hiddenConnections.hiddenConnections;
+
+      if (filter.status) {
+        filtered = filtered.filter(h => h.status.includes(filter.status));
+      }
+
+      if (sort) {
+        filtered = [...filtered].sort((a, b) => b.noveltyScore - a.noveltyScore);
+      }
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<p style="color: var(--muted); text-align: center; padding: 24px;">No connections found.</p>';
+        return;
+      }
+
+      list.innerHTML = filtered.map(conn => {
+        const statusColor = conn.status.includes('VALIDATED') ? 'var(--ok)' :
+                            conn.status.includes('EMERGING') ? 'var(--warning)' : 'var(--accent)';
+        const noveltyColor = conn.noveltyScore >= 9 ? 'var(--bad)' :
+                             conn.noveltyScore >= 8 ? 'var(--warning)' : 'var(--ok)';
+        
+        return `
+          <div class="case-item" onclick="openHiddenConnectionModal('${conn.id}')" style="cursor: pointer; border-left: 3px solid ${statusColor};">
+            <div class="case-header">
+              <div class="case-id">${conn.title}</div>
+              <div style="display: flex; gap: 8px;">
+                <div class="case-badge" style="background: rgba(122,162,255,0.15); color: ${noveltyColor};">Score: ${conn.noveltyScore}/10</div>
+                <div class="case-badge" style="background: rgba(46,229,157,0.15); color: ${statusColor};">${conn.status.split(' ')[0]}</div>
+              </div>
+            </div>
+            <div class="case-info">
+              <strong>Pattern:</strong> ${conn.discoveryType}<br/>
+              <strong>A:</strong> ${conn.evidenceA.claim} (${conn.evidenceA.field})<br/>
+              <strong>B:</strong> ${conn.evidenceB.claim} (${conn.evidenceB.field})<br/>
+              <strong>C:</strong> ${conn.evidenceC.claim} (${conn.evidenceC.field})<br/>
+              <strong>Missing Link:</strong> ${conn.hiddenLink.missingConnection}<br/>
+              ${conn.hiddenLink.discoveryYear ? `<strong>Discovered:</strong> ${conn.hiddenLink.discoveryYear} (Time gap: ${conn.impact.timeToDiscovery})` : '<strong>Status:</strong> AI Hypothesis'}<br/>
+              ${conn.aiInsight ? `<div style="margin-top: 6px; color: ${statusColor}; font-weight: 600;">${conn.aiInsight}</div>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Setup Hidden Filters
+    function setupHiddenFilters() {
+      const statusFilter = $('hiddenFilterStatus');
+      const sortBtn = $('sortByNovelty');
+
+      if (!statusFilter) return;
+
+      let isSorted = false;
+
+      const applyFilters = () => {
+        renderHiddenConnections({
+          status: statusFilter.value
+        }, isSorted);
+      };
+
+      statusFilter.addEventListener('change', applyFilters);
+      
+      if (sortBtn) {
+        sortBtn.addEventListener('click', () => {
+          isSorted = !isSorted;
+          sortBtn.textContent = isSorted ? 'Sort by Novelty Score ↑' : 'Sort by Novelty Score ↓';
+          applyFilters();
+        });
+      }
+    }
+
     // Open Herbal Modal
     function openHerbalModal(herbId) {
       const herb = herbalData.find(h => h.id === herbId);
@@ -2758,6 +2961,128 @@
       modal.classList.add('active');
     }
 
+    // Open Hidden Connection Modal
+    function openHiddenConnectionModal(connId) {
+      const conn = hiddenConnections.hiddenConnections?.find(c => c.id === connId);
+      if (!conn) return;
+
+      const modal = $('modalEvidence');
+      const title = $('modalEvidenceTitle');
+      const body = $('modalEvidenceBody');
+
+      title.textContent = conn.title;
+
+      const statusColor = conn.status.includes('VALIDATED') ? 'var(--ok)' :
+                          conn.status.includes('EMERGING') ? 'var(--warning)' : 'var(--accent)';
+
+      body.innerHTML = `
+        <div class="modal-section">
+          <div class="modal-section-title">Discovery Overview</div>
+          <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 12px;">
+            <div style="font-size: 28px; font-weight: 700; color: var(--accent);">${conn.noveltyScore}/10</div>
+            <div style="flex: 1;">
+              <div style="background: rgba(255,255,255,0.1); height: 6px; border-radius: 3px; overflow: hidden;">
+                <div style="background: var(--accent); height: 100%; width: ${conn.noveltyScore * 10}%;"></div>
+              </div>
+              <div style="font-size: 11px; color: var(--muted); margin-top: 4px;">Novelty Score</div>
+            </div>
+            <span class="pill" style="background: rgba(46,229,157,0.15); color: ${statusColor}; font-size: 13px; padding: 6px 12px;">${conn.status}</span>
+          </div>
+          <div class="modal-meta">
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Discovery Type</div>
+              <div class="modal-meta-value">${conn.discoveryType}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Discovery Year</div>
+              <div class="modal-meta-value">${conn.hiddenLink.discoveryYear || 'Not Yet Published'}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Time Gap</div>
+              <div class="modal-meta-value">${conn.impact.timeToDiscovery || 'N/A'}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Evidence A (Starting Point)</div>
+          <div class="modal-text">
+            <strong>Claim:</strong> ${conn.evidenceA.claim}<br/>
+            <strong>Field:</strong> ${conn.evidenceA.field}<br/>
+            <strong>Year Range:</strong> ${conn.evidenceA.yearRange}<br/>
+            <strong>Citations:</strong> ${conn.evidenceA.citationCount.toLocaleString()}<br/>
+            <strong>Sources:</strong> ${conn.evidenceA.sources.map(s => `<a href="https://pubmed.ncbi.nlm.nih.gov/${s.replace('PMID:', '')}/" target="_blank" style="color: var(--accent);">${s}</a>`).join(', ')}
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Evidence B (Bridge)</div>
+          <div class="modal-text">
+            <strong>Claim:</strong> ${conn.evidenceB.claim}<br/>
+            <strong>Field:</strong> ${conn.evidenceB.field}<br/>
+            <strong>Year Range:</strong> ${conn.evidenceB.yearRange}<br/>
+            <strong>Citations:</strong> ${conn.evidenceB.citationCount.toLocaleString()}<br/>
+            <strong>Sources:</strong> ${conn.evidenceB.sources.map(s => `<a href="https://pubmed.ncbi.nlm.nih.gov/${s.replace('PMID:', '')}/" target="_blank" style="color: var(--accent);">${s}</a>`).join(', ')}
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Evidence C (Target Problem)</div>
+          <div class="modal-text">
+            <strong>Claim:</strong> ${conn.evidenceC.claim}<br/>
+            <strong>Field:</strong> ${conn.evidenceC.field}<br/>
+            <strong>Year Range:</strong> ${conn.evidenceC.yearRange}<br/>
+            <strong>Citations:</strong> ${conn.evidenceC.citationCount.toLocaleString()}<br/>
+            <strong>Sources:</strong> ${conn.evidenceC.sources.map(s => `<a href="https://pubmed.ncbi.nlm.nih.gov/${s.replace('PMID:', '')}/" target="_blank" style="color: var(--accent);">${s}</a>`).join(', ')}
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Hidden Link (A+B+C Connection)</div>
+          <div class="modal-text">
+            <strong>Hypothesis:</strong> ${conn.hiddenLink.hypothesis}<br/>
+            <strong>Missing Connection:</strong> ${conn.hiddenLink.missingConnection}<br/>
+            ${conn.hiddenLink.discoveryYear ? `<strong>First Paper:</strong> <a href="https://pubmed.ncbi.nlm.nih.gov/${conn.hiddenLink.firstPaper.replace('PMID:', '')}/" target="_blank" style="color: var(--accent);">${conn.hiddenLink.firstPaper}</a><br/>` : ''}
+            <strong>Validation:</strong> ${conn.hiddenLink.validation}
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Impact Assessment</div>
+          <div class="modal-meta">
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Clinical Trials</div>
+              <div class="modal-meta-value">${conn.impact.clinicalTrials}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Patient Benefit</div>
+              <div class="modal-meta-value">${conn.impact.patientBenefit}</div>
+            </div>
+            <div class="modal-meta-item">
+              <div class="modal-meta-label">Cost</div>
+              <div class="modal-meta-value">${conn.impact.cost}</div>
+            </div>
+          </div>
+        </div>
+
+        ${conn.aiInsight ? `
+        <div class="modal-section">
+          <div class="modal-section-title">AI Insight</div>
+          <div class="modal-text" style="color: ${statusColor}; font-weight: 600; font-size: 15px;">
+            ${conn.aiInsight}
+          </div>
+        </div>
+        ` : ''}
+
+        <div class="modal-section">
+          <div class="modal-section-title">Current Status</div>
+          <div class="modal-text">${conn.currentStatus}</div>
+        </div>
+      `;
+
+      modal.classList.add('active');
+    }
+
     // Load data on page load
     loadMockData();
 
@@ -3066,6 +3391,7 @@ Safety: manageable. Limitations: single-arm, small N.`;
       setupDrugFilters();
       setupHerbalFilters();
       setupUnmetFilters();
+      setupHiddenFilters();
     });
 
     // Setup filters after navigation
@@ -3078,6 +3404,7 @@ Safety: manageable. Limitations: single-arm, small N.`;
         setupDrugFilters();
         setupHerbalFilters();
         setupUnmetFilters();
+        setupHiddenFilters();
       }, 100);
     };
   </script>

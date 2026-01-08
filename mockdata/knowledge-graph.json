@@ -1,0 +1,317 @@
+{
+  "nodes": [
+    {"id": "METFORMIN", "type": "Drug", "label": "Metformin", "domain": "Diabetes", "citationCount": 50000},
+    {"id": "AMPK", "type": "Pathway", "label": "AMPK Activation", "domain": "Metabolism", "citationCount": 20000},
+    {"id": "MTOR", "type": "Pathway", "label": "mTOR Inhibition", "domain": "Cell Biology", "citationCount": 30000},
+    {"id": "EGFR_TKI_RES", "type": "Disease", "label": "EGFR TKI Resistance", "domain": "Oncology", "citationCount": 5000},
+    {"id": "ARTEMISININ", "type": "Drug", "label": "Artemisinin", "domain": "Malaria", "citationCount": 15000},
+    {"id": "IRON_ROS", "type": "Mechanism", "label": "Iron-ROS Generation", "domain": "Parasitology", "citationCount": 3000},
+    {"id": "FERROPTOSIS", "type": "Mechanism", "label": "Ferroptosis", "domain": "Cell Death", "citationCount": 10000},
+    {"id": "T790M", "type": "Mutation", "label": "EGFR T790M", "domain": "NSCLC", "citationCount": 8000},
+    {"id": "RG3", "type": "Compound", "label": "Ginsenoside Rg3", "domain": "Traditional Medicine", "citationCount": 500},
+    {"id": "NK_CELL", "type": "Immune", "label": "NK Cell Activation", "domain": "Immunology", "citationCount": 12000},
+    {"id": "COLD_TUMOR", "type": "Phenotype", "label": "Cold Tumor (Low PD-L1)", "domain": "Immuno-oncology", "citationCount": 3000},
+    {"id": "EGFR_NSCLC", "type": "Disease", "label": "EGFR+ NSCLC", "domain": "Oncology", "citationCount": 20000},
+    {"id": "BERBERINE", "type": "Compound", "label": "Berberine", "domain": "Traditional Medicine", "citationCount": 2000},
+    {"id": "MICROBIOME", "type": "Biological System", "label": "Gut Microbiome", "domain": "Microbiology", "citationCount": 50000},
+    {"id": "DRUG_METAB", "type": "Process", "label": "Drug Metabolism", "domain": "Pharmacology", "citationCount": 15000},
+    {"id": "TKI_VARIABILITY", "type": "Phenotype", "label": "TKI Response Variability", "domain": "Pharmacogenomics", "citationCount": 1000},
+    {"id": "CURCUMIN", "type": "Compound", "label": "Curcumin", "domain": "Natural Products", "citationCount": 8000},
+    {"id": "AUTOPHAGY", "type": "Process", "label": "Autophagy Inhibition", "domain": "Cell Biology", "citationCount": 25000},
+    {"id": "OSIMERTINIB", "type": "Drug", "label": "Osimertinib", "domain": "NSCLC", "citationCount": 3000},
+    {"id": "C797S", "type": "Mutation", "label": "EGFR C797S", "domain": "NSCLC", "citationCount": 500}
+  ],
+  "edges": [
+    {
+      "source": "METFORMIN",
+      "target": "AMPK",
+      "relationship": "activates",
+      "evidenceCount": 150,
+      "yearFirst": 2001,
+      "yearLast": 2023,
+      "strength": 0.95,
+      "domain": "Diabetes/Metabolism"
+    },
+    {
+      "source": "AMPK",
+      "target": "MTOR",
+      "relationship": "inhibits",
+      "evidenceCount": 200,
+      "yearFirst": 2004,
+      "yearLast": 2023,
+      "strength": 0.92,
+      "domain": "Cell Biology"
+    },
+    {
+      "source": "MTOR",
+      "target": "EGFR_TKI_RES",
+      "relationship": "drives",
+      "evidenceCount": 80,
+      "yearFirst": 2010,
+      "yearLast": 2023,
+      "strength": 0.85,
+      "domain": "Oncology"
+    },
+    {
+      "source": "METFORMIN",
+      "target": "EGFR_TKI_RES",
+      "relationship": "overcomes",
+      "evidenceCount": 15,
+      "yearFirst": 2013,
+      "yearLast": 2023,
+      "strength": 0.78,
+      "domain": "Oncology",
+      "hiddenUntil": 2013,
+      "timeGap": 12
+    },
+    {
+      "source": "ARTEMISININ",
+      "target": "IRON_ROS",
+      "relationship": "generates",
+      "evidenceCount": 100,
+      "yearFirst": 1999,
+      "yearLast": 2023,
+      "strength": 0.90,
+      "domain": "Malaria/Parasitology"
+    },
+    {
+      "source": "IRON_ROS",
+      "target": "FERROPTOSIS",
+      "relationship": "induces",
+      "evidenceCount": 250,
+      "yearFirst": 2012,
+      "yearLast": 2023,
+      "strength": 0.94,
+      "domain": "Cell Biology"
+    },
+    {
+      "source": "FERROPTOSIS",
+      "target": "T790M",
+      "relationship": "kills",
+      "evidenceCount": 30,
+      "yearFirst": 2015,
+      "yearLast": 2023,
+      "strength": 0.82,
+      "domain": "NSCLC"
+    },
+    {
+      "source": "ARTEMISININ",
+      "target": "T790M",
+      "relationship": "targets",
+      "evidenceCount": 5,
+      "yearFirst": 2018,
+      "yearLast": 2023,
+      "strength": 0.75,
+      "domain": "Oncology",
+      "hiddenUntil": 2018,
+      "timeGap": 19,
+      "crossDomain": true
+    },
+    {
+      "source": "RG3",
+      "target": "NK_CELL",
+      "relationship": "activates",
+      "evidenceCount": 40,
+      "yearFirst": 2007,
+      "yearLast": 2023,
+      "strength": 0.88,
+      "domain": "Traditional Medicine/Immunology"
+    },
+    {
+      "source": "NK_CELL",
+      "target": "COLD_TUMOR",
+      "relationship": "infiltrates",
+      "evidenceCount": 120,
+      "yearFirst": 2010,
+      "yearLast": 2023,
+      "strength": 0.85,
+      "domain": "Immunology"
+    },
+    {
+      "source": "EGFR_NSCLC",
+      "target": "COLD_TUMOR",
+      "relationship": "exhibits",
+      "evidenceCount": 60,
+      "yearFirst": 2015,
+      "yearLast": 2023,
+      "strength": 0.87,
+      "domain": "Immuno-oncology"
+    },
+    {
+      "source": "RG3",
+      "target": "EGFR_NSCLC",
+      "relationship": "treats",
+      "evidenceCount": 12,
+      "yearFirst": 2016,
+      "yearLast": 2023,
+      "strength": 0.80,
+      "domain": "Oncology",
+      "hiddenUntil": 2016,
+      "timeGap": 9,
+      "culturalBarrier": true
+    },
+    {
+      "source": "BERBERINE",
+      "target": "MICROBIOME",
+      "relationship": "modulates",
+      "evidenceCount": 80,
+      "yearFirst": 2015,
+      "yearLast": 2023,
+      "strength": 0.89,
+      "domain": "Gastroenterology"
+    },
+    {
+      "source": "MICROBIOME",
+      "target": "DRUG_METAB",
+      "relationship": "affects",
+      "evidenceCount": 150,
+      "yearFirst": 2013,
+      "yearLast": 2023,
+      "strength": 0.91,
+      "domain": "Pharmacology"
+    },
+    {
+      "source": "DRUG_METAB",
+      "target": "TKI_VARIABILITY",
+      "relationship": "explains",
+      "evidenceCount": 50,
+      "yearFirst": 2009,
+      "yearLast": 2023,
+      "strength": 0.83,
+      "domain": "Pharmacogenomics"
+    },
+    {
+      "source": "BERBERINE",
+      "target": "TKI_VARIABILITY",
+      "relationship": "reduces",
+      "evidenceCount": 0,
+      "yearFirst": null,
+      "yearLast": null,
+      "strength": 0.70,
+      "domain": "Hypothesis",
+      "hiddenUntil": "NOT_YET_PUBLISHED",
+      "timeGap": null,
+      "aiPredicted": true
+    },
+    {
+      "source": "CURCUMIN",
+      "target": "AUTOPHAGY",
+      "relationship": "inhibits",
+      "evidenceCount": 60,
+      "yearFirst": 2010,
+      "yearLast": 2023,
+      "strength": 0.86,
+      "domain": "Natural Products"
+    },
+    {
+      "source": "AUTOPHAGY",
+      "target": "OSIMERTINIB",
+      "relationship": "protects_from",
+      "evidenceCount": 25,
+      "yearFirst": 2016,
+      "yearLast": 2023,
+      "strength": 0.84,
+      "domain": "NSCLC"
+    },
+    {
+      "source": "CURCUMIN",
+      "target": "OSIMERTINIB",
+      "relationship": "synergizes",
+      "evidenceCount": 3,
+      "yearFirst": 2019,
+      "yearLast": 2023,
+      "strength": 0.76,
+      "domain": "Oncology",
+      "hiddenUntil": 2019,
+      "timeGap": 6
+    },
+    {
+      "source": "T790M",
+      "target": "OSIMERTINIB",
+      "relationship": "sensitive_to",
+      "evidenceCount": 300,
+      "yearFirst": 2015,
+      "yearLast": 2023,
+      "strength": 0.98,
+      "domain": "NSCLC"
+    },
+    {
+      "source": "OSIMERTINIB",
+      "target": "C797S",
+      "relationship": "leads_to",
+      "evidenceCount": 150,
+      "yearFirst": 2017,
+      "yearLast": 2023,
+      "strength": 0.90,
+      "domain": "NSCLC"
+    },
+    {
+      "source": "ARTEMISININ",
+      "target": "C797S",
+      "relationship": "potential_target",
+      "evidenceCount": 0,
+      "yearFirst": null,
+      "yearLast": null,
+      "strength": 0.65,
+      "domain": "Hypothesis",
+      "hiddenUntil": "NOT_YET_PUBLISHED",
+      "aiPredicted": true
+    }
+  ],
+  "hiddenPaths": [
+    {
+      "pathId": "PATH001",
+      "name": "Metformin → AMPK → mTOR → EGFR TKI Resistance",
+      "nodes": ["METFORMIN", "AMPK", "MTOR", "EGFR_TKI_RES"],
+      "discoveryYear": 2013,
+      "timeGap": 12,
+      "noveltyScore": 8.9,
+      "status": "Validated"
+    },
+    {
+      "pathId": "PATH002",
+      "name": "Artemisinin → Iron-ROS → Ferroptosis → T790M",
+      "nodes": ["ARTEMISININ", "IRON_ROS", "FERROPTOSIS", "T790M"],
+      "discoveryYear": 2018,
+      "timeGap": 19,
+      "noveltyScore": 9.5,
+      "status": "Emerging"
+    },
+    {
+      "pathId": "PATH003",
+      "name": "Ginsenoside Rg3 → NK Cell → Cold Tumor ← EGFR NSCLC",
+      "nodes": ["RG3", "NK_CELL", "COLD_TUMOR", "EGFR_NSCLC"],
+      "discoveryYear": 2016,
+      "timeGap": 9,
+      "noveltyScore": 8.7,
+      "status": "Validated"
+    },
+    {
+      "pathId": "PATH004",
+      "name": "Berberine → Microbiome → Drug Metabolism → TKI Variability",
+      "nodes": ["BERBERINE", "MICROBIOME", "DRUG_METAB", "TKI_VARIABILITY"],
+      "discoveryYear": null,
+      "timeGap": null,
+      "noveltyScore": 9.1,
+      "status": "AI Hypothesis"
+    },
+    {
+      "pathId": "PATH005",
+      "name": "Curcumin → Autophagy Inhibition → Osimertinib Synergy",
+      "nodes": ["CURCUMIN", "AUTOPHAGY", "OSIMERTINIB"],
+      "discoveryYear": 2019,
+      "timeGap": 6,
+      "noveltyScore": 7.8,
+      "status": "Validated"
+    }
+  ],
+  "metrics": {
+    "totalNodes": 20,
+    "totalEdges": 22,
+    "hiddenEdges": 5,
+    "crossDomainConnections": 3,
+    "aiPredictedConnections": 2,
+    "averageTimeGap": 11.2,
+    "domainsCovered": 12
+  }
+}
