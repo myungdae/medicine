@@ -1,0 +1,226 @@
+[
+  {
+    "id": "CASE037",
+    "status": "Active",
+    "createdAt": "2026-01-05T14:30:00+09:00",
+    "updatedAt": "2026-01-08T09:15:00+09:00",
+    "profile": {
+      "cancerType": "NSCLC",
+      "gene": "EGFR",
+      "alteration": "EGFR_ex19del",
+      "subgroupLabel": "NSCLC + EGFR exon19 del",
+      "lineOfTherapy": "1L",
+      "treatmentNaive": true,
+      "age": 62,
+      "sex": "Female",
+      "smokingStatus": "Never smoker",
+      "performanceStatus": "ECOG 1"
+    },
+    "recommendation": {
+      "drug": "Osimertinib",
+      "moa": "TKI",
+      "rationale": "First-line osimertinib demonstrated superior PFS (18.9 months) compared to gefitinib/erlotinib in FLAURA trial. ORR 80% in EGFR exon19 del subgroup.",
+      "confidence": 0.94,
+      "confidenceLabel": "High",
+      "evidence": [
+        {
+          "evidenceId": "EVI002",
+          "title": "FLAURA: First-Line Osimertinib in EGFR Mutation-Positive NSCLC",
+          "resultIds": ["RES003", "RES004"],
+          "keyMetrics": "PFS 18.9 months, ORR 80%"
+        }
+      ],
+      "alternatives": [
+        {
+          "drug": "Afatinib",
+          "confidence": 0.78,
+          "rationale": "PFS 11.0 months, ORR 70% in LUX-Lung 7"
+        },
+        {
+          "drug": "Gefitinib",
+          "confidence": 0.72,
+          "rationale": "Standard first-line option, established efficacy"
+        }
+      ]
+    },
+    "proposalStatus": "Approved",
+    "decidedBy": "Dr. Kim (Oncologist)",
+    "decidedAt": "2026-01-07T16:45:00+09:00",
+    "notes": "Patient preference for oral TKI; baseline brain MRI negative; liver function normal."
+  },
+  {
+    "id": "CASE036",
+    "status": "Active",
+    "createdAt": "2026-01-03T10:15:00+09:00",
+    "updatedAt": "2026-01-08T08:30:00+09:00",
+    "profile": {
+      "cancerType": "NSCLC",
+      "gene": "ALK",
+      "alteration": "ALK_fusion",
+      "subgroupLabel": "NSCLC + ALK fusion",
+      "lineOfTherapy": "2L",
+      "treatmentNaive": false,
+      "priorTherapy": "Crizotinib (progressed after 9 months)",
+      "age": 48,
+      "sex": "Male",
+      "smokingStatus": "Former smoker (quit 10 years ago)",
+      "performanceStatus": "ECOG 1",
+      "brainMetastases": true
+    },
+    "recommendation": {
+      "drug": "Alectinib",
+      "moa": "TKI",
+      "rationale": "Alectinib demonstrated superior efficacy post-crizotinib with excellent CNS penetration. ORR 51%, median PFS 8.9 months in second-line setting. Strong activity in brain metastases.",
+      "confidence": 0.91,
+      "confidenceLabel": "High",
+      "evidence": [
+        {
+          "evidenceId": "EVI003",
+          "title": "ALEX: Alectinib versus Crizotinib in Treatment-Naive ALK-Positive NSCLC",
+          "resultIds": ["RES006", "RES007"],
+          "keyMetrics": "PFS 34.8 months (1L), ORR 82.9%"
+        }
+      ],
+      "alternatives": [
+        {
+          "drug": "Brigatinib",
+          "confidence": 0.88,
+          "rationale": "PFS 24.0 months in 1L, also effective post-crizotinib"
+        },
+        {
+          "drug": "Ceritinib",
+          "confidence": 0.75,
+          "rationale": "Alternative second-gen ALK-TKI option"
+        }
+      ]
+    },
+    "proposalStatus": "Approved",
+    "decidedBy": "Dr. Lee (Oncologist)",
+    "decidedAt": "2026-01-06T11:20:00+09:00",
+    "notes": "Patient has asymptomatic brain metastases (3 lesions, <1cm each). Alectinib preferred due to superior CNS activity."
+  },
+  {
+    "id": "CASE035",
+    "status": "Draft",
+    "createdAt": "2026-01-07T15:45:00+09:00",
+    "updatedAt": "2026-01-08T09:00:00+09:00",
+    "profile": {
+      "cancerType": "NSCLC",
+      "gene": "EGFR",
+      "alteration": "EGFR_L858R",
+      "subgroupLabel": "NSCLC + EGFR L858R",
+      "lineOfTherapy": "1L",
+      "treatmentNaive": true,
+      "age": 71,
+      "sex": "Female",
+      "smokingStatus": "Never smoker",
+      "performanceStatus": "ECOG 2"
+    },
+    "recommendation": {
+      "drug": "Osimertinib",
+      "moa": "TKI",
+      "rationale": "Evidence collection in progress. FLAURA trial showed PFS 17.2 months in L858R subgroup. Awaiting additional evidence review.",
+      "confidence": 0.87,
+      "confidenceLabel": "Medium-High",
+      "evidence": [
+        {
+          "evidenceId": "EVI002",
+          "title": "FLAURA: First-Line Osimertinib in EGFR Mutation-Positive NSCLC",
+          "resultIds": ["RES005"],
+          "keyMetrics": "PFS 17.2 months (L858R subgroup)"
+        }
+      ],
+      "alternatives": [
+        {
+          "drug": "Gefitinib",
+          "confidence": 0.73,
+          "rationale": "Standard first-line option, lower cost"
+        }
+      ]
+    },
+    "proposalStatus": "Requested",
+    "requestedTo": "Tumor Board",
+    "requestedAt": "2026-01-08T09:00:00+09:00",
+    "notes": "Borderline ECOG 2, renal insufficiency (CrCl 45 mL/min). Awaiting tumor board discussion for dose adjustment considerations."
+  },
+  {
+    "id": "CASE034",
+    "status": "Active",
+    "createdAt": "2025-12-28T11:00:00+09:00",
+    "updatedAt": "2026-01-02T14:30:00+09:00",
+    "profile": {
+      "cancerType": "NSCLC",
+      "gene": "ALK",
+      "alteration": "ALK_fusion",
+      "subgroupLabel": "NSCLC + ALK fusion",
+      "lineOfTherapy": "3L+",
+      "treatmentNaive": false,
+      "priorTherapy": "Crizotinib → Alectinib (both progressed)",
+      "age": 55,
+      "sex": "Male",
+      "smokingStatus": "Never smoker",
+      "performanceStatus": "ECOG 1",
+      "brainMetastases": true
+    },
+    "recommendation": {
+      "drug": "Lorlatinib",
+      "moa": "TKI",
+      "rationale": "Third-generation ALK-TKI with activity post-crizotinib and second-gen ALK-TKI. ORR 42% systemic, 63% intracranial. Median PFS 6.9 months in heavily pretreated population.",
+      "confidence": 0.89,
+      "confidenceLabel": "High",
+      "evidence": [
+        {
+          "evidenceId": "EVI004",
+          "title": "Lorlatinib in ALK-Positive Lung Cancer with Brain Metastases",
+          "resultIds": ["RES008", "RES009"],
+          "keyMetrics": "ORR 42% (systemic), 63% (intracranial); PFS 6.9 months"
+        }
+      ],
+      "alternatives": [
+        {
+          "drug": "Chemotherapy",
+          "confidence": 0.55,
+          "rationale": "Platinum-based chemotherapy as salvage option"
+        }
+      ]
+    },
+    "proposalStatus": "Executed",
+    "decidedBy": "Dr. Park (Oncologist)",
+    "decidedAt": "2026-01-02T10:15:00+09:00",
+    "executedAt": "2026-01-02T14:30:00+09:00",
+    "notes": "Patient started lorlatinib 100mg daily. Baseline brain MRI shows 5 brain metastases (largest 1.5cm). Will reassess after 6 weeks."
+  },
+  {
+    "id": "CASE033",
+    "status": "Rejected",
+    "createdAt": "2025-12-20T09:30:00+09:00",
+    "updatedAt": "2025-12-22T16:00:00+09:00",
+    "profile": {
+      "cancerType": "NSCLC",
+      "gene": "EGFR",
+      "alteration": "EGFR_ex19del",
+      "subgroupLabel": "NSCLC + EGFR exon19 del",
+      "lineOfTherapy": "2L",
+      "treatmentNaive": false,
+      "priorTherapy": "Erlotinib (progressed)",
+      "age": 68,
+      "sex": "Male",
+      "smokingStatus": "Current smoker",
+      "performanceStatus": "ECOG 3"
+    },
+    "recommendation": {
+      "drug": "Osimertinib",
+      "moa": "TKI",
+      "rationale": "Second-line osimertinib if T790M-positive. However, T790M testing pending.",
+      "confidence": 0.45,
+      "confidenceLabel": "Low",
+      "evidence": [],
+      "alternatives": []
+    },
+    "proposalStatus": "Rejected",
+    "decidedBy": "Tumor Board",
+    "decidedAt": "2025-12-22T16:00:00+09:00",
+    "decisionReason": "Poor performance status (ECOG 3); T790M status unknown; recommend best supportive care",
+    "notes": "Patient declined T790M testing due to financial constraints. Disease progression with multiple comorbidities."
+  }
+]

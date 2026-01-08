@@ -1,0 +1,354 @@
+[
+  {
+    "id": "DRUG001",
+    "name": "Osimertinib",
+    "brandName": "Tagrisso",
+    "moa": "TKI",
+    "moaDescription": "Third-generation irreversible EGFR tyrosine kinase inhibitor",
+    "targets": ["EGFR"],
+    "targetDescription": "Selective for EGFR-TKI sensitizing mutations (exon19 del, L858R) and T790M resistance mutation",
+    "approvals": [
+      {
+        "region": "FDA",
+        "indication": "1L EGFR-mutant NSCLC (ex19del or L858R)",
+        "date": "2018-04-18"
+      },
+      {
+        "region": "FDA",
+        "indication": "2L EGFR T790M-positive NSCLC",
+        "date": "2015-11-13"
+      },
+      {
+        "region": "EMA",
+        "indication": "1L EGFR-mutant NSCLC",
+        "date": "2018-09-07"
+      }
+    ],
+    "clinicalTrials": [
+      {
+        "trialId": "NCT02296125",
+        "name": "FLAURA",
+        "phase": "Phase 3",
+        "status": "Completed"
+      },
+      {
+        "trialId": "NCT02151981",
+        "name": "AURA3",
+        "phase": "Phase 3",
+        "status": "Completed"
+      }
+    ],
+    "efficacyMetrics": {
+      "firstLine": {
+        "ORR": 80,
+        "PFS": 18.9,
+        "OS": 38.6
+      },
+      "secondLine_T790M": {
+        "ORR": 71,
+        "PFS": 10.1,
+        "OS": 26.8
+      }
+    },
+    "recommendedFor": ["NSCLC_EGFR_ex19del", "NSCLC_EGFR_L858R", "NSCLC_EGFR_T790M"],
+    "highPriority": true,
+    "topCandidate": true,
+    "confidenceScore": 0.95
+  },
+  {
+    "id": "DRUG002",
+    "name": "Alectinib",
+    "brandName": "Alecensa",
+    "moa": "TKI",
+    "moaDescription": "Highly selective second-generation ALK tyrosine kinase inhibitor",
+    "targets": ["ALK"],
+    "targetDescription": "Selective ALK inhibitor with excellent CNS penetration",
+    "approvals": [
+      {
+        "region": "FDA",
+        "indication": "1L ALK-positive NSCLC",
+        "date": "2017-11-06"
+      },
+      {
+        "region": "FDA",
+        "indication": "2L ALK-positive NSCLC (post-crizotinib)",
+        "date": "2015-12-11"
+      }
+    ],
+    "clinicalTrials": [
+      {
+        "trialId": "NCT02075840",
+        "name": "ALEX",
+        "phase": "Phase 3",
+        "status": "Completed"
+      }
+    ],
+    "efficacyMetrics": {
+      "firstLine": {
+        "ORR": 82.9,
+        "PFS": 34.8,
+        "OS": "Not reached"
+      }
+    },
+    "recommendedFor": ["NSCLC_ALK_fusion"],
+    "highPriority": true,
+    "topCandidate": true,
+    "confidenceScore": 0.93
+  },
+  {
+    "id": "DRUG003",
+    "name": "Lorlatinib",
+    "brandName": "Lorbrena",
+    "moa": "TKI",
+    "moaDescription": "Third-generation ALK and ROS1 tyrosine kinase inhibitor",
+    "targets": ["ALK", "ROS1"],
+    "targetDescription": "Active against ALK resistance mutations; superior CNS activity",
+    "approvals": [
+      {
+        "region": "FDA",
+        "indication": "ALK-positive NSCLC progressed on ≥1 ALK-TKI",
+        "date": "2018-11-02"
+      },
+      {
+        "region": "FDA",
+        "indication": "1L ALK-positive NSCLC",
+        "date": "2021-03-03"
+      }
+    ],
+    "clinicalTrials": [
+      {
+        "trialId": "NCT01970865",
+        "name": "Phase 1/2 Study",
+        "phase": "Phase 1/2",
+        "status": "Completed"
+      },
+      {
+        "trialId": "NCT03052608",
+        "name": "CROWN",
+        "phase": "Phase 3",
+        "status": "Completed"
+      }
+    ],
+    "efficacyMetrics": {
+      "thirdLine_plus": {
+        "ORR": 42,
+        "intracranial_ORR": 63,
+        "PFS": 6.9
+      }
+    },
+    "recommendedFor": ["NSCLC_ALK_fusion"],
+    "highPriority": true,
+    "topCandidate": false,
+    "confidenceScore": 0.88
+  },
+  {
+    "id": "DRUG004",
+    "name": "Brigatinib",
+    "brandName": "Alunbrig",
+    "moa": "TKI",
+    "moaDescription": "Next-generation ALK and ROS1 tyrosine kinase inhibitor",
+    "targets": ["ALK", "ROS1"],
+    "targetDescription": "Potent ALK inhibitor with activity against multiple resistance mutations",
+    "approvals": [
+      {
+        "region": "FDA",
+        "indication": "1L ALK-positive NSCLC",
+        "date": "2020-05-22"
+      },
+      {
+        "region": "FDA",
+        "indication": "2L ALK-positive NSCLC",
+        "date": "2017-04-28"
+      }
+    ],
+    "clinicalTrials": [
+      {
+        "trialId": "NCT02737501",
+        "name": "ALTA-1L",
+        "phase": "Phase 3",
+        "status": "Completed"
+      }
+    ],
+    "efficacyMetrics": {
+      "firstLine": {
+        "ORR": 71,
+        "PFS": 24.0
+      }
+    },
+    "recommendedFor": ["NSCLC_ALK_fusion"],
+    "highPriority": true,
+    "topCandidate": true,
+    "confidenceScore": 0.90
+  },
+  {
+    "id": "DRUG005",
+    "name": "Afatinib",
+    "brandName": "Gilotrif",
+    "moa": "TKI",
+    "moaDescription": "Irreversible pan-ErbB family tyrosine kinase inhibitor",
+    "targets": ["EGFR", "HER2", "ErbB4"],
+    "targetDescription": "Irreversible inhibitor of EGFR, HER2, and ErbB4",
+    "approvals": [
+      {
+        "region": "FDA",
+        "indication": "1L EGFR exon19 del or L858R NSCLC",
+        "date": "2013-07-12"
+      }
+    ],
+    "clinicalTrials": [
+      {
+        "trialId": "NCT01466660",
+        "name": "LUX-Lung 7",
+        "phase": "Phase 2b",
+        "status": "Completed"
+      }
+    ],
+    "efficacyMetrics": {
+      "firstLine": {
+        "ORR": 70,
+        "PFS": 11.0
+      }
+    },
+    "recommendedFor": ["NSCLC_EGFR_ex19del", "NSCLC_EGFR_L858R"],
+    "highPriority": false,
+    "topCandidate": false,
+    "confidenceScore": 0.78
+  },
+  {
+    "id": "DRUG006",
+    "name": "Gefitinib",
+    "brandName": "Iressa",
+    "moa": "TKI",
+    "moaDescription": "First-generation reversible EGFR tyrosine kinase inhibitor",
+    "targets": ["EGFR"],
+    "targetDescription": "Selective EGFR-TKI for sensitizing mutations",
+    "approvals": [
+      {
+        "region": "FDA",
+        "indication": "1L EGFR exon19 del or L858R NSCLC",
+        "date": "2015-07-13"
+      }
+    ],
+    "clinicalTrials": [
+      {
+        "trialId": "NCT00322452",
+        "name": "IPASS",
+        "phase": "Phase 3",
+        "status": "Completed"
+      }
+    ],
+    "efficacyMetrics": {
+      "firstLine": {
+        "ORR": 71,
+        "PFS": 9.5
+      }
+    },
+    "recommendedFor": ["NSCLC_EGFR_ex19del", "NSCLC_EGFR_L858R"],
+    "highPriority": false,
+    "topCandidate": false,
+    "confidenceScore": 0.72
+  },
+  {
+    "id": "DRUG007",
+    "name": "Erlotinib",
+    "brandName": "Tarceva",
+    "moa": "TKI",
+    "moaDescription": "First-generation reversible EGFR tyrosine kinase inhibitor",
+    "targets": ["EGFR"],
+    "targetDescription": "Reversible EGFR-TKI",
+    "approvals": [
+      {
+        "region": "FDA",
+        "indication": "1L EGFR exon19 del or L858R NSCLC",
+        "date": "2013-05-14"
+      }
+    ],
+    "clinicalTrials": [
+      {
+        "trialId": "NCT00446225",
+        "name": "EURTAC",
+        "phase": "Phase 3",
+        "status": "Completed"
+      }
+    ],
+    "efficacyMetrics": {
+      "firstLine": {
+        "ORR": 58,
+        "PFS": 9.7
+      }
+    },
+    "recommendedFor": ["NSCLC_EGFR_ex19del", "NSCLC_EGFR_L858R"],
+    "highPriority": false,
+    "topCandidate": false,
+    "confidenceScore": 0.70
+  },
+  {
+    "id": "DRUG008",
+    "name": "Crizotinib",
+    "brandName": "Xalkori",
+    "moa": "TKI",
+    "moaDescription": "First-generation ALK, ROS1, and MET tyrosine kinase inhibitor",
+    "targets": ["ALK", "ROS1", "MET"],
+    "targetDescription": "Multi-targeted TKI with activity against ALK, ROS1, and MET",
+    "approvals": [
+      {
+        "region": "FDA",
+        "indication": "1L ALK-positive NSCLC",
+        "date": "2011-08-26"
+      },
+      {
+        "region": "FDA",
+        "indication": "ROS1-positive NSCLC",
+        "date": "2016-03-11"
+      }
+    ],
+    "clinicalTrials": [
+      {
+        "trialId": "NCT00932893",
+        "name": "PROFILE 1014",
+        "phase": "Phase 3",
+        "status": "Completed"
+      }
+    ],
+    "efficacyMetrics": {
+      "firstLine": {
+        "ORR": 74,
+        "PFS": 10.9
+      }
+    },
+    "recommendedFor": ["NSCLC_ALK_fusion"],
+    "highPriority": false,
+    "topCandidate": false,
+    "confidenceScore": 0.75
+  },
+  {
+    "id": "DRUG009",
+    "name": "Investigational_Drug_X",
+    "brandName": "N/A",
+    "moa": "TKI",
+    "moaDescription": "Fourth-generation EGFR tyrosine kinase inhibitor (investigational)",
+    "targets": ["EGFR"],
+    "targetDescription": "Novel TKI for T790M-negative resistance mechanisms",
+    "approvals": [],
+    "clinicalTrials": [
+      {
+        "trialId": "NCT04567890",
+        "name": "Phase 2 Study",
+        "phase": "Phase 2",
+        "status": "Ongoing"
+      }
+    ],
+    "efficacyMetrics": {
+      "secondLine_T790M_negative": {
+        "ORR": 34,
+        "PFS": 7.2
+      }
+    },
+    "recommendedFor": ["NSCLC_EGFR_ex19del"],
+    "highPriority": false,
+    "topCandidate": false,
+    "confidenceScore": 0.45,
+    "needsReview": true,
+    "reviewReason": "Preprint data only; not peer-reviewed; small sample size (N=127)"
+  }
+]

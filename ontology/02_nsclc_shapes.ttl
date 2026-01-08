@@ -1,0 +1,295 @@
+@prefix :   <http://example.org/nsclc#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd:<http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+##########
+# SHACL Shapes for NSCLC Ontology
+# Version: 2.0
+# Purpose: Data quality validation ("SHACL Gate")
+##########
+
+##########
+# Result Shape - Ensures complete evidence linkage
+##########
+:ResultShape a sh:NodeShape ;
+  rdfs:label "Result Validation Shape"@en ;
+  rdfs:comment "Validates that Result instances have all required fields and proper linkages"@en ;
+  sh:targetClass :Result ;
+  sh:message "Result validation failed" ;
+
+  # Must link to a CancerType
+  sh:property [
+    sh:path :aboutCancerType ;
+    sh:name "about cancer type" ;
+    sh:description "Result must specify which cancer type it pertains to" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:class :CancerType ;
+    sh:message "Result must have exactly one aboutCancerType" ;
+  ] ;
+
+  # Must link to a Compound/Drug
+  sh:property [
+    sh:path :aboutDrug ;
+    sh:name "about drug" ;
+    sh:description "Result must specify which drug it evaluates" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:class :Compound ;
+    sh:message "Result must have exactly one aboutDrug" ;
+  ] ;
+
+  # Must link to EvidenceItem (traceability)
+  sh:property [
+    sh:path :reportedIn ;
+    sh:name "reported in" ;
+    sh:description "Result must be traceable to an evidence source" ;
+    sh:minCount 1 ;
+    sh:class :EvidenceItem ;
+    sh:message "Result must have at least one reportedIn (evidence source)" ;
+  ] ;
+
+  # Metric validation
+  sh:property [
+    sh:path :metric ;
+    sh:name "metric" ;
+    sh:description "Type of clinical endpoint" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:in ("ORR" "PFS" "OS" "IC50" "DOR" "DCR") ;
+    sh:message "Result must have one metric from allowed list: ORR, PFS, OS, IC50, DOR, DCR" ;
+  ] ;
+
+  # Value validation
+  sh:property [
+    sh:path :value ;
+    sh:name "value" ;
+    sh:description "Numeric value of the result" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:decimal ;
+    sh:minInclusive 0 ;
+    sh:message "Result must have exactly one numeric value >= 0" ;
+  ] ;
+
+  # Unit validation
+  sh:property [
+    sh:path :unit ;
+    sh:name "unit" ;
+    sh:description "Unit of measurement" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "Result must have exactly one unit" ;
+  ] .
+
+##########
+# EvidenceItem Shape - Ensures minimal metadata
+##########
+:EvidenceItemShape a sh:NodeShape ;
+  rdfs:label "Evidence Item Validation Shape"@en ;
+  rdfs:comment "Validates that EvidenceItem has required metadata for traceability"@en ;
+  sh:targetClass :EvidenceItem ;
+  sh:message "EvidenceItem validation failed" ;
+
+  # Evidence type
+  sh:property [
+    sh:path :evidenceType ;
+    sh:name "evidence type" ;
+    sh:description "Type of evidence source" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:in ("Paper" "TrialSummary" "Review" "Preprint") ;
+    sh:message "EvidenceItem must have one evidenceType from: Paper, TrialSummary, Review, Preprint" ;
+  ] ;
+
+  # Source date for temporal tracking
+  sh:property [
+    sh:path :sourceDate ;
+    sh:name "source date" ;
+    sh:description "Publication or summary date" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:date ;
+    sh:message "EvidenceItem must have exactly one sourceDate" ;
+  ] ;
+
+  # Abstract text for RAG/search
+  sh:property [
+    sh:path :abstractText ;
+    sh:name "abstract text" ;
+    sh:description "Abstract or summary text for retrieval" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:minLength 10 ;
+    sh:message "EvidenceItem must have abstractText with at least 10 characters" ;
+  ] ;
+
+  # Confidence level
+  sh:property [
+    sh:path :confidence ;
+    sh:name "confidence" ;
+    sh:description "Confidence level assessment" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:in ("High" "Medium" "Low") ;
+    sh:message "EvidenceItem must have confidence level: High, Medium, or Low" ;
+  ] .
+
+##########
+# ClinicalTrial Shape
+##########
+:ClinicalTrialShape a sh:NodeShape ;
+  rdfs:label "Clinical Trial Validation Shape"@en ;
+  rdfs:comment "Validates clinical trial identifiers"@en ;
+  sh:targetClass :ClinicalTrial ;
+  sh:message "ClinicalTrial validation failed" ;
+
+  sh:property [
+    sh:path :trialId ;
+    sh:name "trial ID" ;
+    sh:description "Clinical trial identifier (NCT, EudraCT, etc.)" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:pattern "^(NCT|EUCTR|JPRN|ChiCTR|CTRI)[0-9]+" ;
+    sh:message "ClinicalTrial must have trialId matching pattern: NCT/EUCTR/JPRN/ChiCTR/CTRI + numbers" ;
+  ] .
+
+##########
+# Compound Shape - Ensures drug metadata
+##########
+:CompoundShape a sh:NodeShape ;
+  rdfs:label "Compound Validation Shape"@en ;
+  rdfs:comment "Validates compound/drug instances have essential properties"@en ;
+  sh:targetClass :Compound ;
+  sh:message "Compound validation failed" ;
+
+  # Must have a name
+  sh:property [
+    sh:path :compoundName ;
+    sh:name "compound name" ;
+    sh:description "Official or common name of the compound" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:minLength 2 ;
+    sh:message "Compound must have a name with at least 2 characters" ;
+  ] ;
+
+  # Must target at least one gene
+  sh:property [
+    sh:path :targets ;
+    sh:name "targets" ;
+    sh:description "Gene(s) targeted by the compound" ;
+    sh:minCount 1 ;
+    sh:class :Gene ;
+    sh:message "Compound must target at least one Gene" ;
+  ] .
+
+##########
+# PatientSubgroup Shape - Ensures proper definition
+##########
+:PatientSubgroupShape a sh:NodeShape ;
+  rdfs:label "Patient Subgroup Validation Shape"@en ;
+  rdfs:comment "Validates patient subgroup cohort definitions"@en ;
+  sh:targetClass :PatientSubgroup ;
+  sh:message "PatientSubgroup validation failed" ;
+
+  # Must have cancer type
+  sh:property [
+    sh:path :hasCancerType ;
+    sh:name "has cancer type" ;
+    sh:description "The cancer type defining this subgroup" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:class :CancerType ;
+    sh:message "PatientSubgroup must have exactly one hasCancerType" ;
+  ] ;
+
+  # Must have alteration
+  sh:property [
+    sh:path :hasAlteration ;
+    sh:name "has alteration" ;
+    sh:description "The genomic alteration defining this subgroup" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:class :Alteration ;
+    sh:message "PatientSubgroup must have exactly one hasAlteration" ;
+  ] .
+
+##########
+# Alteration Shape
+##########
+:AlterationShape a sh:NodeShape ;
+  rdfs:label "Alteration Validation Shape"@en ;
+  rdfs:comment "Validates genomic alterations are linked to genes"@en ;
+  sh:targetClass :Alteration ;
+  sh:message "Alteration validation failed" ;
+
+  sh:property [
+    sh:path :inGene ;
+    sh:name "in gene" ;
+    sh:description "The gene harboring this alteration" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:class :Gene ;
+    sh:message "Alteration must specify exactly one Gene via inGene" ;
+  ] .
+
+##########
+# Unit-Metric Consistency Shape
+# Advanced: ensures ORR uses %, PFS/OS use months, IC50 uses nM/uM
+##########
+:ResultUnitConsistencyShape a sh:NodeShape ;
+  rdfs:label "Result Unit-Metric Consistency Shape"@en ;
+  rdfs:comment "Validates that units match the expected metric"@en ;
+  sh:targetClass :Result ;
+
+  # ORR should use %
+  sh:sparql [
+    sh:message "ORR results should use unit '%'" ;
+    sh:prefixes :, xsd: ;
+    sh:select """
+      SELECT $this
+      WHERE {
+        $this :metric "ORR" .
+        $this :unit ?unit .
+        FILTER (?unit != "%")
+      }
+    """ ;
+  ] ;
+
+  # PFS/OS should use months
+  sh:sparql [
+    sh:message "PFS/OS results should use unit 'months'" ;
+    sh:prefixes :, xsd: ;
+    sh:select """
+      SELECT $this
+      WHERE {
+        $this :metric ?metric .
+        FILTER (?metric IN ("PFS", "OS"))
+        $this :unit ?unit .
+        FILTER (?unit != "months")
+      }
+    """ ;
+  ] ;
+
+  # IC50 should use nM or uM
+  sh:sparql [
+    sh:message "IC50 results should use unit 'nM' or 'uM'" ;
+    sh:prefixes :, xsd: ;
+    sh:select """
+      SELECT $this
+      WHERE {
+        $this :metric "IC50" .
+        $this :unit ?unit .
+        FILTER (?unit NOT IN ("nM", "uM"))
+      }
+    """ ;
+  ] .

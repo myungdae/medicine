@@ -1,0 +1,299 @@
+@prefix :     <http://example.org/nsclc#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+##########
+# Agentic Decision Flow Ontology
+# Version: 2.0
+# Purpose: Proposal → Request → Decision → Execution workflow
+##########
+
+##########
+# Decision-Flow Object Properties
+##########
+
+:proposalForDrug a owl:ObjectProperty ;
+  rdfs:label "proposal for drug"@en ;
+  rdfs:comment "Links a proposal to the drug it concerns"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range :Compound .
+
+:proposalForSubgroup a owl:ObjectProperty ;
+  rdfs:label "proposal for subgroup"@en ;
+  rdfs:comment "Links a proposal to the patient subgroup it concerns"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range :PatientSubgroup .
+
+:proposalBasedOn a owl:ObjectProperty ;
+  rdfs:label "proposal based on evidence"@en ;
+  rdfs:comment "Links a proposal to the evidence supporting it"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range :EvidenceItem .
+
+:requestsApprovalFor a owl:ObjectProperty ;
+  rdfs:label "requests approval for"@en ;
+  rdfs:comment "Links an approval request to the proposal"@en ;
+  rdfs:domain :ApprovalRequest ;
+  rdfs:range :ActionProposal .
+
+:decidesOn a owl:ObjectProperty ;
+  rdfs:label "decides on request"@en ;
+  rdfs:comment "Links a decision to the approval request it addresses"@en ;
+  rdfs:domain :ApprovalDecision ;
+  rdfs:range :ApprovalRequest .
+
+:executesProposal a owl:ObjectProperty ;
+  rdfs:label "executes proposal"@en ;
+  rdfs:comment "Links an execution record to the approved proposal"@en ;
+  rdfs:domain :Execution ;
+  rdfs:range :ActionProposal .
+
+:producedResult a owl:ObjectProperty ;
+  rdfs:label "produced result"@en ;
+  rdfs:comment "Links execution to the result it produced"@en ;
+  rdfs:domain :Execution ;
+  rdfs:range :Result .
+
+##########
+# Decision-Flow Datatype Properties
+##########
+
+# ActionProposal Properties
+:proposesAction a owl:DatatypeProperty ;
+  rdfs:label "proposes action"@en ;
+  rdfs:comment "Text description of the proposed action"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range xsd:string .
+
+:proposalCreatedAt a owl:DatatypeProperty ;
+  rdfs:label "proposal created at"@en ;
+  rdfs:comment "Timestamp when the proposal was created"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range xsd:dateTime .
+
+:proposalStatus a owl:DatatypeProperty ;
+  rdfs:label "proposal status"@en ;
+  rdfs:comment "Current status: Draft, Requested, Approved, Rejected, Executed"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range xsd:string .
+
+:proposalRationale a owl:DatatypeProperty ;
+  rdfs:label "proposal rationale"@en ;
+  rdfs:comment "Reasoning or justification for the proposal"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range xsd:string .
+
+:triggeredByRule a owl:DatatypeProperty ;
+  rdfs:label "triggered by rule"@en ;
+  rdfs:comment "Name of the SWRL rule that triggered this proposal"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range xsd:string .
+
+# ApprovalRequest Properties
+:requestedTo a owl:DatatypeProperty ;
+  rdfs:label "requested to"@en ;
+  rdfs:comment "Role or person the approval is requested from"@en ;
+  rdfs:domain :ApprovalRequest ;
+  rdfs:range xsd:string .
+
+:requestedAt a owl:DatatypeProperty ;
+  rdfs:label "requested at"@en ;
+  rdfs:comment "Timestamp when approval was requested"@en ;
+  rdfs:domain :ApprovalRequest ;
+  rdfs:range xsd:dateTime .
+
+:requestPriority a owl:DatatypeProperty ;
+  rdfs:label "request priority"@en ;
+  rdfs:comment "Priority level: High, Medium, Low"@en ;
+  rdfs:domain :ApprovalRequest ;
+  rdfs:range xsd:string .
+
+# ApprovalDecision Properties
+:decision a owl:DatatypeProperty ;
+  rdfs:label "decision"@en ;
+  rdfs:comment "The decision: Approve, Reject, Hold"@en ;
+  rdfs:domain :ApprovalDecision ;
+  rdfs:range xsd:string .
+
+:decisionReason a owl:DatatypeProperty ;
+  rdfs:label "decision reason"@en ;
+  rdfs:comment "Explanation for the decision"@en ;
+  rdfs:domain :ApprovalDecision ;
+  rdfs:range xsd:string .
+
+:decidedAt a owl:DatatypeProperty ;
+  rdfs:label "decided at"@en ;
+  rdfs:comment "Timestamp when the decision was made"@en ;
+  rdfs:domain :ApprovalDecision ;
+  rdfs:range xsd:dateTime .
+
+:decidedBy a owl:DatatypeProperty ;
+  rdfs:label "decided by"@en ;
+  rdfs:comment "Person or system that made the decision"@en ;
+  rdfs:domain :ApprovalDecision ;
+  rdfs:range xsd:string .
+
+# Execution Properties
+:executionStatus a owl:DatatypeProperty ;
+  rdfs:label "execution status"@en ;
+  rdfs:comment "Status: Pending, InProgress, Completed, Failed"@en ;
+  rdfs:domain :Execution ;
+  rdfs:range xsd:string .
+
+:executionNote a owl:DatatypeProperty ;
+  rdfs:label "execution note"@en ;
+  rdfs:comment "Notes or log messages from execution"@en ;
+  rdfs:domain :Execution ;
+  rdfs:range xsd:string .
+
+:executedAt a owl:DatatypeProperty ;
+  rdfs:label "executed at"@en ;
+  rdfs:comment "Timestamp when execution started"@en ;
+  rdfs:domain :Execution ;
+  rdfs:range xsd:dateTime .
+
+:completedAt a owl:DatatypeProperty ;
+  rdfs:label "completed at"@en ;
+  rdfs:comment "Timestamp when execution completed"@en ;
+  rdfs:domain :Execution ;
+  rdfs:range xsd:dateTime .
+
+:executedBy a owl:DatatypeProperty ;
+  rdfs:label "executed by"@en ;
+  rdfs:comment "System or person that executed the action"@en ;
+  rdfs:domain :Execution ;
+  rdfs:range xsd:string .
+
+##########
+# Example Template Instances
+# (Can be removed in production; useful for testing)
+##########
+
+:ProposalTemplate_EGFR_Validation a :ActionProposal ;
+  rdfs:label "EGFR Inhibitor Validation Proposal"@en ;
+  :proposesAction "Validate EGFR inhibitor efficacy in NSCLC_EGFR_ex19del with ORR/PFS endpoints" ;
+  :proposalForSubgroup :NSCLC_EGFR_ex19del ;
+  :proposalCreatedAt "2026-01-08T09:00:00+09:00"^^xsd:dateTime ;
+  :proposalStatus "Draft" ;
+  :proposalRationale "Multiple high-quality evidence sources indicate strong efficacy" ;
+  :triggeredByRule "Rule1_EGFR_Recommendation" .
+
+:ProposalTemplate_ALK_Validation a :ActionProposal ;
+  rdfs:label "ALK Inhibitor Validation Proposal"@en ;
+  :proposesAction "Validate ALK inhibitor efficacy in NSCLC_ALK_fusion with ORR/PFS endpoints" ;
+  :proposalForSubgroup :NSCLC_ALK_fusion ;
+  :proposalCreatedAt "2026-01-08T09:15:00+09:00"^^xsd:dateTime ;
+  :proposalStatus "Draft" ;
+  :proposalRationale "Emerging evidence suggests significant activity in ALK-rearranged NSCLC" ;
+  :triggeredByRule "Rule2_ALK_Recommendation" .
+
+##########
+# Workflow State Machine
+# Defines valid transitions between proposal statuses
+##########
+
+# Status values (as strings for simplicity):
+# - "Draft": Initial state, editable
+# - "Requested": Approval requested, awaiting decision
+# - "Approved": Approved for execution
+# - "Rejected": Rejected, no execution
+# - "Hold": Decision deferred, needs more information
+# - "Executed": Action has been executed
+
+# Valid transitions (not enforced in RDF, but documented):
+# Draft → Requested
+# Requested → Approved | Rejected | Hold
+# Approved → Executed
+# Hold → Requested (after review)
+# Rejected → (terminal state)
+# Executed → (terminal state)
+
+##########
+# MoE (Mixture of Experts) Integration Points
+##########
+
+:expertType a owl:DatatypeProperty ;
+  rdfs:label "expert type"@en ;
+  rdfs:comment "Type of expert involved: Human Curator, AI Reasoner, Hybrid"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range xsd:string .
+
+:confidenceScore a owl:DatatypeProperty ;
+  rdfs:label "confidence score"@en ;
+  rdfs:comment "Confidence score (0.0-1.0) for AI-generated proposals"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range xsd:decimal .
+
+:requiresHumanReview a owl:DatatypeProperty ;
+  rdfs:label "requires human review"@en ;
+  rdfs:comment "Boolean flag indicating if human review is required before execution"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range xsd:boolean .
+
+##########
+# Audit Trail Properties
+##########
+
+:auditLog a owl:DatatypeProperty ;
+  rdfs:label "audit log"@en ;
+  rdfs:comment "JSON or text log of all changes to this entity"@en ;
+  rdfs:range xsd:string .
+
+:lastModifiedAt a owl:DatatypeProperty ;
+  rdfs:label "last modified at"@en ;
+  rdfs:comment "Timestamp of last modification"@en ;
+  rdfs:range xsd:dateTime .
+
+:lastModifiedBy a owl:DatatypeProperty ;
+  rdfs:label "last modified by"@en ;
+  rdfs:comment "Person or system that last modified this entity"@en ;
+  rdfs:range xsd:string .
+
+##########
+# Extended Workflow: Evidence Quality Gating
+##########
+
+:evidenceQualityScore a owl:DatatypeProperty ;
+  rdfs:label "evidence quality score"@en ;
+  rdfs:comment "Computed quality score (0.0-1.0) based on evidence strength"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range xsd:decimal .
+
+:minimumEvidenceThreshold a owl:DatatypeProperty ;
+  rdfs:label "minimum evidence threshold"@en ;
+  rdfs:comment "Minimum quality score required for auto-approval"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range xsd:decimal .
+
+##########
+# Notification and Alerting
+##########
+
+:notificationSent a owl:DatatypeProperty ;
+  rdfs:label "notification sent"@en ;
+  rdfs:comment "Whether notification has been sent to stakeholders"@en ;
+  rdfs:range xsd:boolean .
+
+:notificationRecipients a owl:DatatypeProperty ;
+  rdfs:label "notification recipients"@en ;
+  rdfs:comment "List of recipients (emails, user IDs)"@en ;
+  rdfs:range xsd:string .
+
+##########
+# Integration with Main Ontology
+##########
+
+# Link proposals back to the reasoning outputs
+:generatedByHighPriority a owl:ObjectProperty ;
+  rdfs:label "generated by high priority flag"@en ;
+  rdfs:comment "Links proposal to drug that triggered it via highPriority rule"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range :Compound .
+
+:generatedByTopCandidate a owl:ObjectProperty ;
+  rdfs:label "generated by top candidate flag"@en ;
+  rdfs:comment "Links proposal to drug that triggered it via topCandidate rule"@en ;
+  rdfs:domain :ActionProposal ;
+  rdfs:range :Compound .

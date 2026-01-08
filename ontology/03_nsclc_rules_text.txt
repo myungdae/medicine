@@ -1,0 +1,59 @@
+# SWRL Rules for NSCLC Treatment Recommendations (Text Format)
+# Version: 2.0
+# 
+# These rules can be copied directly into TopBraid Composer's SWRL tab
+# or other SWRL editors that support human-readable syntax.
+
+## RULE 1: EGFR Subgroup Recommendation
+PatientSubgroup(?subgroup) ^ hasAlteration(?subgroup, ?alteration) ^ inGene(?alteration, EGFR) ^ Compound(?drug) ^ targets(?drug, EGFR)
+-> recommendedForSubgroup(?drug, ?subgroup)
+
+## RULE 2: ALK Subgroup Recommendation
+PatientSubgroup(?subgroup) ^ hasAlteration(?subgroup, ?alteration) ^ inGene(?alteration, ALK) ^ Compound(?drug) ^ targets(?drug, ALK)
+-> recommendedForSubgroup(?drug, ?subgroup)
+
+## RULE 3: High ORR Priority (> 50%)
+Result(?result) ^ metric(?result, "ORR") ^ unit(?result, "%") ^ value(?result, ?value) ^ swrlb:greaterThan(?value, 50) ^ aboutDrug(?result, ?drug)
+-> highPriority(?drug, true)
+
+## RULE 4: High PFS Priority (> 12 months)
+Result(?result) ^ metric(?result, "PFS") ^ unit(?result, "months") ^ value(?result, ?value) ^ swrlb:greaterThan(?value, 12) ^ aboutDrug(?result, ?drug)
+-> highPriority(?drug, true)
+
+## RULE 5: High OS Priority (> 24 months)
+Result(?result) ^ metric(?result, "OS") ^ unit(?result, "months") ^ value(?result, ?value) ^ swrlb:greaterThan(?value, 24) ^ aboutDrug(?result, ?drug)
+-> highPriority(?drug, true)
+
+## RULE 6: Trial Follow-up Suggestion
+Result(?result) ^ reportedIn(?result, ?evidence) ^ evidenceType(?evidence, "TrialSummary") ^ aboutDrug(?result, ?drug) ^ hasTrial(?evidence, ?trial)
+-> suggestTrialFollowup(?drug, ?trial)
+
+## RULE 7: ORR Unit Mismatch Check
+Result(?result) ^ metric(?result, "ORR") ^ unit(?result, ?unit) ^ swrlb:notEqual(?unit, "%")
+-> needsReview(?result, true)
+
+## RULE 8: PFS Unit Mismatch Check
+Result(?result) ^ metric(?result, "PFS") ^ unit(?result, ?unit) ^ swrlb:notEqual(?unit, "months")
+-> needsReview(?result, true)
+
+## RULE 9: OS Unit Mismatch Check
+Result(?result) ^ metric(?result, "OS") ^ unit(?result, ?unit) ^ swrlb:notEqual(?unit, "months")
+-> needsReview(?result, true)
+
+## RULE 10: EGFR Subgroup-Drug Mismatch
+Result(?result) ^ aboutSubgroup(?result, ?subgroup) ^ hasAlteration(?subgroup, ?alteration) ^ inGene(?alteration, EGFR) ^ aboutDrug(?result, ?drug) ^ targets(?drug, ?gene) ^ swrlb:notEqual(?gene, EGFR)
+-> needsReview(?result, true)
+
+## RULE 11: ALK Subgroup-Drug Mismatch
+Result(?result) ^ aboutSubgroup(?result, ?subgroup) ^ hasAlteration(?subgroup, ?alteration) ^ inGene(?alteration, ALK) ^ aboutDrug(?result, ?drug) ^ targets(?drug, ?gene) ^ swrlb:notEqual(?gene, ALK)
+-> needsReview(?result, true)
+
+## RULE 12: Top Candidate Detection (2+ Papers + High Priority)
+Result(?result1) ^ Result(?result2) ^ swrlb:notEqual(?result1, ?result2) ^ aboutDrug(?result1, ?drug) ^ aboutDrug(?result2, ?drug) ^ reportedIn(?result1, ?evidence1) ^ reportedIn(?result2, ?evidence2) ^ evidenceType(?evidence1, "Paper") ^ evidenceType(?evidence2, "Paper") ^ highPriority(?drug, true)
+-> topCandidate(?drug, true)
+
+## Notes:
+# - Prefix declarations are assumed to be defined in the ontology
+# - Built-in functions use swrlb: namespace (e.g., swrlb:greaterThan, swrlb:notEqual)
+# - Variable names start with ?
+# - Constants (like EGFR, ALK) refer to instances defined in the seed ontology

@@ -1,0 +1,239 @@
+@prefix :      <http://example.org/nsclc#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix swrl:  <http://www.w3.org/2003/11/swrl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+##########
+# SWRL Rules for NSCLC Treatment Recommendations
+# Version: 2.0
+# Purpose: Automated reasoning for drug recommendations
+##########
+
+##########
+# RULE 1: EGFR Subgroup Recommendation
+# If patient has EGFR alteration and drug targets EGFR
+# => Recommend drug for that subgroup
+##########
+:Rule1_EGFR_Recommendation a swrl:Imp ;
+  rdfs:label "EGFR subgroup → recommend EGFR-targeting drug"@en ;
+  rdfs:comment "Matches EGFR-altered patients with EGFR-targeted drugs"@en ;
+  swrl:body (
+    [ a swrl:ClassAtom ; swrl:classPredicate :PatientSubgroup ; swrl:argument1 ?subgroup ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :hasAlteration ; swrl:argument1 ?subgroup ; swrl:argument2 ?alteration ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :inGene ; swrl:argument1 ?alteration ; swrl:argument2 :EGFR ]
+    [ a swrl:ClassAtom ; swrl:classPredicate :Compound ; swrl:argument1 ?drug ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :targets ; swrl:argument1 ?drug ; swrl:argument2 :EGFR ]
+  ) ;
+  swrl:head (
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :recommendedForSubgroup ; swrl:argument1 ?drug ; swrl:argument2 ?subgroup ]
+  ) .
+
+##########
+# RULE 2: ALK Subgroup Recommendation
+# If patient has ALK alteration and drug targets ALK
+# => Recommend drug for that subgroup
+##########
+:Rule2_ALK_Recommendation a swrl:Imp ;
+  rdfs:label "ALK subgroup → recommend ALK-targeting drug"@en ;
+  rdfs:comment "Matches ALK-altered patients with ALK-targeted drugs"@en ;
+  swrl:body (
+    [ a swrl:ClassAtom ; swrl:classPredicate :PatientSubgroup ; swrl:argument1 ?subgroup ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :hasAlteration ; swrl:argument1 ?subgroup ; swrl:argument2 ?alteration ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :inGene ; swrl:argument1 ?alteration ; swrl:argument2 :ALK ]
+    [ a swrl:ClassAtom ; swrl:classPredicate :Compound ; swrl:argument1 ?drug ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :targets ; swrl:argument1 ?drug ; swrl:argument2 :ALK ]
+  ) ;
+  swrl:head (
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :recommendedForSubgroup ; swrl:argument1 ?drug ; swrl:argument2 ?subgroup ]
+  ) .
+
+##########
+# RULE 3: High ORR Priority
+# If ORR > 50% => Mark drug as highPriority
+##########
+:Rule3_ORR_HighPriority a swrl:Imp ;
+  rdfs:label "ORR > 50% → highPriority"@en ;
+  rdfs:comment "Flags drugs with high objective response rate as high priority"@en ;
+  swrl:body (
+    [ a swrl:ClassAtom ; swrl:classPredicate :Result ; swrl:argument1 ?result ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :metric ; swrl:argument1 ?result ; swrl:argument2 "ORR" ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :unit ; swrl:argument1 ?result ; swrl:argument2 "%" ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :value ; swrl:argument1 ?result ; swrl:argument2 ?value ]
+    [ a swrl:BuiltinAtom ; swrl:builtin swrlb:greaterThan ; swrl:arguments ( ?value "50"^^xsd:decimal ) ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :aboutDrug ; swrl:argument1 ?result ; swrl:argument2 ?drug ]
+  ) ;
+  swrl:head (
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :highPriority ; swrl:argument1 ?drug ; swrl:argument2 "true"^^xsd:boolean ]
+  ) .
+
+##########
+# RULE 4: High PFS Priority
+# If PFS > 12 months => Mark drug as highPriority
+##########
+:Rule4_PFS_HighPriority a swrl:Imp ;
+  rdfs:label "PFS > 12 months → highPriority"@en ;
+  rdfs:comment "Flags drugs with progression-free survival >12 months as high priority"@en ;
+  swrl:body (
+    [ a swrl:ClassAtom ; swrl:classPredicate :Result ; swrl:argument1 ?result ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :metric ; swrl:argument1 ?result ; swrl:argument2 "PFS" ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :unit ; swrl:argument1 ?result ; swrl:argument2 "months" ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :value ; swrl:argument1 ?result ; swrl:argument2 ?value ]
+    [ a swrl:BuiltinAtom ; swrl:builtin swrlb:greaterThan ; swrl:arguments ( ?value "12"^^xsd:decimal ) ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :aboutDrug ; swrl:argument1 ?result ; swrl:argument2 ?drug ]
+  ) ;
+  swrl:head (
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :highPriority ; swrl:argument1 ?drug ; swrl:argument2 "true"^^xsd:boolean ]
+  ) .
+
+##########
+# RULE 5: High OS Priority
+# If OS > 24 months => Mark drug as highPriority
+##########
+:Rule5_OS_HighPriority a swrl:Imp ;
+  rdfs:label "OS > 24 months → highPriority"@en ;
+  rdfs:comment "Flags drugs with overall survival >24 months as high priority"@en ;
+  swrl:body (
+    [ a swrl:ClassAtom ; swrl:classPredicate :Result ; swrl:argument1 ?result ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :metric ; swrl:argument1 ?result ; swrl:argument2 "OS" ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :unit ; swrl:argument1 ?result ; swrl:argument2 "months" ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :value ; swrl:argument1 ?result ; swrl:argument2 ?value ]
+    [ a swrl:BuiltinAtom ; swrl:builtin swrlb:greaterThan ; swrl:arguments ( ?value "24"^^xsd:decimal ) ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :aboutDrug ; swrl:argument1 ?result ; swrl:argument2 ?drug ]
+  ) ;
+  swrl:head (
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :highPriority ; swrl:argument1 ?drug ; swrl:argument2 "true"^^xsd:boolean ]
+  ) .
+
+##########
+# RULE 6: Trial Follow-up Suggestion
+# If TrialSummary evidence with trial => Suggest trial follow-up
+##########
+:Rule6_Trial_Followup a swrl:Imp ;
+  rdfs:label "TrialSummary → suggest trial follow-up"@en ;
+  rdfs:comment "Suggests following up with clinical trial when trial summary is available"@en ;
+  swrl:body (
+    [ a swrl:ClassAtom ; swrl:classPredicate :Result ; swrl:argument1 ?result ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :reportedIn ; swrl:argument1 ?result ; swrl:argument2 ?evidence ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :evidenceType ; swrl:argument1 ?evidence ; swrl:argument2 "TrialSummary" ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :aboutDrug ; swrl:argument1 ?result ; swrl:argument2 ?drug ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :hasTrial ; swrl:argument1 ?evidence ; swrl:argument2 ?trial ]
+  ) ;
+  swrl:head (
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :suggestTrialFollowup ; swrl:argument1 ?drug ; swrl:argument2 ?trial ]
+  ) .
+
+##########
+# RULE 7: ORR Unit Mismatch Check
+# If ORR but unit != % => Flag for review
+##########
+:Rule7_ORR_Unit_Check a swrl:Imp ;
+  rdfs:label "ORR unit mismatch → needsReview"@en ;
+  rdfs:comment "Flags ORR results with incorrect units for human review"@en ;
+  swrl:body (
+    [ a swrl:ClassAtom ; swrl:classPredicate :Result ; swrl:argument1 ?result ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :metric ; swrl:argument1 ?result ; swrl:argument2 "ORR" ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :unit ; swrl:argument1 ?result ; swrl:argument2 ?unit ]
+    [ a swrl:BuiltinAtom ; swrl:builtin swrlb:notEqual ; swrl:arguments ( ?unit "%" ) ]
+  ) ;
+  swrl:head (
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :needsReview ; swrl:argument1 ?result ; swrl:argument2 "true"^^xsd:boolean ]
+  ) .
+
+##########
+# RULE 8: PFS Unit Mismatch Check
+# If PFS but unit != months => Flag for review
+##########
+:Rule8_PFS_Unit_Check a swrl:Imp ;
+  rdfs:label "PFS unit mismatch → needsReview"@en ;
+  rdfs:comment "Flags PFS results with incorrect units for human review"@en ;
+  swrl:body (
+    [ a swrl:ClassAtom ; swrl:classPredicate :Result ; swrl:argument1 ?result ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :metric ; swrl:argument1 ?result ; swrl:argument2 "PFS" ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :unit ; swrl:argument1 ?result ; swrl:argument2 ?unit ]
+    [ a swrl:BuiltinAtom ; swrl:builtin swrlb:notEqual ; swrl:arguments ( ?unit "months" ) ]
+  ) ;
+  swrl:head (
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :needsReview ; swrl:argument1 ?result ; swrl:argument2 "true"^^xsd:boolean ]
+  ) .
+
+##########
+# RULE 9: OS Unit Mismatch Check
+# If OS but unit != months => Flag for review
+##########
+:Rule9_OS_Unit_Check a swrl:Imp ;
+  rdfs:label "OS unit mismatch → needsReview"@en ;
+  rdfs:comment "Flags OS results with incorrect units for human review"@en ;
+  swrl:body (
+    [ a swrl:ClassAtom ; swrl:classPredicate :Result ; swrl:argument1 ?result ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :metric ; swrl:argument1 ?result ; swrl:argument2 "OS" ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :unit ; swrl:argument1 ?result ; swrl:argument2 ?unit ]
+    [ a swrl:BuiltinAtom ; swrl:builtin swrlb:notEqual ; swrl:arguments ( ?unit "months" ) ]
+  ) ;
+  swrl:head (
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :needsReview ; swrl:argument1 ?result ; swrl:argument2 "true"^^xsd:boolean ]
+  ) .
+
+##########
+# RULE 10: EGFR Subgroup-Drug Mismatch
+# If EGFR subgroup result but drug doesn't target EGFR => Flag for review
+##########
+:Rule10_EGFR_Subgroup_DrugMismatch a swrl:Imp ;
+  rdfs:label "EGFR subgroup + non-EGFR drug → needsReview"@en ;
+  rdfs:comment "Flags potential data entry errors: EGFR patient with non-EGFR drug"@en ;
+  swrl:body (
+    [ a swrl:ClassAtom ; swrl:classPredicate :Result ; swrl:argument1 ?result ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :aboutSubgroup ; swrl:argument1 ?result ; swrl:argument2 ?subgroup ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :hasAlteration ; swrl:argument1 ?subgroup ; swrl:argument2 ?alteration ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :inGene ; swrl:argument1 ?alteration ; swrl:argument2 :EGFR ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :aboutDrug ; swrl:argument1 ?result ; swrl:argument2 ?drug ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :targets ; swrl:argument1 ?drug ; swrl:argument2 ?gene ]
+    [ a swrl:BuiltinAtom ; swrl:builtin swrlb:notEqual ; swrl:arguments ( ?gene :EGFR ) ]
+  ) ;
+  swrl:head (
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :needsReview ; swrl:argument1 ?result ; swrl:argument2 "true"^^xsd:boolean ]
+  ) .
+
+##########
+# RULE 11: ALK Subgroup-Drug Mismatch
+# If ALK subgroup result but drug doesn't target ALK => Flag for review
+##########
+:Rule11_ALK_Subgroup_DrugMismatch a swrl:Imp ;
+  rdfs:label "ALK subgroup + non-ALK drug → needsReview"@en ;
+  rdfs:comment "Flags potential data entry errors: ALK patient with non-ALK drug"@en ;
+  swrl:body (
+    [ a swrl:ClassAtom ; swrl:classPredicate :Result ; swrl:argument1 ?result ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :aboutSubgroup ; swrl:argument1 ?result ; swrl:argument2 ?subgroup ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :hasAlteration ; swrl:argument1 ?subgroup ; swrl:argument2 ?alteration ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :inGene ; swrl:argument1 ?alteration ; swrl:argument2 :ALK ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :aboutDrug ; swrl:argument1 ?result ; swrl:argument2 ?drug ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :targets ; swrl:argument1 ?drug ; swrl:argument2 ?gene ]
+    [ a swrl:BuiltinAtom ; swrl:builtin swrlb:notEqual ; swrl:arguments ( ?gene :ALK ) ]
+  ) ;
+  swrl:head (
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :needsReview ; swrl:argument1 ?result ; swrl:argument2 "true"^^xsd:boolean ]
+  ) .
+
+##########
+# RULE 12: Top Candidate Detection
+# If drug is highPriority AND has >=2 Paper-level results => topCandidate
+##########
+:Rule12_TopCandidate a swrl:Imp ;
+  rdfs:label "2+ Paper results + highPriority → topCandidate"@en ;
+  rdfs:comment "Identifies drugs with multiple high-quality evidence sources as top candidates"@en ;
+  swrl:body (
+    [ a swrl:ClassAtom ; swrl:classPredicate :Result ; swrl:argument1 ?result1 ]
+    [ a swrl:ClassAtom ; swrl:classPredicate :Result ; swrl:argument1 ?result2 ]
+    [ a swrl:BuiltinAtom ; swrl:builtin swrlb:notEqual ; swrl:arguments ( ?result1 ?result2 ) ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :aboutDrug ; swrl:argument1 ?result1 ; swrl:argument2 ?drug ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :aboutDrug ; swrl:argument1 ?result2 ; swrl:argument2 ?drug ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :reportedIn ; swrl:argument1 ?result1 ; swrl:argument2 ?evidence1 ]
+    [ a swrl:IndividualPropertyAtom ; swrl:propertyPredicate :reportedIn ; swrl:argument1 ?result2 ; swrl:argument2 ?evidence2 ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :evidenceType ; swrl:argument1 ?evidence1 ; swrl:argument2 "Paper" ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :evidenceType ; swrl:argument1 ?evidence2 ; swrl:argument2 "Paper" ]
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :highPriority ; swrl:argument1 ?drug ; swrl:argument2 "true"^^xsd:boolean ]
+  ) ;
+  swrl:head (
+    [ a swrl:DatavaluedPropertyAtom ; swrl:propertyPredicate :topCandidate ; swrl:argument1 ?drug ; swrl:argument2 "true"^^xsd:boolean ]
+  ) .
